@@ -1,314 +1,185 @@
-// ==========================================
-// 1. KÍCH HOẠT ÂM THANH PHÁT TỨC THÌ
-// ==========================================
-let audioStarted = false;
-
-function playInstantAudio() {
-    if (audioStarted) return;
-    const audio = document.getElementById('bg-audio');
-    if (audio) {
-        audio.play().then(() => {
-            audioStarted = true;
-            updateAudioIcon(true);
-        }).catch(err => {
-            console.log("Cần tương tác để phát nhạc:", err);
-        });
-    }
-}
-
-function enterSite(event) {
-    if (event) event.stopPropagation();
-    playInstantAudio();
-    
-    // Bắn pháo hoa chào mừng rực rỡ
-    triggerConfettiBoom();
-
-    document.getElementById('hero-screen').classList.add('hidden');
-    document.getElementById('main-content').classList.remove('hidden');
-    renderMembers();
-}
-
-function toggleAudio(event) {
-    if (event) event.stopPropagation();
-    const audio = document.getElementById('bg-audio');
-    if (!audio) return;
-
-    if (audio.paused) {
-        audio.play();
-        audioStarted = true;
-        updateAudioIcon(true);
-    } else {
-        audio.pause();
-        updateAudioIcon(false);
-    }
-}
-
-function updateAudioIcon(isPlaying) {
-    const icon = document.getElementById('audio-icon');
-    if (icon) {
-        icon.innerText = isPlaying ? '🔊' : '🔇';
-    }
-}
-
-window.addEventListener('DOMContentLoaded', () => {
-    const audio = document.getElementById('bg-audio');
-    if (audio) {
-        audio.play().then(() => {
-            audioStarted = true;
-            updateAudioIcon(true);
-        }).catch(() => {});
-    }
-});
-
-// ==========================================
-// 2. HIỆU ỨNG PHÁO HOA & KIM TUYẾN (CONFETTI)
-// ==========================================
-function triggerConfettiBoom() {
-    if (typeof confetti === 'function') {
-        // Bắn từ 2 góc màn hình
-        confetti({
-            particleCount: 80,
-            spread: 70,
-            origin: { y: 0.6, x: 0.2 }
-        });
-        confetti({
-            particleCount: 80,
-            spread: 70,
-            origin: { y: 0.6, x: 0.8 }
-        });
-    }
-}
-
-function triggerCardConfetti(event) {
-    if (typeof confetti === 'function') {
-        const x = event ? event.clientX / window.innerWidth : 0.5;
-        const y = event ? event.clientY / window.innerHeight : 0.5;
-
-        confetti({
-            particleCount: 50,
-            spread: 60,
-            origin: { x: x, y: y },
-            colors: ['#e63946', '#ff758c', '#d4af37', '#ffffff', '#ffb3c1']
-        });
-    }
-}
-
-// ==========================================
-// 3. DỮ LIỆU CÔ GIÁO VÀ HỌC SINH 12A3
-// ==========================================
-const teacherData = {
-    name: "Cô Võ Thị Thanh Truyền",
-    message: `Gửi Cô Võ Thị Thanh Truyền,
-
-Hai năm trôi qua kể từ ngày chúng em rời xa mái trường cấp ba, bươn chải giữa dòng đời rộng lớn, em mới càng cảm nhận và khắc ghi sâu sắc biết bao công ơn sinh thành, giáo dưỡng thứ hai của cô. Nhớ lại những năm tháng 12A3, có những buổi học mệt mỏi, những lần chúng em bướng bỉnh, lơ đễnh làm đôi mày cô mím lại, nhưng chưa một lần cô buông tay hay bỏ mặc chúng em. Cô vẫn ở đó, nhẫn nại, bao dung và dùng hết tình yêu thương của một người mẹ để sẵn sàng đưa chúng em thành người. Giờ đây, khi mỗi đứa trẻ đã tung cánh bay đến những phương trời mới, hình bóng cô với tấm lưng hao gầy và ánh mắt ấm áp ngày ấy vẫn là nơi an yên nhất mỗi khi chúng em ngoảnh nhìn lại. Em kính chúc cô luôn thật nhiều sức khỏe, bình an, giữ vững ngọn lửa nhiệt huyết trên bục giảng để tiếp tục chèo lái thêm nhiều thế hệ học trò sang sông.`
-};
-
-const studentsData = [
+const lettersData = [
     {
-        name: "Huỳnh Thị Tuyết Băng",
-        message: `Gửi Huỳnh Thị Tuyết Băng,\n\nHai năm xa cách, không biết công việc trang điểm và ước mơ của Băng hiện tại thế nào rồi? Mình vẫn nhớ như in những buổi chiều cùng nhau ngồi trong lớp, chia sẻ từng câu chuyện nho nhỏ của tuổi học trò. Thời gian trôi qua, cuốn từng đứa trẻ vào những lo toan tất bật, nhưng những ký ức về một Tuyết Băng khéo léo, dịu dàng và đầy nhiệt huyết ngày ấy chưa bao giờ phai mờ trong tâm trí mình. Chúc bạn ở hiện tại và tương lai sẽ luôn giữ vững đôi tay tài hoa, không ngừng tỏa sáng trên con đường mình đã chọn. Mong cuộc đời sẽ luôn dịu dàng, tô điểm cho thanh xuân và cuộc sống của bạn thật nhiều rực rỡ, bình an.`
+        title: "Gửi Cô Võ Thị Thanh Truyền",
+        content: "Hai năm trôi qua kể từ ngày chúng em rời xa mái trường cấp ba, giữa dòng đời hối hả và bộn bề mưu sinh, khi chững chạc hơn một chút, chúng em mới càng thấm thía và khắc cốt ghi tâm biết bao công ơn của cô. Cô chính là người truyền lửa thầm lặng, luôn ở cạnh chúng em những khi khó khăn nhất, bao bọc, lo lắng cho lớp bằng tất cả sự dịu dàng và tình yêu thương vô bờ bến. Có những lúc tụi em quậy phá, bướng bỉnh khiến đôi mày cô khẽ nhíu lại, nhưng chưa bao giờ cô buông tay, vẫn luôn ân cần, nhẹ nhàng và dành hết những điều tốt đẹp nhất cho tập thể lớp mình. Hình bóng người mẹ thứ hai tần tảo ngày ấy mãi là chốn bình yên nhất để chúng em ngoảnh đầu tìm về sau bao giông bão. Kính chúc cô hai năm qua và mãi về sau luôn thật nhiều sức khỏe, bình an, giữ vững ngọn lửa nhiệt huyết trên bục giảng để tiếp tục chèo lái thêm nhiều thế hệ học trò sang sông."
     },
     {
-        name: "Nguyễn Quốc Dinh",
-        message: `Gửi Nguyễn Quốc Dinh,\n\nDinh ơi, đã hai năm trôi qua kể từ ngày mỗi đứa một ngả. Mình vẫn nhớ mãi sự đồng hành thầm lặng, điềm tĩnh và tử tế của bạn trong suốt những năm tháng áo trắng. Lúc này, khi bạn đang theo học ngành Sư phạm Khoa học Tự nhiên - Đại học Đồng Tháp, chắc chắn bạn cũng đã trưởng thành hơn rất nhiều, chuẩn bị mang theo hành trang đứng trên bục giảng. Chúc Dinh luôn giữ ngọn lửa đam mê với tri thức, để sau này, những thế hệ học trò của bạn sẽ được truyền cảm hứng từ chính tấm lòng chân thành và sự tận tụy mà ngày xưa chúng mình từng vô cùng quý mến ở bạn.`
+        title: "Gửi Huỳnh Thị Tuyết Băng",
+        content: "Hai năm xa cách, không biết chặng đường làm thợ trang điểm và làm đẹp của Băng hiện giờ thế nào rồi? Mình vẫn nhớ như in hình ảnh một cô gái nhẹ nhàng, trầm tính, ít nói nhưng lại vô cùng quan tâm, thấu hiểu bạn bè và là một cô gái rất hiểu chuyện. Băng luôn đứng ở một góc để quan sát và thấu cảm mọi thứ xung quanh bằng sự tinh tế của mình. Chúc bạn ở hiện tại và tương lai sẽ luôn giữ vững đôi tay tài hoa và sự tỉ mỉ ấy để tô điểm cho đời, cho ước mơ của chính mình, và mong cuộc đời cũng sẽ dịu dàng ôm lấy Băng."
     },
     {
-        name: "Nguyễn Huỳnh Giao",
-        message: `Gửi Nguyễn Huỳnh Giao,\n\nHai năm trôi qua, một khoảng thời gian đủ dài để một cô gái cá tính, bản lĩnh như Giao trải nghiệm những va vấp đầu đời ở môi trường Luật Kinh tế - Trường Đại học Tài chính - Marketing. Mình vẫn nhớ hoài tiếng cười sảng khoái và những chia sẻ thẳng thắn của bạn trong những ngày tháng 12A3 cũ. Chúc cô gái mạnh mẽ của lớp mình sẽ luôn giữ vững cái đầu lạnh đầy tinh anh, trái tim ấm áp và một bản lĩnh thép trước mọi giông bão ngoài kia. Hãy tự tin vững bước, bảo vệ lẽ phải và đường lối pháp luật mà bạn đã chọn nhé.`
+        title: "Gửi Nguyễn Quốc Dinh",
+        content: "Dinh ơi, thấm thoát đã hai năm kể từ ngày chúng ta mỗi đứa một ngã rẽ. Mình vẫn nhớ mãi chàng trai rất nhẹ nhàng, trong sáng, đôi khi có chút lười biếng nhưng học rất giỏi và luôn là người tạo ra những tiếng cười giòn tan để cứu rỗi cả lớp trong những giờ học căng thẳng. Chúc Dinh khi mang theo hoài bão đứng trên bục giảng tại Sư phạm Khoa học tự nhiên - Đại học Đồng Tháp sẽ luôn giữ trọn ngọn lửa đam mê với tri thức, để sau này những đứa học trò nhỏ cũng được sưởi ấm bởi sự trong sáng và đáng yêu của thầy giáo Dinh."
     },
     {
-        name: "Lê Minh Hiếu",
-        message: `Gửi Lê Minh Hiếu,\n\nNgoảnh khắc đã hai năm chúng ta không còn nghe tiếng chuông trường báo giờ vào lớp mỗi sáng. Nhớ những ngày tháng cùng nhau chật vật vượt qua những kỳ thi áp lực, mình vô cùng biết ơn sự nhiệt tình, tốt bụng của Hiếu. Chúc bạn bước chân vào con đường Kỹ thuật Điện tại Trường Đại học Tôn Đức Thắng sẽ luôn kiên định, mạnh mẽ trước mọi khó khăn, khô khan của ngành học. Mong rằng sự chân thành và ý chí bền bỉ của Hiếu sẽ giúp bạn tự xây dựng một tương lai vững chắc, thành công rực rỡ.`
+        title: "Gửi Huỳnh Huỳnh Giao (Huỳnh Giao)",
+        content: "Hai năm trôi qua, khoảng thời gian đủ dài để nhớ về một cô gái đa tài của lớp mình: Giao múa rất đẹp, hát rất hay, học thuộc lòng siêu nhanh và luôn là chiếc phao cứu sinh đáng tin cậy của tụi mình mỗi mùa kiểm tra. Cảm ơn bạn vì đã luôn kiên nhẫn lắng nghe, bảo ban và an ủi bạn bè lúc chông chênh. Chúc cô gái tài năng bước chân vào môi trường Luật kinh tế - Trường Đại học Tài chính - Marketing sẽ luôn giữ được cái đầu lạnh sắc sảo nhưng trái tim thì lúc nào cũng đong đầy tình cảm, vững vàng trước mọi sóng gió cuộc đời."
     },
     {
-        name: "Đặng Thị Mỹ Hiếu",
-        message: `Gửi Đặng Thị Mỹ Hiếu,\n\nHai năm trôi qua, cô gái hiền lành, chăm chỉ của 12A3 giờ chắc đã quen với nhịp sống nhộn nhịp ở ngành Công nghệ Sinh học - Trường Đại học Nông Lâm. Mình vẫn nhớ mãi sự dịu dàng và nụ cười rạng rỡ trên môi mỗi khi bạn trò chuyện cùng mọi người. Chúc Hiếu sẽ luôn dồi dào sức mạnh, giữ trọn tình yêu khoa học và sự trong trẻo của tuổi trẻ trên con đường nghiên cứu phía trước. Mong mọi thử thách đều sẽ nhường bước trước nỗ lực của bạn, mang lại cho bạn một tương lai thật bình yên và ngọt ngào.`
+        title: "Gửi Lê Minh Hiếu",
+        content: "Thấm thoát đã hai năm chúng ta không còn nghe tiếng trống trường giục giã. Nhớ những ngày tháng cùng nhau lao động, dọn dẹp lớp học, mình vô cùng biết ơn lớp phó lao động Lê Minh Hiếu - một chàng trai ấm áp, ân cần, chu đáo, siêng năng và luôn bảo vệ bạn bè trước mọi sóng gió. Chúc bạn khi bước chân vào con đường Kỹ thuật điện tại Trường Đại học Tôn Đức Thắng sẽ luôn kiên định, mạnh mẽ, tự tay xây dựng một tương lai vững chãi và thành công rực rỡ."
     },
     {
-        name: "Đặng Trường An Khang",
-        message: `Gửi Đặng Trường An Khang,\n\nHai năm xa lớp, không biết những hoài bão tuổi trẻ của Khang giờ đã đi đến đâu rồi? Nhớ lại những tiếng cười, những câu nói đùa vui vẻ của bạn dưới mái trường cấp ba mà lòng thấy ấm áp lạ kỳ. Chúc mừng bạn đang có một hành trình học tập tuyệt vời tại Sư phạm Khoa học Tự nhiên - Đại học Đồng Tháp. Mong rằng sự trưởng thành qua từng ngày sẽ giúp bạn trở thành một người thầy mẫu mực, biết thấu hiểu và truyền đạt tri thức bằng tất cả tình yêu thương cho các em học sinh sau này.`
+        title: "Gửi Đặng Thị Mỹ Hiếu",
+        content: "Mỹ Hiếu ơi, tổ trưởng tổ 2 tuyệt vời của tụi mình! Bạn là người bạn đồng hành tuyệt vời trong tuổi trẻ, luôn ở bên động viên, sát cánh, an ủi và cùng bạn bè bước qua những tháng ngày bẽ bàng và khó khăn nhất, luôn lắng nghe, ủng hộ và san sẻ trong mọi chuyện, một cô gái cực kỳ hiểu chuyện và sâu sắc. Chúc bạn khi bước vào thế giới rộng lớn tại ngành Công nghệ sinh học - Trường Đại học Nông Lâm sẽ tìm thấy chân trời của riêng mình, luôn giữ nụ cười rạng rỡ và gặt hái thật nhiều trái ngọt."
     },
     {
-        name: "Đinh Hoàng Khang",
-        message: `Gửi Đinh Hoàng Khang,\n\nHai năm tự nhìn lại chính mình qua những trang văn, những trăn trở của tuổi trưởng thành, tôi mới thấy thanh xuân năm ấy đẹp và đáng trân trọng biết bao. Chúc mừng cho chính bản thân tôi - người đang mang trong mình giấc mơ Sư phạm Ngữ văn tại Đại học Đồng Tháp - sẽ không bao giờ đánh mất đi sự nhạy cảm, sâu sắc và trái tim chân thành ngày nào. Dẫu đường phía trước có chông chênh đến đâu, mong rằng khi đứng trên dốc cao chinh phục, tôi vẫn giữ nguyên tâm hồn tuổi 18, viết nên những bài học chạm đến cảm xúc của học trò bằng cả sự chân thành.`
+        title: "Gửi Đặng Trường An Khang",
+        content: "Hai năm xa lớp, không biết những hoài bão tuổi trẻ của Khang giờ đã đi đến đâu rồi? Nhớ những lúc Khang đôi lúc hay nóng giận vu vơ nhưng bên trong lại vô cùng ấm áp, chân thành với bạn bè, học giỏi và chơi rất thiệt tình, không toan tính. Chúc bạn sẽ có một hành trình đại học thật trọn vẹn tại Sư phạm Khoa học tự nhiên - Đại học Đồng Tháp, để sau này sự nhiệt huyết và chân thành ấy sẽ truyền lửa cho thật nhiều thế hệ học trò."
     },
     {
-        name: "Nguyễn Thành Luân",
-        message: `Gửi Nguyễn Thành Luân,\n\nThấm thoát đã hai năm, nguồn năng lượng tích cực và sự nhiệt huyết mà Luân từng mang lại cho lớp đôi khi vẫn làm mình mỉm cười khi hồi tưởng lại. Chúc bạn ở lĩnh vực Thương mại Điện tử - Trường Đại học Công Thương sẽ luôn giữ được sự nhạy bén, tư duy sắc sảo và tinh thần dám nghĩ dám làm. Thương trường ngoài kia có thể rất khắc nghiệt, nhưng mình tin với sự vô tư, lanh lợi và bản lĩnh của mình, Luân sẽ chinh phục được những mục tiêu lớn và hái được thành công vang dội.`
+        title: "Gửi Đinh Hoàng Khang (Chính mình)",
+        content: "Hai năm tự nhìn lại chính mình qua những trang văn và những trăn trở của tuổi trưởng thành, tôi mới thấy thanh xuân năm ấy đẹp và đáng trân trọng biết bao khi được làm tổ trưởng tổ 3, được đồng hành cùng những người bạn tuyệt vời. Chúc cho chính bản thân tôi - người đang mang trong mình giấc mơ Sư phạm Ngữ văn tại Đại học Đồng Tháp - sẽ không bao giờ đánh mất đi sự nhạy cảm, lòng trắc ẩn và trái tim chân thành ngày nào khi đứng trên bục giảng, viết nên những bài học chạm đến cảm xúc của học trò."
     },
     {
-        name: "Lê Thị Tuyết Ngân",
-        message: `Gửi Lê Thị Tuyết Ngân,\n\nHai năm trôi qua mang theo biết bao thay đổi, nhưng hình ảnh một Tuyết Ngân dịu dàng, nụ cười hiền hòa và sự tinh tế trong cách đối xử với bạn bè vẫn luôn ở đó trong ký ức của mình. Chúc cô gái nhỏ nhắn của lớp khi đối mặt với những con số và áp lực tại Đại học Tài chính - Marketing sẽ luôn vững vàng, bình an. Mong rằng mọi chông gai ngoài kia đều sẽ dịu dàng trước sự dịu dàng của bạn, để mỗi ngày trôi qua đều ngập tràn may mắn và hạnh phúc.`
+        title: "Gửi Nguyễn Thành Luân",
+        content: "Thấm thoát đã hai năm, nguồn năng lượng rất có trách nhiệm, đôi chút đào hoa và rất quan tâm yêu thương bạn bè của Luân đôi khi vẫn khiến mọi người bật cười khi nhớ lại. Chúc bạn ở lĩnh vực Thương mại điện tử - Trường Đại học Công Thương sẽ luôn giữ được sự nhạy bén, tư duy sắc sảo và tinh thần dám nghĩ dám làm để chinh phục những mục tiêu lớn trên thương trường khốc liệt ngoài kia."
     },
     {
-        name: "Trần Như Ngọc",
-        message: `Gửi Trần Như Ngọc,\n\nNhớ những ngày căng thẳng của hai năm về trước, cảm ơn Như Ngọc vì đã luôn là một người bạn dễ mến, sẵn sàng lắng nghe và chia sẻ. Chúc mừng bạn tại Sư phạm Tiếng Anh - Trường Đại học Đồng Tháp sẽ luôn giữ được sự tự tin, năng lượng tươi trẻ và nụ cười rạng rỡ. Mong rằng ngôn ngữ sẽ thực sự là đôi cánh đưa bạn bay cao, bay xa đến những chân trời mới, chạm tay vào những giấc mơ mà bạn đã ấp ủ suốt bao năm tháng thanh xuân.`
+        title: "Gửi Lê Thị Tuyết Ngân",
+        content: "Tuyết Ngân ơi, tụi tôi hay đùa ghẹo bạn là hay nói dối, hay nhiều chuyện lắm, nhưng sâu thẳm trong lòng, ai cũng biết Tuyết Ngân là một cô bí thư vô cùng gương mẫu, có trách nhiệm và thương lớp biết nhường nào. Hai năm trôi qua, chúc cô bí thư ngày nào khi đối mặt với những con số và áp lực tại Đại học Tài chính - Marketing sẽ luôn vững vàng, bình an và gặt hái thật nhiều thành quả ngọt ngào."
     },
     {
-        name: "Trương Hoàng Yến Ngọc",
-        message: `Gửi Trương Hoàng Yến Ngọc,\n\nHai năm xa cách, những khoảnh khắc cùng vui đùa trong lớp học cũ giờ đã hóa thành hoài niệm đẹp đẽ nhất. Chúc Yến Ngọc khi bước chân vào thế giới rộng lớn của ngành Ngôn ngữ Trung Quốc - Trường Đại học Công Thương TP.HCM sẽ luôn tự tin vững bước. Dù cuộc sống ngoài kia có lúc chông chênh, với sự thông minh và bản lĩnh sẵn có, mình tin Ngọc sẽ vượt qua tất cả để đến đỉnh vinh quang và tự vẽ nên tương lai rực rỡ cho chính mình.`
+        title: "Gửi Trần Như Ngọc",
+        content: "Nhớ những mùa thi căng thẳng của hai năm về trước, cô lớp phó học tập học rất giỏi, rất chan hòa, rất dễ tính và quan tâm bạn bè. Mà nhắc đến Như Ngọc là tụi mình lại phì cười vì... nói đùa thế thôi chứ Ngọc nhà mình nhát gan lắm nha, hù nhẹ một cái là giật mình rồi! Chúc bạn tại Sư phạm Tiếng Anh - Trường Đại học Đồng Tháp sẽ luôn giữ được sự tự tin, năng lượng tươi trẻ để ngôn ngữ thực sự là đôi cánh đưa bạn bay cao bay xa."
     },
     {
-        name: "Trương Khôi Nguyên",
-        message: `Gửi Trương Khôi Nguyên,\n\nThấm thoát đã hai năm, những lần Nguyên âm thầm giúp đỡ bạn bè trong học tập vẫn là kỷ niệm mà mình rất trân quý. Chúc niềm đam mê công nghệ và lập trình của bạn tại Đại học FPT ngày càng đơm hoa kết trái. Ngành Kỹ thuật Phần mềm cần lắm một cái đầu lạnh, tỉnh táo và tư duy sắc bén như bạn. Mong rằng trong tương lai không xa, chúng ta sẽ tự hào nhìn thấy những sản phẩm mang dấu ấn của kỹ sư tài năng Trương Khôi Nguyên.`
+        title: "Gửi Trương Hoàng Yến Ngọc",
+        content: "Yến Ngọc - cô nàng văn chương, nàng thơ của lớp mình, luôn mang đến một cảm giác rất đỗi chân thành, nhẹ nhàng và dễ thương. Hai năm xa cách, những khoảnh khắc cùng nhau đùa giỡn trong lớp học cũ giờ đã hóa thành hoài niệm đẹp đẽ. Chúc Yến Ngọc khi bước chân vào thế giới rộng lớn của ngành Ngôn ngữ Trung Quốc - Trường Đại học Công Thương TP.HCM sẽ luôn tự tin sải bước, chạm đến đỉnh vinh quang."
     },
     {
-        name: "Đào Xuân Nhật",
-        message: `Gửi Đào Xuân Nhật,\n\nHai năm xa trường cấp ba, không biết Nhật đã đối mặt với bao nhiêu công trình, bao nhiêu bài toán khó của ngành Kỹ thuật Xây dựng - Trường Đại học Giao thông Vận tải TP.HCM rồi? Mình vẫn nhớ sự nhiệt tình trong các phong trào và tính cách thẳng thắn của bạn. Chúc Nhật luôn giữ được cái đầu lạnh, đôi tay vững vàng và ý chí kiên cường trước mọi thử thách khắc nghiệt của nghề nghiệp, sớm trở thành một kỹ sư xây dựng giỏi giang và vững chãi.`
+        title: "Gửi Trương Khôi Nguyên",
+        content: "Thấm thoát đã hai năm, chàng trai rất giỏi công nghệ, tính tình dễ thương nhưng lại cực kỳ ít nói như Khôi Nguyên có còn cặm cụi bên những dòng code không? Cảm ơn bạn vì những lần âm thầm giúp đỡ bạn bè trong thầm lặng mà chẳng cần phô trương. Chúc cho niềm đam mê công nghệ tại Đại học FPT ngày càng đơm hoa kết trái, mang lại những sản phẩm mang đậm dấu ấn của kỹ sư tài năng Khôi Nguyên."
     },
     {
-        name: "Nguyễn Hữu Phát",
-        message: `Gửi Nguyễn Hữu Phát,\n\nHai năm trôi qua, Phát chắc đã trưởng thành và chín chắn hơn rất nhiều trên hành trình Quản lý Giáo dục - Đại học Sư phạm TP.HCM. Cảm ơn bạn vì sự hiền lành, chăm chỉ và tinh thần trách nhiệm từng góp phần làm nên một tập thể 12A3 hoàn chỉnh. Chúc bạn luôn giữ được tâm hồn trong trẻo, tình yêu thương và sự cảm thông sâu sắc. Mong rằng sau này, bạn sẽ góp phần tạo ra những thay đổi ý nghĩa cho giáo dục nước nhà bằng chính cái tâm sáng của mình.`
+        title: "Gửi Đào Xuân Nhật",
+        content: "Hai năm xa mái trường cấp ba, không biết Nhật đã đối mặt với bao nhiêu bài toán khó của ngành Kỹ thuật xây dựng - Trường Đại học Giao thông Vận tải TP.HCM rồi? Mình vẫn nhớ một chàng trai có tính khí hòa đồng, ít nói, rất ga lăng, luôn ân cần, nhẹ nhàng, ấm áp và rất thông minh, học lý siêu giỏi. Chúc Nhật luôn giữ vững cái đầu lạnh, đôi tay vững vàng và ý chí kiên cường trước mọi giông bão của cuộc đời."
     },
     {
-        name: "Lê Hoàng Quyên",
-        message: `Gửi Lê Hoàng Quyên,\n\nCô gái nhỏ nhắn và hiền lành của 12A3 ơi, thấm thoát đã hai năm chúng ta bước vào đời. Chúc bạn khi đối mặt với núi tri thức và áp lực nặng nề tại cánh cửa Dược học - Trường Đại học Tôn Đức Thắng sẽ có đủ sức mạnh, sự kiên trì và bền bỉ. Ngành Dược đòi hỏi sự tỉ mỉ tuyệt đối, và mình tin sự tinh tế, dịu dàng của Quyên chính là chìa khóa giúp bạn chạm tới ước mơ trị bệnh, giúp đời mà bạn luôn hằng mong ước.`
+        title: "Gửi Nguyễn Hữu Phát",
+        content: "Hai năm trôi qua, Hữu Phát chắc đã lớn hơn và điềm đạm hơn rất nhiều trên hành trình Quản lí giáo dục - Đại học Sư phạm TP.HCM. Cảm ơn một chàng trai rất thông minh, học rất giỏi, một người đàn ông ấm áp và chân thành, rất biết tạo tiếng cười và niềm vui cho bạn bè, đặc biệt là những màn hay ghẹo chọc nhỏ Trúc lớp trưởng làm cả lớp cười nắc nẻ. Chúc bạn luôn giữ được tâm hồn trong trẻo, lòng yêu trẻ và sự thấu cảm sâu sắc."
     },
     {
-        name: "Trương Hoàng Tâm",
-        message: `Gửi Trương Hoàng Tâm,\n\nHai năm trôi qua, sự hóm hỉnh và nguồn năng lượng tích cực của Tâm chắc chắn vẫn là điểm sáng ở bất cứ môi trường nào bạn đặt chân tới. Chúc mừng bạn tại ngành Kinh doanh Quốc tế - Trường Đại học Công Thương TP.HCM sẽ luôn giữ được sự nhạy bén, khả năng thích ứng linh hoạt và sự tự tin đáng ngưỡng mộ. Thương trường rộng lớn bên ngoài kia chính là sân chơi để bạn thỏa sức vùng vẫy, khẳng định bản lĩnh và gặt hái thật nhiều thành tích lớn lao.`
+        title: "Gửi Lê Hoàng Quyên",
+        content: "Cô gái nhỏ nhắn của 12A3 ơi, Quyên rất hiểu chuyện, luôn đồng hành cùng bạn bè trong những tình huống dù khó khăn nhất, luôn ở bên lắng nghe và thấu hiểu. Thấm thoát đã hai năm chúng ta bước vào đời, chúc bạn khi đối mặt với núi cao tri thức và áp lực nặng nề tại cánh cửa Dược học - Trường Đại học Tôn Đức Thắng sẽ luôn đủ sức mạnh và sự bền bỉ để chạm đến ước mơ cứu người, giúp đời."
     },
     {
-        name: "Nguyễn Hoàng Tân",
-        message: `Gửi Nguyễn Hoàng Tân,\n\nHai năm xa cách, những ý tưởng sáng tạo độc đáo và tâm hồn nghệ sĩ bay bổng của Tân chắc chắn vẫn đang được nuôi dưỡng ở ngành Thiết kế Thời trang - Trường Đại học Tôn Đức Thắng. Chúc bạn không bao giờ đánh mất chất riêng và sự nhạy cảm tuyệt vời với cái đẹp. Mong rằng trong tương lai, chúng mình sẽ tự hào ngắm nhìn những bộ sưu tập đậm dấu ấn cá nhân của nhà thiết kế Nguyễn Hoàng Tân trên các sàn diễn lớn của cuộc đời.`
+        title: "Gửi Trương Hoàng Tâm",
+        content: "Tâm ít nói lắm, tụi mình hay chọc Tâm là \"Diễm Hương\" từ thuở nào chẳng nhớ, mỗi lần nhắc đến là ai cũng cười tỏa lên, nhưng thật sự Tâm rất nhẹ nhàng, ấm áp, rất chân thành và bao dung. Hai năm trôi qua, chúc bạn tại ngành Kinh doanh quốc tế - Trường Đại học Công Thương TP.HCM sẽ luôn giữ được sự nhạy bén và tự tin để thỏa sức vẫy vùng trên thương trường rộng lớn."
     },
     {
-        name: "Phạm Thị Thanh Thảo",
-        message: `Gửi Phạm Thị Thanh Thảo,\n\nThấm thoát đã hai năm, sự thân thiện, hòa đồng và nhiệt huyết tuổi trẻ của Thảo chắc chắn vẫn luôn lan tỏa đến những người xung quanh. Chúc bạn khi bước vào ngành Kinh doanh Quốc tế - ĐH Sư phạm Kỹ thuật TP.HCM sẽ luôn giữ được sự tự tin, khéo léo. Thế giới kinh doanh ngoài kia tuy đầy cạnh tranh nhưng cũng vô cùng hấp dẫn, và mình tin với sự năng động của mình, Thảo sẽ nhanh chóng khẳng định được vị trí và gặt hái thật nhiều quả ngọt.`
+        title: "Gửi Nguyễn Hoàng Tân",
+        content: "Hai năm xa cách, chàng trai học giỏi văn lắm, nhẹ nhàng ân cần Hoàng Tân chắc vẫn đang nuôi dưỡng tâm hồn bay bổng của mình. Chúc bạn luôn giữ được sự nhạy cảm tuyệt vời với con chữ và cuộc sống. Mong rằng trong tương lai, mọi dự định của bạn đều sẽ đơm hoa kết trái, mang lại một cuộc đời thật bình yên, ý nghĩa và ngập tràn cảm xúc."
     },
     {
-        name: "Phan Hoài Thịnh",
-        message: `Gửi Phan Hoài Thịnh,\n\nHai năm trôi qua, người bạn điềm tĩnh, đáng tin cậy của lớp mình chắc đang từng ngày chinh phục thế giới Tự động hóa phức tạp tại Trường Đại học Nông Lâm TP.HCM. Chúc Thịnh luôn giữ vững cái đầu lạnh và trái tim nhiệt huyết. Mong rằng mọi máy móc, mọi mạch điện qua bàn tay và tư duy của bạn đều sẽ vận hành trơn tru, đưa bạn tiến xa hơn trên con đường sự nghiệp và khẳng định được giá trị bản thân.`
+        title: "Gửi Phạm Thị Thanh Thảo",
+        content: "Thanh Thảo tưởng nhỏ xíu nhưng mà không hề vô dụng nha! Học giỏi, đôi lúc xéo sắc nhưng rất dễ thương, có một \"đặc sản\" là hay ngủ gật trong giờ học khiến tụi mình nhìn chỉ biết phì cười bất lực. Thấm thoát đã hai năm, chúc bạn khi bước vào ngành Kinh doanh quốc tế - ĐH Sư phạm Kỹ thuật TP.HCM sẽ luôn giữ được sự năng động, khéo léo để gặt hái thật nhiều thành quả ngọt ngào."
     },
     {
-        name: "Lê Thành Thịnh",
-        message: `Gửi Lê Thành Thịnh,\n\nThấm thoát đã hai năm trong môi trường Sĩ quan Tăng Thiết giáp đầy kỷ luật và thép, chắc chắn Thịnh đã rèn luyện được một ý chí kiên cường và bản lĩnh vững vàng hơn rất nhiều. Cảm ơn bạn vì những kỷ niệm đẹp cùng tập thể lớp năm nào. Chúc bạn luôn vững vàng khí chất của một chiến binh trẻ, hoàn thành xuất sắc mọi nhiệm vụ mà Tổ quốc và quân đội giao phó, luôn hiên ngang trước mọi sóng gió cuộc đời.`
+        title: "Gửi Phan Hoài Thịnh",
+        content: "Hai năm trôi qua, chàng trai nhỏ nhắn nhưng học rất giỏi, hay làm mấy trò mắc cười, rất nhẹ nhàng và rất tình cảm này chắc đang trưởng thành rất nhiều. Chúc Hoài Thịnh luôn giữ vững sự dí dỏm, nụ cười trên môi và trái tim nhiệt huyết để vượt qua mọi thử thách trên con đường học tập và sự nghiệp tương lai."
     },
     {
-        name: "Nguyễn Hòa Thuận",
-        message: `Gửi Nguyễn Hòa Thuận,\n\nHai năm xa cách, tài năng ngoại ngữ và tính cách tự do của Thuận chắc đã đưa bạn đi đến rất nhiều chân trời mới thú vị tại chuyên ngành Ngôn ngữ Anh - Trường Đại học Ngoại ngữ - Tin học TP.HCM. Chúc bạn luôn có được sự tự tin và phong thái cuốn hút. Mong rằng ngôn ngữ sẽ thực sự là nhịp cầu đưa bạn bước ra thế giới rộng lớn ngoài kia, tự tin giao lưu, học hỏi và gặt hái những thành công rực rỡ vượt qua mọi giới hạn.`
+        title: "Gửi Lê Thành Thịnh",
+        content: "Tổ trưởng tổ 1 - Lê Thành Thịnh, một chàng trai học giỏi, ga lăng, rất chăm, nhẹ nhàng và tình cảm. Chúc bạn luôn giữ được tinh thần trách nhiệm và sự ấm áp ấy trong mọi ngã rẽ cuộc đời. Mong rằng sự chăm chỉ và tử tế sẽ luôn dẫn đường để bạn chạm tay đến những đỉnh cao mới, làm rạng danh cho tập thể 12A3 năm nào."
     },
     {
-        name: "Trần Thị Mỹ Thuyên",
-        message: `Gửi Trần Thị Mỹ Thuyên,\n\nThấm thoát đã hai năm, sự chăm chỉ, cẩn thận và chu đáo của Thuyên chắc đang tỏa sáng trong thế giới Logistics và Quản lý Chuỗi cung ứng - Trường Đại học Giao thông Vận tải TP.HCM. Chúc bạn luôn giữ được sự tinh tế, tư duy linh hoạt và tác phong chuyên nghiệp. Mong rằng mọi dòng hàng hóa và chuỗi giá trị trong tương lai dưới sự điều phối của bạn sẽ luôn thông suốt, mang lại sự thành công và niềm tự hào lớn lao.`
+        title: "Gửi Nguyễn Hòa Thuận",
+        content: "Hòa Thuận học tiếng Anh giỏi lắm nha! Ít nói nhưng lại rất nhẹ nhàng và ấm áp, rất tình cảm và chân thành. Hai năm xa cách, tài năng ngoại ngữ chắc đã đưa bạn đi đến rất nhiều chân trời mới thú vị. Chúc bạn luôn giữ được sự tự tin, để ngôn ngữ thực sự là nhịp cầu đưa bạn bước ra thế giới rộng lớn ngoài kia, tự tin giao lưu và gặt hái thành công."
     },
     {
-        name: "Trần Thị Mỹ Tiên",
-        message: `Gửi Trần Thị Mỹ Tiên,\n\nHai năm trôi qua, cô gái sắc sảo của lớp mình chắc chắn đã trang bị thêm cho mình rất nhiều kiến thức trên con đường Luật Kinh tế - Trường Đại học Công nghiệp TP.HCM. Chúc Tiên luôn giữ được ánh mắt định hình, tinh thần thép và một cái tâm trong sáng. Ngành luật yêu cầu tri thức và bản lĩnh lớn, và Tiên của mình sẽ trở thành một chuyên gia tư vấn pháp lý sắc bén, sử dụng tri thức để bảo vệ lẽ phải trong cuộc sống.`
+        title: "Gửi Trần Thị Mỹ Thuyên",
+        content: "Mỹ Thuyên - cô nàng nhẹ nhàng, nền nã, thướt tha. Tụi mình vẫn nhớ hoài kỷ niệm hồi vừa vào lớp 10 đã bị ngay một bản kiểm điểm vì đi trễ, dù trọ rất gần trường, nghĩ lại vừa thương vừa buồn cười! Thấm thoát đã hai năm, chúc cô nàng nền nã ngày nào khi bước vào thế giới Logistics và quản lý chuỗi cung ứng - Trường Đại học Giao thông Vận tải TP.HCM sẽ luôn giữ được sự sắc sảo, đầu óc tổ chức linh hoạt và một cuộc sống thật bình yên."
     },
     {
-        name: "Lê Tấn Tiên",
-        message: `Gửi Lê Tấn Tiên,\n\nThấm thoát đã hai năm, sự vui vẻ và tính cách hòa đồng của Tiên chắc vẫn là nguồn năng lượng quen thuộc với các bạn xung quanh. Chúc bạn khi theo đuổi lĩnh vực Tài chính - Ngân hàng - Trường Đại học Công Thương sẽ luôn nhạy bén với những con số, giữ được sự linh hoạt và bản lĩnh trước mọi biến động thị trường. Mong rằng tương lai phía trước sẽ mở ra cho bạn thật nhiều cơ hội để phát triển năng lực và xây dựng sự nghiệp.`
+        title: "Gửi Trần Thị Mỹ Tiên",
+        content: "Mỹ Tiên rất tình cảm và ấm áp, viết chữ đẹp lắm, rất tốt, rất chân thành và rất yêu thương bạn bè, luôn tôn trọng, thấu hiểu và sẵn sàng vì bạn bè làm nhiều chuyện. Tiên học rất giỏi và rất chăm, đôi khi tụi tôi không hiểu sao Mỹ Tiên có thể chăm được như vậy! Đặc biệt, Mỹ Tiên học văn giỏi lắm, văn phong giàu cảm xúc và tình thương. Nhớ lại hồi lớp 12, Tiên còn \"cứu bệ hạ\" hú hồn vì mình không thuộc bài nên bị giáo viên bắt, lúc đó hai đứa nhìn nhau mà mắc cười muốn chết, nghĩ lại vẫn thấy thương hết sức! Chúc bạn trên con đường Luật kinh tế - Trường Đại học Công nghiệp TP.HCM sẽ luôn giữ được cái tâm sáng và trái tim đong đầy trắc ẩn ấy."
     },
     {
-        name: "Thái Thuỳ Trang",
-        message: `Gửi Thái Thuỳ Trang,\n\nHai năm xa cách, sự dịu dàng, từ tốn và lòng nhân hậu của Trang chắc chắn vẫn đang đơm hoa kết trái trên con đường trở thành Bác sĩ Thú y tại Trường Đại học Cần Thơ. Chúc Trang luôn giữ vững ngọn lửa đam mê và sự nhẫn nại. Ngành Y tế Thú y tuy vất vả, đòi hỏi sự hy sinh thầm lặng, nhưng với lòng trắc ẩn sâu sắc ấy, bạn chắc chắn sẽ xoa dịu và chữa lành cho rất nhiều sinh linh bé nhỏ.`
+        title: "Gửi Lê Tấn Tiên",
+        content: "Lớp phó trật tự nhưng... không hề trật tự một chút nào! Hay làm trò để cả lớp cười ồ lên rồi quay mấy cái trend TikTok bị cả lớp ghẹo đỏ mặt, nhưng Tấn Tiên lại rất chân thành, ấm áp, cực kỳ tình cảm (chơi với Tiên là không bao giờ buồn nổi đâu, chỉ có cái tội hay nói móc nói méo người ta là đỉnh cao!). Chúc bạn tại Tài chính - Ngân hàng - Trường Đại học Công Thương sẽ luôn nhạy bén với những con số, giữ mãi tiếng cười và sự trẻ trung tưng tửng ấy trong cuộc sống."
     },
     {
-        name: "Nguyễn Thị Ngọc Trâm",
-        message: `Gửi Nguyễn Thị Ngọc Trâm,\n\nThấm thoát đã hai năm, những đêm thức trắng vẽ phác thảo và tâm hồn nghệ thuật của Trâm chắc chắn đang dần thực hiện hóa tại ngành Kiến trúc - Trường Đại học Giao thông Vận tải - Phân hiệu tại TP.HCM. Chúc đôi tay khéo léo và tư duy không gian của bạn sẽ xây nên những công trình đẹp, để đời bằng chính tâm huyết và tài năng. Áp lực ngành Kiến trúc rất lớn, nhưng sự kiên trì của Trâm sẽ vượt qua tất cả.`
+        title: "Gửi Thái Thuỳ Trang",
+        content: "Thùy Trang rất ít nói nhưng lại rất chân thành, xinh gái, dễ thương. Nhớ hồi đó Trang không biết chạy xe nên ngày nào 3 cũng phải đón đưa. Hai năm trôi qua, chúc cô gái nhẹ nhàng ngày nào sẽ luôn giữ được nụ cười hiền hòa, sự bình an trong tâm hồn. Mong rằng cuộc sống sau này sẽ đối xử thật dịu dàng, che chở cho sự mỏng manh và đáng yêu của bạn."
     },
     {
-        name: "Đỗ Huỳnh Nhã Trân",
-        message: `Gửi Đỗ Huỳnh Nhã Trân,\n\nHai năm trôi qua, sự hòa đồng, năng động và nụ cười tươi vui của Trân chắc vẫn làm bừng sáng bất cứ nơi đâu bạn xuất hiện. Chúc bạn bước chân vào môi trường Ngân hàng - Đại học Kinh tế TP.HCM sẽ luôn giữ được sự nhạy bén, tinh tế và gặp nhiều may mắn trên thương trường. Sài Gòn hoa lệ đang chờ đón bạn chinh phục, hãy cứ tự tin tỏa sáng bằng trí tuệ và sự duyên dáng của chính mình nhé.`
+        title: "Gửi Nguyễn Thị Ngọc Trâm",
+        content: "Ngọc Trâm rất dễ tính, bình thường hóa mọi chuyện, đôi khi hay vô tư hay ngủ quên và đi trễ mắc cười lắm, chạy xe là chạy hết cái đường lớn luôn! Nhớ những khoảnh khắc vô tư, hồn nhiên ấy làm sao. Chúc Trâm luôn giữ được năng lượng tích cực, sự phóng phóng đó để bước qua mọi giông bão cuộc đời một cách nhẹ nhàng nhất."
     },
     {
-        name: "Nguyễn Thị Trinh",
-        message: `Gửi Nguyễn Thị Trinh,\n\nCô gái thể thao năng động và tràn đầy sức sống của lớp ơi, thấm thoát đã hai năm chúng ta mỗi người một hướng. Chúc Trinh tại ngành Giáo dục Thể chất - Đại học Cần Thơ sẽ luôn giữ được sự bền bỉ, sức khỏe dồi dào và tinh thần thép. Mong rằng sau này, trong vai trò là một giáo viên hay huấn luyện viên, bạn sẽ tiếp tục truyền cảm hứng vận động, lối sống tích cực cho thật nhiều thế hệ học trò noi theo.`
+        title: "Gửi Đỗ Huỳnh Nhã Trân",
+        content: "Nhã Trân - nữ thần đẹp gái nhưng mà... hơi khùng! Học giỏi dữ lắm nha, hay làm trò cùng với Tấn Tiên, cứ 2 đứa này xúm lại là hơn cái chợ phiên, cười điếc tai! Cảm ơn Nhã Trân vì những tiếng cười sảng khoái mang lại cho lớp. Chúc cô nàng tài sắc vẹn toàn khi bước chân vào môi trường Ngân hàng - Đại học Kinh tế TP.HCM sẽ luôn khôn ngoan, nhạy bén, gặt hái thật nhiều thành công và giữ mãi cái nết tưng tửng đáng yêu ấy."
     },
     {
-        name: "Huỳnh Thanh Trúc",
-        message: `Gửi Huỳnh Thanh Trúc,\n\nHai năm xa cách, sự ân cần, dịu dàng và tấm lòng nhân hậu của Trúc chắc đang được mài giũa tại cánh cửa Điều dưỡng - Trường Đại học Y khoa Phạm Ngọc Thạch. Chúc bạn luôn giữ được trái tim ấm áp và một đôi tay vững chắc, khéo léo. Nghề điều dưỡng đòi hỏi sự hy sinh thầm lặng và sức chịu đựng lớn, nhưng mình tin rằng sự tận tâm của Trúc sẽ là nguồn sức mạnh xoa dịu nỗi đau cho các bệnh nhân.`
+        title: "Gửi Nguyễn Thị Trinh",
+        content: "Nguyễn Thị Trinh - một cô gái mạnh mẽ, ngọt ngào và nhẹ nhàng, luôn quan tâm và động viên, ủng hộ bạn bè thầm lặng. Thấm thoát đã hai năm, chúc Trinh tại ngành Giáo dục thể chất - Đại học Cần Thơ sẽ luôn giữ được sự bền bỉ, sức khỏe dồi dào và tinh thần thép. Mong rằng sau này, bạn sẽ tiếp tục truyền được cảm hứng vận động và lối sống tích cực cho thật nhiều thế hệ học trò."
     },
     {
-        name: "Nguyễn Chí Trung",
-        message: `Gửi Nguyễn Chí Trung,\n\nThấm thoát đã hai năm, sự nam tính, tính cách tốt bụng và luôn nhiệt tình giúp đỡ mọi người của Trung chắc chắn đang ngày ngày gắn liền với máy móc tại ngành Công nghệ Ô tô - Trường Cao đẳng Long An. Chúc bạn luôn vững vàng, tay nghề ngày càng thành thục. Những động cơ phức tạp đang chờ bạn làm chủ để sau này tự tay mở ra một tương lai thật rộng mở và vững chắc cho bản thân.`
+        title: "Gửi Huỳnh Thanh Trúc",
+        content: "Huỳnh Thanh Trúc - lớp trưởng học giỏi, ấm áp, có trách nhiệm, luôn ân cần và rất năng nổ trong mọi hoạt động (và đặc biệt là \"nạn nhân\" bất đắc dĩ hay bị Hữu Phát ghẹo chọc không trượt phát nào!). Cảm ơn Trúc vì đã luôn là chỗ dựa vững chắc cho lớp. Chúc bạn khi bước vào cánh cửa Điều dưỡng - Trường đại học Y khoa Phạm Ngọc Thạch sẽ luôn giữ được trái tim ấm áp, đôi tay vững vàng để xoa dịu nỗi đau cho các bệnh nhân."
     },
     {
-        name: "Nguyễn Kiều Vân",
-        message: `Gửi Nguyễn Kiều Vân,\n\nHai năm trôi qua, sự sáng tạo, góc nhìn nghệ thuật độc đáo và những nét tinh tế rất dễ thương của Vân chắc đang bay cao trong thế giới Truyền thông Đa phương tiện - Trường Đại học Văn Hiến. Chúc bạn luôn giữ được nguồn cảm hứng bất tận. Mong rằng qua lăng kính và ngòi bút của bạn, mọi câu chuyện đều sẽ mang lại giá trị truyền cảm hứng mạnh mẽ, đưa bạn tiến xa trong thế giới nghệ thuật đầy màu sắc.`
+        title: "Gửi Nguyễn Chí Trung",
+        content: "Chí Trung là một chàng trai rất có trách nhiệm và rất dễ thương. Tụi tôi quý Trung lắm vì bạn luôn sẵn sàng giúp đỡ bạn bè bất cứ lúc nào (và tụi mình thú thật là cực kỳ ấn tượng với cái nón bảo hiểm màu xanh huyền thoại của Trung nữa nha!). Chúc bạn khi theo đuổi đam mê tại ngành Công nghệ ô tô - Trường Cao đẳng Long An sẽ luôn giữ được sự mạnh mẽ, tay nghề vững vàng, tự tay mở ra một tương lai thật rộng mở và vững chắc."
     },
     {
-        name: "Trần Nguyễn Phương Vy",
-        message: `Gửi Trần Nguyễn Phương Vy,\n\nThấm thoát đã hai năm, sự chăm chỉ, cẩn thận và tính cách chu đáo của Vy chắc đang tỏa sáng trên con đường Kế toán - Trường Đại học Tôn Đức Thắng. Chúc bạn luôn giữ được sự bình tĩnh, tỉ mỉ tuyệt đối trước những con số. Ngành tài chính kế toán cần độ chính xác cao, và sự cẩn trọng của Vy chính là chứng chỉ chắc chắn cho một sự nghiệp ổn định, ngày càng thăng tiến trong tương lai.`
+        title: "Gửi Nguyễn Kiều Vân",
+        content: "Kiều Vân - cô nàng nhỏ nhắn nhưng rất cá tính, luôn sẵn sàng giúp đỡ và ủng hộ bạn bè, vẫn rất dễ thương, rất ngoan và học rất giỏi. Thấm thoát đã hai năm, chúc Vân luôn giữ được nguồn năng lượng tích cực và sự sắc sảo ấy. Mong rằng qua lăng kính của bạn, mọi dự định trong tương lai đều sẽ đơm hoa kết trái, đưa bạn bay thật xa trên con đường mình đã chọn."
+    },
+    {
+        title: "Gửi Trần Nguyễn Phương Vy",
+        content: "Phương Vy rất dễ thương, sâu sắc, nhẹ nhàng, chân thành và chính là tổ trưởng tổ 4 có trách nhiệm của lớp! Nhớ mãi kỷ niệm hồi năm lớp 12 bị công an bắt xe tội lắm, lúc đó cả lớp ai cũng muốn cười rớt hàm nhưng phải ráng nín vì sợ bạn buồn (đùa tí thôi chứ thương Vy lắm!). Chúc cô nàng tổ trưởng chu đáo này khi bước chân vào con đường Kế toán - Trường Đại học Tôn Đức Thắng sẽ luôn giữ được sự bình tĩnh, tỉ mỉ tuyệt đối, bảo chứng cho một sự nghiệp ổn định và ngày càng thăng tiến trong tương lai."
     }
 ];
 
-function renderMembers() {
-    const teacherContainer = document.getElementById('teacher-container');
-    const studentsGrid = document.getElementById('students-grid');
+function renderCards(data) {
+    const container = document.getElementById('cards-container');
+    container.innerHTML = '';
 
-    teacherContainer.innerHTML = createCardHTML(teacherData.name, teacherData.message, true);
-    studentsGrid.innerHTML = studentsData.map(student => 
-        createCardHTML(student.name, student.message, false)
-    ).join('');
+    if (data.length === 0) {
+        container.innerHTML = '<div class="no-result">Không tìm thấy lá thư nào phù hợp.</div>';
+        return;
+    }
+
+    data.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        
+        const title = document.createElement('div');
+        title.className = 'card-title';
+        title.textContent = item.title;
+
+        const content = document.createElement('div');
+        content.className = 'card-content';
+        content.textContent = item.content;
+
+        card.appendChild(title);
+        card.appendChild(content);
+        container.appendChild(card);
+    });
 }
 
-function createCardHTML(name, message, isTeacher) {
-    const escapedMsg = escapeHTML(message);
-    return `
-        <div class="member-card ${isTeacher ? 'teacher-card' : ''}" onclick="openMessage(event, '${name}', '${escapedMsg}')">
-            <span class="member-name">${name}</span>
-        </div>
-    `;
-}
+document.addEventListener('DOMContentLoaded', () => {
+    renderCards(lettersData);
 
-function escapeHTML(str) {
-    return str.replace(/'/g, "\\'").replace(/"/g, '&quot;').replace(/\n/g, '\\n');
-}
-
-function openMessage(event, name, message) {
-    if (event) event.stopPropagation();
-    
-    // Bắn pháo hoa kim tuyến ngay tại vị trí chạm/click vào thẻ tên
-    triggerCardConfetti(event);
-
-    document.getElementById('letter-recipient').innerText = name;
-    document.getElementById('letter-content').innerText = message;
-    document.getElementById('modal-overlay').classList.remove('hidden');
-}
-
-function closeMessage() {
-    document.getElementById('modal-overlay').classList.add('hidden');
-}
-
-// ==========================================
-// 4. HIỆU ỨNG RƠI MÁY BAY GIẤY & KIM TUYẾN DÀY ĐẶC
-// ==========================================
-const fallingItems = ['✈️', '✈️', '✈️', '🌸', '✨', '⭐', '🎉', '🌸', '✨'];
-
-function createFallingItem() {
-    const container = document.getElementById('falling-container');
-    if (!container) return;
-
-    const item = document.createElement('div');
-    const randomIcon = fallingItems[Math.floor(Math.random() * fallingItems.length)];
-    
-    item.innerText = randomIcon;
-    item.style.position = 'fixed';
-    item.style.top = '-50px';
-    item.style.left = Math.random() * 100 + 'vw';
-    item.style.fontSize = (Math.random() * 16 + 18) + 'px';
-    item.style.opacity = Math.random() * 0.7 + 0.3;
-    item.style.pointerEvents = 'none';
-    item.style.zIndex = '999';
-
-    container.appendChild(item);
-
-    const duration = Math.random() * 5 + 4; // Tốc độ rơi bồng bềnh
-    const sway = (Math.random() - 0.5) * 250;
-    const rotation = Math.random() * 360;
-
-    requestAnimationFrame(() => {
-        item.style.transition = `transform ${duration}s linear, top ${duration}s linear, opacity ${duration}s ease-out`;
-        item.style.top = '105vh';
-        item.style.transform = `translateX(${sway}px) rotate(${rotation}deg)`;
+    const searchInput = document.getElementById('search-input');
+    searchInput.addEventListener('input', (e) => {
+        const keyword = e.target.value.toLowerCase().trim();
+        const filtered = lettersData.filter(item => 
+            item.title.toLowerCase().includes(keyword) || 
+            item.content.toLowerCase().includes(keyword)
+        );
+        renderCards(filtered);
     });
 
-    setTimeout(() => {
-        item.remove();
-    }, duration * 1000);
-}
-
-// Tạo hiệu ứng rơi dày đặc hơn (mỗi 250ms sinh ra 1 vật thể)
-setInterval(createFallingItem, 250);
+    // Tự động phát nhạc khi người dùng tương tác lần đầu
+    const audio = document.getElementById('bg-music');
+    const playAudioOnInteraction = () => {
+        if (audio.paused) {
+            audio.play().catch(() => {});
+        }
+        document.removeEventListener('click', playAudioOnInteraction);
+    };
+    document.addEventListener('click', playAudioOnInteraction);
+});
