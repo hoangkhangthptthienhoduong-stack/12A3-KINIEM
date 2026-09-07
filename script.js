@@ -1,58 +1,56 @@
+/* =========================================================
+   12A3 — KỶ YẾU THANH XUÂN
+   SCRIPT.JS
+   ========================================================= */
+
 let audioStarted = false;
+let fallingInitialized = false;
+
+/* =========================================================
+   1. NHẠC NỀN
+   ========================================================= */
 
 function playInstantAudio() {
-    const audio = document.getElementById('bg-audio');
+    const audio = document.getElementById("bg-audio");
+
     if (!audio) return;
 
-    // Reset lại audio nếu cần và thực hiện play
-    audio.volume = 1.0; 
+    audio.volume = 0.3;
+
     const playPromise = audio.play();
 
     if (playPromise !== undefined) {
-        playPromise.then(() => {
-            audioStarted = true;
-            updateAudioIcon(true);
-        }).catch(err => {
-            console.log("Audio play blocked by browser:", err);
-            // Kích hoạt lắng nghe sự kiện chạm/click đầu tiên trên toàn trang để phát nhạc ngay
-            const enableAudioOnInteraction = () => {
-                audio.play().then(() => {
-                    audioStarted = true;
-                    updateAudioIcon(true);
-                }).catch(() => {});
-                document.removeEventListener('click', enableAudioOnInteraction);
-                document.removeEventListener('touchstart', enableAudioOnInteraction);
-            };
-            document.addEventListener('click', enableAudioOnInteraction, { once: true });
-            document.addEventListener('touchstart', enableAudioOnInteraction, { once: true });
-        });
+        playPromise
+            .then(() => {
+                audioStarted = true;
+                updateAudioIcon(true);
+            })
+            .catch(() => {
+                console.log("Trình duyệt đang chặn tự động phát nhạc.");
+            });
     }
 }
 
-function enterSite(event) {
-    if (event) event.stopPropagation();
-    
-    // Phát nhạc ngay khi nhấn nút vào trang
-    playInstantAudio();
-    triggerConfettiBoom();
-
-    document.getElementById('hero-screen').classList.add('hidden');
-    document.getElementById('main-content').classList.remove('hidden');
-    
-    renderMembers();
-    initFallingEffect();
-}
-
 function toggleAudio(event) {
-    if (event) event.stopPropagation();
-    const audio = document.getElementById('bg-audio');
+    if (event) {
+        event.stopPropagation();
+    }
+
+    const audio = document.getElementById("bg-audio");
+
     if (!audio) return;
 
     if (audio.paused) {
-        audio.play().then(() => {
-            audioStarted = true;
-            updateAudioIcon(true);
-        }).catch(err => console.log("Play failed:", err));
+        audio.volume = 0.3;
+
+        audio.play()
+            .then(() => {
+                audioStarted = true;
+                updateAudioIcon(true);
+            })
+            .catch(() => {
+                console.log("Không thể phát nhạc.");
+            });
     } else {
         audio.pause();
         updateAudioIcon(false);
@@ -60,48 +58,158 @@ function toggleAudio(event) {
 }
 
 function updateAudioIcon(isPlaying) {
-    const icon = document.getElementById('audio-icon');
-    if (icon) icon.innerText = isPlaying ? '🔊' : '🔇';
+    const icon = document.getElementById("audio-icon");
+
+    if (!icon) return;
+
+    icon.textContent = isPlaying ? "🔊" : "🔇";
 }
 
-function triggerConfettiBoom() {
-    if (typeof confetti === 'function') {
-        confetti({ particleCount: 70, spread: 60, origin: { y: 0.6, x: 0.2 } });
-        confetti({ particleCount: 70, spread: 60, origin: { y: 0.6, x: 0.8 } });
+
+/* =========================================================
+   2. MỞ WEBSITE
+   ========================================================= */
+
+function enterSite(event) {
+    if (event) {
+        event.stopPropagation();
     }
+
+    playInstantAudio();
+
+    triggerConfettiBoom();
+
+    const hero = document.getElementById("hero-screen");
+    const main = document.getElementById("main-content");
+
+    if (hero) {
+        hero.classList.add("hidden");
+    }
+
+    if (main) {
+        main.classList.remove("hidden");
+
+        setTimeout(() => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        }, 100);
+    }
+
+    renderMembers();
+    initFallingEffect();
+}
+
+
+/* =========================================================
+   3. HIỆU ỨNG CONFETTI
+   ========================================================= */
+
+function triggerConfettiBoom() {
+    if (typeof confetti !== "function") return;
+
+    confetti({
+        particleCount: 45,
+        spread: 45,
+        startVelocity: 25,
+        gravity: 1,
+        origin: {
+            x: 0.15,
+            y: 0.65
+        }
+    });
+
+    confetti({
+        particleCount: 45,
+        spread: 45,
+        startVelocity: 25,
+        gravity: 1,
+        origin: {
+            x: 0.85,
+            y: 0.65
+        }
+    });
 }
 
 function triggerCardConfetti(event) {
-    if (typeof confetti === 'function') {
-        const x = event ? event.clientX / window.innerWidth : 0.5;
-        const y = event ? event.clientY / window.innerHeight : 0.5;
-        confetti({
-            particleCount: 40,
-            spread: 50,
-            origin: { x: x, y: y },
-            colors: ['#e63946', '#ff758c', '#f7d070', '#ffffff']
-        });
-    }
+    if (typeof confetti !== "function") return;
+
+    const x = event
+        ? event.clientX / window.innerWidth
+        : 0.5;
+
+    const y = event
+        ? event.clientY / window.innerHeight
+        : 0.5;
+
+    confetti({
+        particleCount: 20,
+        spread: 35,
+        startVelocity: 18,
+        gravity: 1.2,
+        origin: {
+            x,
+            y
+        }
+    });
 }
 
-function initFallingEffect() {
-    const container = document.getElementById('falling-container');
-    if (!container) return;
-    const items = ['🌸', '🍃', '✨', '🎈', '✈️'];
 
-    for (let i = 0; i < 22; i++) {
-        const item = document.createElement('div');
-        item.className = 'falling-item';
-        item.textContent = items[Math.floor(Math.random() * items.length)];
-        item.style.left = `${Math.random() * 100}%`;
-        item.style.animationDuration = `${7 + Math.random() * 5}s`;
-        item.style.animationDelay = `${Math.random() * 5}s`;
+/* =========================================================
+   4. HIỆU ỨNG RƠI
+   ========================================================= */
+
+function initFallingEffect() {
+    const container = document.getElementById("falling-container");
+
+    if (!container || fallingInitialized) return;
+
+    fallingInitialized = true;
+
+    const items = [
+        "✦",
+        "✧",
+        "·",
+        "❋",
+        "⌁"
+    ];
+
+    const total = window.innerWidth < 600 ? 12 : 22;
+
+    for (let i = 0; i < total; i++) {
+        const item = document.createElement("div");
+
+        item.className = "falling-item";
+
+        item.textContent =
+            items[Math.floor(Math.random() * items.length)];
+
+        item.style.left =
+            `${Math.random() * 100}%`;
+
+        item.style.animationDuration =
+            `${8 + Math.random() * 8}s`;
+
+        item.style.animationDelay =
+            `${Math.random() * 8}s`;
+
+        item.style.opacity =
+            `${0.15 + Math.random() * 0.35}`;
+
         container.appendChild(item);
     }
 }
 
+
+/* =========================================================
+   5. DỮ LIỆU CÔ GIÁO
+   GIỮ NGUYÊN NỘI DUNG GỐC
+   ========================================================= */
+
 const teacherData = {
     name: "Cô Võ Thị Thanh Truyền",
+
     message: `Gửi Cô chủ nhiệm của tụi con,
 
 Hai năm trôi qua kể từ ngày chúng em rời xa mái trường cấp ba, giữa dòng đời hối hả và bộn bề, khi chững chạc hơn một chút, chúng em mới càng thấm thía biết bao công ơn của cô. Cô chính là người truyền lửa thầm lặng, luôn ở cạnh chúng em những khi khó khăn nhất, bao bọc, lo lắng cho lớp bằng tất cả sự dịu dàng và tình yêu thương vô bờ bến. 
@@ -110,6 +218,12 @@ Có những lúc tụi em quậy phá, bướng bỉnh, nhưng chưa bao giờ c
 
 Kính chúc cô thật nhiều sức khỏe, bình an, giữ vững ngọn lửa nhiệt huyết trên bục giảng để tiếp tục đưa thêm nhiều thế hệ học trò sang sông.`
 };
+
+
+/* =========================================================
+   6. DỮ LIỆU HỌC SINH
+   GIỮ NGUYÊN TOÀN BỘ
+   ========================================================= */
 
 const studentsData = [
     {
@@ -120,6 +234,7 @@ Hai năm xa cách, không biết chặng đường làm thợ trang điểm và 
 
 Băng luôn đứng ở một góc để quan sát và thấu cảm mọi thứ xung quanh bằng sự tinh tế của mình. Chúc bạn ở hiện tại và tương lai sẽ luôn giữ vững đôi tay tài hoa và sự tỉ mỉ ấy để tô điểm cho đời, cho ước mơ của chính mình, và mong cuộc đời cũng sẽ dịu dàng ôm lấy Băng.`
     },
+
     {
         name: "Quốc Dinh",
         message: `Gửi Quốc Dinh,
@@ -128,6 +243,7 @@ Dinh ơi, thấm thoát đã hai năm kể từ ngày chúng ta mỗi đứa m�
 
 Chúc Dinh khi mang theo hoài bão đứng trên bục giảng tại Sư phạm Khoa học tự nhiên - Đại học Đồng Tháp sẽ luôn giữ trọn ngọn lửa đam mê với tri thức, để sau này những đứa học trò nhỏ cũng được sưởi ấm bởi sự trong sáng và đáng yêu của thầy giáo Dinh.`
     },
+
     {
         name: "Huỳnh Giao",
         message: `Gửi Huỳnh Giao ,
@@ -136,6 +252,7 @@ Hai năm trôi qua, khoảng thời gian đủ dài để nhớ về một cô g
 
 Chúc cô gái tài năng bước chân vào môi trường Luật kinh tế - Trường Đại học Tài chính - Marketing sẽ luôn giữ được cái đầu lạnh sắc sảo nhưng trái tim thì lúc nào cũng đong đầy tình cảm, vững vàng trước mọi sóng gió cuộc đời.`
     },
+
     {
         name: "Minh Hiếu",
         message: `Gửi Minh Hiếu,
@@ -144,6 +261,7 @@ Thấm thoát đã hai năm chúng ta không còn nghe tiếng trống trường
 
 Chúc bạn khi bước chân vào con đường Kỹ thuật điện tại Trường Đại học Tôn Đức Thắng sẽ luôn kiên định, mạnh mẽ, tự tay xây dựng một tương lai vững chãi và thành công rực rỡ.`
     },
+
     {
         name: "Mỹ Hiếu",
         message: `Gửi Mỹ Hiếu,
@@ -152,6 +270,7 @@ Mỹ Hiếu ơi, tổ trưởng tổ 2 tuyệt vời của tụi mình! Bạn l�
 
 Chúc bạn khi bước vào thế giới rộng lớn tại ngành Công nghệ sinh học - Trường Đại học Nông Lâm sẽ tìm thấy chân trời của riêng mình, luôn giữ nụ cười rạng rỡ và gặt hái thật nhiều trái ngọt.`
     },
+
     {
         name: "An Khang",
         message: `Gửi An Khang,
@@ -160,6 +279,7 @@ Hai năm xa lớp, không biết những hoài bão tuổi trẻ của Khang gi�
 
 Chúc bạn sẽ có một hành trình đại học thật trọn vẹn tại Sư phạm Khoa học tự nhiên - Đại học Đồng Tháp, để sau này sự nhiệt huyết và chân thành ấy sẽ truyền lửa cho thật nhiều thế hệ học trò.`
     },
+
     {
         name: "Hoàng Khang",
         message: `Gửi Hoàng Khang,
@@ -168,6 +288,7 @@ Hai năm tự nhìn lại chính mình qua những trang văn và những trăn 
 
 Chúc cho chính bản thân tôi - người đang mang trong mình giấc mơ Sư phạm Ngữ văn tại Đại học Đồng Tháp - sẽ không bao giờ đánh mất đi sự nhạy cảm, lòng trắc ẩn và trái tim chân thành ngày nào khi đứng trên bục giảng, viết nên những bài học chạm đến cảm xúc của học trò.`
     },
+
     {
         name: "Thành Luân",
         message: `Gửi Thành Luân,
@@ -176,6 +297,7 @@ Thấm thoát đã hai năm, nguồn năng lượng rất có trách nhiệm, đ
 
 Chúc bạn ở lĩnh vực Thương mại điện tử - Trường Đại học Công Thương sẽ luôn giữ được sự nhạy bén, tư duy sắc sảo và tinh thần dám nghĩ dám làm để chinh phục những mục tiêu lớn trên thương trường khốc liệt ngoài kia.`
     },
+
     {
         name: "Tuyết Ngân",
         message: `Gửi Tuyết Ngân,
@@ -184,6 +306,7 @@ Tuyết Ngân ơi, tụi tôi hay đùa ghẹo bạn là hay nói dối, hay nhi
 
 Hai năm trôi qua, chúc cô bí thư ngày nào khi đối mặt với những con số và áp lực tại Đại học Tài chính - Marketing sẽ luôn vững vàng, bình an và gặt hái thật nhiều thành quả ngọt ngào.`
     },
+
     {
         name: "Như Ngọc",
         message: `Gửi Như Ngọc,
@@ -192,6 +315,7 @@ Nhớ những mùa thi căng thẳng của hai năm về trước, cô lớp ph�
 
 Chúc bạn tại Sư phạm Tiếng Anh - Trường Đại học Đồng Tháp sẽ luôn giữ được sự tự tin, năng lượng tươi trẻ để ngôn ngữ thực sự là đôi cánh đưa bạn bay cao bay xa.`
     },
+
     {
         name: "Yến Ngọc",
         message: `Gửi Yến Ngọc,
@@ -200,6 +324,7 @@ Yến Ngọc - cô nàng văn chương, nàng thơ của lớp mình, luôn mang
 
 Chúc Yến Ngọc khi bước chân vào thế giới rộng lớn của ngành Ngôn ngữ Trung Quốc - Trường Đại học Công Thương TP.HCM sẽ luôn tự tin sải bước, chạm đến đỉnh vinh quang.`
     },
+
     {
         name: "Khôi Nguyên",
         message: `Gửi Khôi Nguyên,
@@ -208,6 +333,7 @@ Thấm thoát đã hai năm, chàng trai rất giỏi công nghệ, tính tình 
 
 Chúc cho niềm đam mê công nghệ tại Đại học FPT ngày càng đơm hoa kết trái, mang lại những sản phẩm mang đậm dấu ấn của kỹ sư tài năng Khôi Nguyên.`
     },
+
     {
         name: "Xuân Nhật",
         message: `Gửi Xuân Nhật,
@@ -216,6 +342,7 @@ Hai năm xa mái trường cấp ba, không biết Nhật đã đối mặt vớ
 
 Chúc Nhật luôn giữ vững cái đầu lạnh, đôi tay vững vàng và ý chí kiên cường trước mọi giông bão của cuộc đời.`
     },
+
     {
         name: "Hữu Phát",
         message: `Gửi Nguyễn Hữu Phát,
@@ -224,6 +351,7 @@ Hai năm trôi qua, Hữu Phát chắc đã lớn hơn và điềm đạm hơn r
 
 Chúc bạn luôn giữ được tâm hồn trong trẻo, lòng yêu trẻ và sự thấu cảm sâu sắc.`
     },
+
     {
         name: "Hoàng Quyên",
         message: `Gửi Hoàng Quyên,
@@ -232,6 +360,7 @@ Cô gái nhỏ nhắn của 12A3 ơi, Quyên rất hiểu chuyện, luôn đồn
 
 Thấm thoát đã hai năm chúng ta bước vào đời, chúc bạn khi đối mặt với núi cao tri thức và áp lực nặng nề tại cánh cửa Dược học - Trường Đại học Tôn Đức Thắng sẽ luôn đủ sức mạnh và sự bền bỉ để chạm đến ước mơ cứu người, giúp đời.`
     },
+
     {
         name: "Hoàng Tâm",
         message: `Gửi Hoàng Tâm,
@@ -240,6 +369,7 @@ Tâm ít nói lắm, tụi mình hay chọc Tâm là "Diễm Hương" từ thu�
 
 Hai năm trôi qua, chúc bạn tại ngành Kinh doanh quốc tế - Trường Đại học Công Thương TP.HCM sẽ luôn giữ được sự nhạy bén và tự tin để thỏa sức vẫy vùng trên thương trường rộng lớn.`
     },
+
     {
         name: "Hoàng Tân",
         message: `Gửi Hoàng Tân,
@@ -248,6 +378,7 @@ Hai năm xa cách, chàng trai học giỏi văn lắm, nhẹ nhàng ân cần H
 
 Chúc bạn luôn giữ được sự nhạy cảm tuyệt vời với con chữ và cuộc sống. Mong rằng trong tương lai, mọi dự định của bạn đều sẽ đơm hoa kết trái, mang lại một cuộc đời thật bình yên, ý nghĩa và ngập tràn cảm xúc.`
     },
+
     {
         name: "Thanh Thảo",
         message: `Gửi Thanh Thảo,
@@ -256,6 +387,7 @@ Thanh Thảo tướng nhỏ xíu nhưng mà không hề vô dụng nha! Học gi
 
 Thấm thoát đã hai năm, chúc bạn khi bước vào ngành Kinh doanh quốc tế - ĐH Sư phạm Kỹ thuật TP.HCM sẽ luôn giữ được sự năng động, khéo léo để gặt hái thật nhiều thành quả ngọt ngào.`
     },
+
     {
         name: "Hoài Thịnh",
         message: `Gửi Hoài Thịnh,
@@ -264,6 +396,7 @@ Hai năm trôi qua, chàng trai nhỏ nhắn nhưng học rất giỏi, hay làm
 
 Chúc Hoài Thịnh luôn giữ vững sự dí dỏm, nụ cười trên môi và trái tim nhiệt huyết để vượt qua mọi thử thách trên con đường học tập và sự nghiệp tương lai.`
     },
+
     {
         name: "Thành Thịnh",
         message: `Gửi Thành Thịnh,
@@ -272,6 +405,7 @@ Tổ trưởng tổ 1 - Lê Thành Thịnh, một chàng trai học giỏi, ga l
 
 Chúc bạn luôn giữ được tinh thần trách nhiệm và sự ấm áp ấy trong mọi ngã rẽ cuộc đời. Mong rằng sự chăm chỉ và tử tế sẽ luôn dẫn đường để bạn chạm tay đến những đỉnh cao mới, làm rạng danh cho tập thể 12A3 năm nào.`
     },
+
     {
         name: "Hòa Thuận",
         message: `Gửi Hòa Thuận,
@@ -280,6 +414,7 @@ Hòa Thuận học tiếng Anh giỏi lắm nha! Ít nói nhưng lại rất nh�
 
 Hai năm xa cách, tài năng ngoại ngữ chắc đã đưa bạn đi đến rất nhiều chân trời mới thú vị. Chúc bạn luôn giữ được sự tự tin, để ngôn ngữ thực sự là nhịp cầu đưa bạn bước ra thế giới rộng lớn ngoài kia, tự tin giao lưu và gặt hái thành công.`
     },
+
     {
         name: "Mỹ Thuyên",
         message: `Gửi Mỹ Thuyên,
@@ -288,6 +423,7 @@ Mỹ Thuyên - cô nàng nhẹ nhàng, nền nã, thướt tha. Tụi mình vẫ
 
 Thấm thoát đã hai năm, chúc cô nàng nền nã ngày nào khi bước vào thế giới Logistics và quản lý chuỗi cung ứng - Trường Đại học Giao thông Vận tải TP.HCM sẽ luôn giữ được sự sắc sảo, đầu óc tổ chức linh hoạt và một cuộc sống thật bình yên.`
     },
+
     {
         name: " Mỹ Tiên",
         message: `Gửi Mỹ Tiên,
@@ -296,6 +432,7 @@ Mỹ Tiên rất tình cảm và ấm áp, viết chữ đẹp lắm, rất tố
 
 Nhớ lại hồi lớp 12, Tiên còn nhắc bài rồi bị cô Thoa bắt làm lại bài khác luôn mắc cười muốn chết, nghĩ lại vẫn thấy thương hết sức! Chúc Tiên trên con đường Luật kinh tế - Trường Đại học Công nghiệp TP.HCM sẽ luôn giữ được cái tâm sáng và trái tim đong đầy trắc ẩn ấy.`
     },
+
     {
         name: " Tấn Tiên",
         message: `Gửi Tấn Tiên,
@@ -304,6 +441,7 @@ Lớp phó trật tự nhưng... không hề trật tự một chút nào! Hay l
 
 Chúc bạn tại Tài chính - Ngân hàng - Trường Đại học Công Thương sẽ luôn nhạy bén với những con số, giữ mãi tiếng cười và sự trẻ trung tưng tửng ấy trong cuộc sống.`
     },
+
     {
         name: "Thuỳ Trang",
         message: `Gửi Thuỳ Trang,
@@ -312,6 +450,7 @@ Thùy Trang rất ít nói nhưng lại rất chân thành, xinh gái, dễ thư
 
 Hai năm trôi qua, chúc cô gái nhẹ nhàng ngày nào sẽ luôn giữ được nụ cười hiền hòa, sự bình an trong tâm hồn. Mong rằng cuộc sống sau này sẽ đối xử thật dịu dàng, che chở cho sự mỏng manh và đáng yêu của bạn.`
     },
+
     {
         name: "Ngọc Trâm",
         message: `Gửi Ngọc Trâm,
@@ -320,6 +459,7 @@ Nguyễn Thị Ngọc Trâm rất dễ tính, bình thường hóa mọi chuyệ
 
 Chúc Trâm luôn giữ được năng lượng tích cực, sự phóng khoáng đó để bước qua mọi giông bão cuộc đời một cách nhẹ nhàng nhất.`
     },
+
     {
         name: "Nhã Trân",
         message: `Gửi Nhã Trân,
@@ -328,6 +468,7 @@ Nhã Trân - nữ thần đẹp gái nhưng mà... hơi khùng! Học giỏi d�
 
 Chúc cô nàng tài sắc vẹn toàn khi bước chân vào môi trường Ngân hàng - Đại học Kinh tế TP.HCM sẽ luôn khôn ngoan, nhạy bén, gặt hái thật nhiều thành công và giữ mãi cái nết tưng tửng đáng yêu ấy.`
     },
+
     {
         name: "Trinh",
         message: `Gửi Trinh,
@@ -336,6 +477,7 @@ Nguyễn Thị Trinh - một cô gái mạnh mẽ, ngọt ngào và nhẹ nhàng
 
 Thấm thoát đã hai năm, chúc Trinh tại ngành Giáo dục thể chất - Đại học Cần Thơ sẽ luôn giữ được sự bền bỉ, sức khỏe dồi dào và tinh thần thép. Mong rằng sau này, bạn sẽ tiếp tục truyền được cảm hứng vận động và lối sống tích cực cho thật nhiều thế hệ học trò.`
     },
+
     {
         name: "Thanh Trúc",
         message: `Gửi Thanh Trúc,
@@ -344,6 +486,7 @@ Huỳnh Thanh Trúc - lớp trưởng học giỏi, ấm áp, có trách nhiệm
 
 Chúc bạn khi bước vào cánh cửa Điều dưỡng - Trường đại học Y khoa Phạm Ngọc Thạch sẽ luôn giữ được trái tim ấm áp, đôi tay vững vàng để xoa dịu nỗi đau cho các bệnh nhân.`
     },
+
     {
         name: "Chí Trung",
         message: `Gửi Chí Trung,
@@ -352,6 +495,7 @@ Chí Trung là một chàng trai rất có trách nhiệm và rất dễ thươn
 
 Chúc bạn khi theo đuổi đam mê tại ngành Công nghệ ô tô - Trường Cao đẳng Long An sẽ luôn giữ được sự mạnh mẽ, tay nghề vững vàng, tự tay mở ra một tương lai thật rộng mở và vững chắc.`
     },
+
     {
         name: "Kiều Vân",
         message: `Gửi Kiều Vân,
@@ -360,6 +504,7 @@ Kiều Vân - cô nàng nhỏ nhắn nhưng rất cá tính, luôn sẵn sàng g
 
 Thấm thoát đã hai năm, chúc Vân luôn giữ được nguồn năng lượng tích cực và sự sắc sảo ấy. Mong rằng qua lăng kính của bạn, mọi dự định trong tương lai đều sẽ đơm hoa kết trái, đưa bạn bay thật xa trên con đường mình đã chọn.`
     },
+
     {
         name: " Phương Vy",
         message: `Gửi Phương Vy,
@@ -370,54 +515,266 @@ Chúc cô nàng tổ trưởng chu đáo này khi bước chân vào con đườ
     }
 ];
 
+
+/* =========================================================
+   7. TẠO CARD
+   ========================================================= */
+
 function createCardHTML(member, isTeacher = false) {
-    const cardClass = isTeacher ? 'member-card teacher-card' : 'member-card';
+    const cardClass = isTeacher
+        ? "member-card teacher-card"
+        : "member-card";
+
+    const safeName = escapeHTML(member.name);
+
     return `
-        <div class="${cardClass}" onclick="openMessage('${member.name}', event)">
-            <div class="member-name">${member.name}</div>
+        <div
+            class="${cardClass}"
+            data-member="${safeName}"
+            onclick="openMessageByIndex(${isTeacher ? -1 : studentsData.indexOf(member)}, ${isTeacher})"
+        >
+            <div class="member-name">
+                ${safeName}
+            </div>
+
+            <div class="member-open">
+                Mở lời nhắn
+                <span>↗</span>
+            </div>
         </div>
     `;
 }
 
+
+/* =========================================================
+   8. RENDER THÀNH VIÊN
+   ========================================================= */
+
 function renderMembers() {
-    const teacherContainer = document.getElementById('teacher-container');
-    const studentsGrid = document.getElementById('students-grid');
+    const teacherContainer =
+        document.getElementById("teacher-container");
+
+    const studentsGrid =
+        document.getElementById("students-grid");
 
     if (teacherContainer) {
-        teacherContainer.innerHTML = createCardHTML(teacherData, true);
+        teacherContainer.innerHTML =
+            createCardHTML(teacherData, true);
     }
 
     if (studentsGrid) {
-        studentsGrid.innerHTML = studentsData.map(student => 
-            createCardHTML(student, false)
-        ).join('');
+        studentsGrid.innerHTML =
+            studentsData
+                .map(student => createCardHTML(student, false))
+                .join("");
     }
 }
 
-function openMessage(memberName, event) {
-    triggerCardConfetti(event);
 
-    let target = null;
-    if (memberName === teacherData.name) {
-        target = teacherData;
-    } else {
-        target = studentsData.find(s => s.name === memberName);
+/* =========================================================
+   9. MỞ LỜI CHÚC
+   ========================================================= */
+
+function openMessageByIndex(index, isTeacher) {
+    const target = isTeacher
+        ? teacherData
+        : studentsData[index];
+
+    if (!target) return;
+
+    openMessage(target.name, null, target);
+}
+
+function openMessage(memberName, event, directTarget = null) {
+    if (event && typeof event.stopPropagation === "function") {
+        event.stopPropagation();
     }
 
-    if (target) {
-        document.getElementById('letter-recipient').innerText = target.name;
-        document.getElementById('letter-content').innerText = target.message;
+    const target =
+        directTarget ||
+        (
+            memberName === teacherData.name
+                ? teacherData
+                : studentsData.find(
+                    student => student.name === memberName
+                )
+        );
 
-        const modal = document.getElementById('modal-overlay');
-        if (modal) {
-            modal.classList.remove('hidden');
-        }
+    if (!target) return;
+
+    const recipient =
+        document.getElementById("letter-recipient");
+
+    const content =
+        document.getElementById("letter-content");
+
+    const modal =
+        document.getElementById("modal-overlay");
+
+    if (recipient) {
+        recipient.textContent = target.name;
+    }
+
+    if (content) {
+        content.textContent = target.message;
+    }
+
+    if (modal) {
+        modal.classList.remove("hidden");
+
+        document.body.classList.add("modal-open");
+
+        requestAnimationFrame(() => {
+            modal.classList.add("modal-visible");
+        });
     }
 }
+
+
+/* =========================================================
+   10. ĐÓNG MODAL
+   ========================================================= */
 
 function closeMessage() {
-    const modal = document.getElementById('modal-overlay');
-    if (modal) {
-        modal.classList.add('hidden');
-    }
+    const modal =
+        document.getElementById("modal-overlay");
+
+    if (!modal) return;
+
+    modal.classList.remove("modal-visible");
+
+    document.body.classList.remove("modal-open");
+
+    setTimeout(() => {
+        modal.classList.add("hidden");
+    }, 250);
 }
+
+
+/* =========================================================
+   11. CLICK RA NGOÀI THƯ → ĐÓNG
+   ========================================================= */
+
+function initModal() {
+    const modal =
+        document.getElementById("modal-overlay");
+
+    if (!modal) return;
+
+    modal.addEventListener("click", function(event) {
+        if (event.target === modal) {
+            closeMessage();
+        }
+    });
+}
+
+
+/* =========================================================
+   12. ESC → ĐÓNG THƯ
+   ========================================================= */
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+        closeMessage();
+    }
+
+    // Phím M để bật/tắt nhạc
+    if (
+        event.key.toLowerCase() === "m" &&
+        !event.target.matches("input, textarea")
+    ) {
+        toggleAudio(event);
+    }
+});
+
+
+/* =========================================================
+   13. ESCAPE HTML
+   ========================================================= */
+
+function escapeHTML(value) {
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+/* =========================================================
+   14. KHỞI TẠO
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    renderMembers();
+
+    initModal();
+
+    /*
+       Không tự động phát nhạc ở đây.
+       Nhạc sẽ được phát khi người dùng bấm
+       "LẬT MỞ KÝ ỨC", tránh trình duyệt chặn autoplay.
+    */
+
+    const audio =
+        document.getElementById("bg-audio");
+
+    if (audio) {
+        audio.volume = 0.3;
+
+        audio.addEventListener("play", function() {
+            audioStarted = true;
+            updateAudioIcon(true);
+        });
+
+        audio.addEventListener("pause", function() {
+            updateAudioIcon(false);
+        });
+
+        audio.addEventListener("ended", function() {
+            updateAudioIcon(false);
+        });
+    }
+});
+
+
+/* =========================================================
+   15. RESPONSIVE FALLING EFFECT
+   ========================================================= */
+
+window.addEventListener("resize", function() {
+    /*
+       Không tạo lại các phần tử đang rơi,
+       tránh bị nhân đôi hiệu ứng.
+    */
+});
+
+
+/* =========================================================
+   16. KHI CHUYỂN TAB
+   ========================================================= */
+
+document.addEventListener("visibilitychange", function() {
+    const audio =
+        document.getElementById("bg-audio");
+
+    if (!audio) return;
+
+    /*
+       Không tự pause nhạc khi chuyển tab.
+       Nếu trình duyệt cho phép thì nhạc vẫn tiếp tục.
+    */
+});
+
+
+/* =========================================================
+   17. CHO HTML INLINE onclick GỌI ĐƯỢC
+   ========================================================= */
+
+window.enterSite = enterSite;
+window.toggleAudio = toggleAudio;
+window.closeMessage = closeMessage;
+window.openMessage = openMessage;
+window.openMessageByIndex = openMessageByIndex;
