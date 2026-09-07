@@ -3,104 +3,372 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>12A3 - Một Thời Thanh Xuân</title>
-    <!-- Google Fonts: Playfair Display (Tiêu đề cổ điển) & Caveat (Chữ viết tay lưu bút) -->
+
+    <title>12A3 — Một Thời Thanh Xuân</title>
+
+    <!-- FONT -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,600;1,800&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Caveat:wght@500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap" rel="stylesheet">
+
+    <!-- HIỆU ỨNG HOA RƠI -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <!-- Lớp phủ hạt phim hoài cổ & nắng chiều -->
-    <div class="nostalgia-bg-overlay"></div>
+    <!-- ÁNH SÁNG HOÀI NIỆM -->
+    <div class="warm-light"></div>
 
-    <!-- Khung cánh hoa phượng / lá rơi nhẹ nhàng -->
+    <!-- HẠT PHIM CŨ -->
+    <div class="film-grain"></div>
+
+    <!-- HOA / LÁ RƠI -->
     <div id="falling-container"></div>
 
-    <!-- Nhạc nền -->
+    <!-- =========================
+         NHẠC NỀN
+    ========================== -->
+
     <audio id="bg-audio" loop preload="auto">
         <source src="bg-music.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Nút Bật/Tắt nhạc Radio Vintage -->
-    <button id="music-toggle-btn" class="floating-btn" onclick="toggleAudio(event)" title="Bật/Tắt Nhạc Thanh Xuân">
-        <span id="audio-icon">📻</span>
+    <!-- NÚT NHẠC -->
+    <button
+        id="music-toggle-btn"
+        class="floating-btn"
+        onclick="toggleAudio(event)"
+        title="Bật / tắt nhạc">
+
+        <span id="audio-icon">♫</span>
+
     </button>
 
-    <!-- 1. MÀN HÌNH CHÀO (SỔ LƯU BÚT HOÀI NIỆM) -->
+
+    <!-- =========================
+         MÀN HÌNH MỞ ĐẦU
+    ========================== -->
+
     <section id="hero-screen" class="hero-section">
+
         <div class="memory-card">
-            <div class="ribbon-tag">
-                <span class="ribbon-text">📜 KỶ YẾU THANH XUÂN 📜</span>
+
+            <div class="cover-topline">
+
+                <span>EST. 2023</span>
+
+                <span>CLASS ARCHIVE</span>
+
             </div>
-            
+
+
+            <div class="cover-mark">
+
+                12A3
+
+            </div>
+
+
+            <div class="eyebrow">
+
+                KỶ YẾU THANH XUÂN
+
+            </div>
+
+
             <h1 class="hero-title">
-                TẬP THỂ LỚP <span class="highlight-class">12A3</span>
+
+                Tập thể lớp
+                <em>12A3</em>
+
             </h1>
-            
-            <div class="handwritten-quote">
-                "Hai năm xa cách — Trọn đời nhớ thương..."
+
+
+            <div class="title-rule">
+
+                <span>✦</span>
+
             </div>
-            
+
+
+            <div class="handwritten-quote">
+
+                “THANH XUÂN CỦA CHÚNG TA”
+
+            </div>
+
+
             <p class="hero-description">
-                Nơi gói giùm ta chút nắng hạ năm ấy, nụ cười bạn bè và những dòng lưu bút gửi lại thời gian.
+
+                Một góc nhỏ của một thời thanh xuân.
+
             </p>
 
-            <button class="enter-btn" onclick="enterSite(event)">
-                <span class="btn-text">LẬT MỞ KÝ ỨC</span>
-                <span class="btn-icon">🍃</span>
+
+            <button
+                class="enter-btn"
+                onclick="enterSite(event)">
+
+                <span>LẬT MỞ KÝ ỨC</span>
+
+                <span class="btn-arrow">→</span>
+
             </button>
+
+
+            <div class="cover-footer">
+
+                <span>MEMORIES</span>
+
+                <span>•</span>
+
+                <span>FRIENDSHIP</span>
+
+                <span>•</span>
+
+                <span>YOUTH</span>
+
+            </div>
+
         </div>
+
     </section>
 
-    <!-- 2. TRANG NỘI DUNG CHÍNH -->
-    <main id="main-content" class="main-section hidden">
-        
+
+
+    <!-- =========================
+         TRANG KỶ YẾU
+    ========================== -->
+
+    <main
+        id="main-content"
+        class="main-section hidden">
+
+
+        <!-- HEADER -->
+
         <header class="main-header">
-            <h1 class="nostalgia-title">LỚP CHÚNG MÌNH</h1>
-            <p class="sub-heading">🌸 Nhấp vào từng ô để mở ra bức thư kỷ niệm đong đầy ký ức 🌸</p>
+
+            <div class="header-kicker">
+
+                12A3 · THE MEMORY BOOK
+
+            </div>
+
+
+            <h1 class="nostalgia-title">
+
+                Những gương mặt
+
+                <br>
+
+                <em>
+                    của một thời thanh xuân
+                </em>
+
+            </h1>
+
+
+            <p class="sub-heading">
+
+                Có những người chỉ đi cùng ta một đoạn đường,
+
+                <br>
+
+                nhưng ký ức về họ thì ở lại rất lâu.
+
+            </p>
+
         </header>
 
-        <!-- Khung Giáo Viên -->
+
+
+        <!-- =========================
+             GIÁO VIÊN
+        ========================== -->
+
         <section class="section-wrapper">
-            <div class="section-header-box">
-                <h2 class="section-title">NGƯỜI TRUYỀN LỬA THẦM LẶNG </h2>
+
+            <div class="section-heading">
+
+                <span class="section-number">
+                    01
+                </span>
+
+                <div>
+
+                    <p class="section-kicker">
+                        TEACHERS
+                    </p>
+
+                    <h2 class="section-title">
+                        Người truyền lửa thầm lặng
+                    </h2>
+
+                </div>
+
             </div>
-            <div id="teacher-container" class="teacher-grid"></div>
+
+
+            <div
+                id="teacher-container"
+                class="teacher-grid">
+
+            </div>
+
         </section>
 
-        <!-- Khung Học Sinh -->
+
+
+        <!-- =========================
+             HỌC SINH
+        ========================== -->
+
         <section class="section-wrapper">
-            <div class="section-header-box">
-                <h2 class="section-title">🎓 THÀNH VIÊN TẬP THỂ 12A3 🎓</h2>
+
+            <div class="section-heading">
+
+                <span class="section-number">
+                    02
+                </span>
+
+                <div>
+
+                    <p class="section-kicker">
+                        CLASS 12A3
+                    </p>
+
+                    <h2 class="section-title">
+                        Những người bạn năm ấy
+                    </h2>
+
+                </div>
+
             </div>
-            <div id="students-grid" class="students-grid"></div>
+
+
+            <div
+                id="students-grid"
+                class="students-grid">
+
+            </div>
+
         </section>
+
+
+
+        <!-- =========================
+             FOOTER
+        ========================== -->
+
+        <footer class="memory-footer">
+
+            <div class="footer-line"></div>
+
+            <p>
+
+                “Thanh xuân không quay lại,
+                nhưng ký ức thì còn mãi.”
+
+            </p>
+
+            <small>
+
+                12A3 · FOREVER IN OUR MEMORY
+
+            </small>
+
+        </footer>
 
     </main>
 
-    <!-- 3. MODAL BỨC THƯ LƯU BÚT -->
-    <div id="modal-overlay" class="modal-backdrop hidden" onclick="closeMessage()">
-        <div class="modal-card" onclick="event.stopPropagation()">
-            <button class="close-btn" onclick="closeMessage()">&times;</button>
-            
+
+
+    <!-- =========================
+         MODAL LÁ THƯ
+    ========================== -->
+
+    <div
+        id="modal-overlay"
+        class="modal-backdrop hidden"
+        onclick="closeMessage()">
+
+
+        <div
+            class="modal-card"
+            onclick="event.stopPropagation()">
+
+
+            <button
+                class="close-btn"
+                onclick="closeMessage()">
+
+                ×
+
+            </button>
+
+
             <div class="modal-header">
-                <div class="envelope-badge">💌 LƯU BÚT THỜI ÁO TRẮNG</div>
-                <h3 id="letter-recipient" class="recipient-name">Gửi...</h3>
+
+                <div class="letter-meta">
+
+                    <span>12A3</span>
+
+                    <span>·</span>
+
+                    <span>LƯU BÚT</span>
+
+                </div>
+
+
+                <h3
+                    id="letter-recipient"
+                    class="recipient-name">
+
+                    Gửi...
+
+                </h3>
+
+
+                <div class="letter-rule"></div>
+
             </div>
-            
+
+
             <div class="modal-body">
-                <p id="letter-content" class="letter-text"></p>
+
+                <p
+                    id="letter-content"
+                    class="letter-text">
+
+                </p>
+
             </div>
-            
+
+
             <div class="modal-footer">
-                <button class="modal-close-btn" onclick="closeMessage()">Gấp Bức Thư Lại 🌿</button>
+
+                <button
+                    class="modal-close-btn"
+                    onclick="closeMessage()">
+
+                    Gấp bức thư lại
+                    <span>↗</span>
+
+                </button>
+
             </div>
+
         </div>
+
     </div>
 
+
     <script src="script.js"></script>
+
 </body>
 </html>
