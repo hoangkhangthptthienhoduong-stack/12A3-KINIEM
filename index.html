@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hành Trình Tri Ân 12A3</title>
+    <title>Hành Trình Tri Ân 12A3 - Thanh Xuân</title>
     <link rel="stylesheet" href="style.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -13,7 +13,7 @@
     <!-- CONTAINER TẠO HIỆU ỨNG RƠI -->
     <div id="falling-container"></div>
 
-    <!-- MÀN HÌNH CHỜ (CHẠM VÀO LÀ PHÁT NHẠC NGAY) -->
+    <!-- MÀN HÌNH CHỜ (CHẠM VÀO LÀ PHÁT NHẠC THÂNH XUÂ̂N NGAY) -->
     <div id="hero-screen" class="hero-screen">
         <div class="hero-content">
             <h1 class="hero-title">Gửi Tập Thể 12A3</h1>
@@ -27,7 +27,7 @@
         
         <!-- NÚT BẬT/TẮT NHẠC -->
         <button class="audio-toggle-btn" onclick="toggleAudio(event)" title="Bật/Tắt Nhạc">
-            <span id="audio-icon">🔊</span>
+            <span id="audio-icon">🎵</span>
         </button>
 
         <header class="header">
@@ -48,7 +48,7 @@
         </main>
 
         <footer class="footer">
-            <p>Lớp 12A3 & Cô Võ Thị Thanh Truyền</p>
+            <p>Thiết kế bởi Đinh Hoàng Khang — Dành tặng Lớp 12A3 & Cô Võ Thị Thanh Truyền</p>
         </footer>
     </div>
 
@@ -66,11 +66,13 @@
         </div>
     </div>
 
-    <!-- THE AUDIO PHÁT TRỰC TIẾP MP3 (THAY THẾ YOUTUBE ĐỂ PHÁT TỨC THÌ) -->
-    <audio id="bg-music" loop preload="auto">
-        <source src="https://files.catbox.moe/2s990e.mp3" type="audio/mpeg">
-    </audio>
+    <!-- PLAYER YOUTUBE ẨN CHẠY BÀI THANH XUÂN - DA LAB -->
+    <div id="youtube-player-container" style="position: absolute; width: 0; height: 0; overflow: hidden; opacity: 0; pointer-events: none;">
+        <div id="player"></div>
+    </div>
 
+    <!-- YOUTUBE IFRAME API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script src="script.js"></script>
 </body>
 </html>
