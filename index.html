@@ -4,133 +4,103 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>12A3 — Một Thời Thanh Xuân</title>
+    <title>12A3 — Thanh xuân còn mãi</title>
 
-    <!-- FONT -->
+    <meta
+        name="description"
+        content="Kỷ yếu thanh xuân lớp 12A3 — nơi lưu giữ những năm tháng đẹp nhất."
+    >
+
+    <!-- ================= GOOGLE FONTS ================= -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Caveat:wght@500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Caveat:wght@400;500;600&family=Playfair+Display:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
 
-    <!-- HIỆU ỨNG HOA RƠI -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <!-- ================= CONFETTI ================= -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 
+    <!-- ================= CSS ================= -->
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- ÁNH SÁNG HOÀI NIỆM -->
-    <div class="warm-light"></div>
+    <!-- =====================================================
+         NỀN
+         ===================================================== -->
 
-    <!-- HẠT PHIM CŨ -->
-    <div class="film-grain"></div>
+    <div class="nostalgia-bg-overlay"></div>
 
-    <!-- HOA / LÁ RƠI -->
     <div id="falling-container"></div>
 
-    <!-- =========================
-         NHẠC NỀN
-    ========================== -->
+    <div class="film-grain"></div>
 
-    <audio id="bg-audio" loop preload="auto">
-        <source src="bg-music.mp3" type="audio/mpeg">
-    </audio>
-
-    <!-- NÚT NHẠC -->
-    <button
-        id="music-toggle-btn"
-        class="floating-btn"
-        onclick="toggleAudio(event)"
-        title="Bật / tắt nhạc">
-
-        <span id="audio-icon">♫</span>
-
-    </button>
+    <div class="warm-light warm-light-one"></div>
+    <div class="warm-light warm-light-two"></div>
 
 
-    <!-- =========================
-         MÀN HÌNH MỞ ĐẦU
-    ========================== -->
+    <!-- =====================================================
+         HERO / BÌA KỶ YẾU
+         ===================================================== -->
 
-    <section id="hero-screen" class="hero-section">
+    <section id="hero-screen" class="hero-screen">
 
-        <div class="memory-card">
+        <div class="hero-card">
 
-            <div class="cover-topline">
+            <div class="hero-inner">
 
-                <span>EST. 2023</span>
+                <div class="hero-top">
+                    <span>KỶ YẾU</span>
+                    <span>2022 — 2024</span>
+                </div>
 
-                <span>CLASS ARCHIVE</span>
+                <div class="hero-main">
 
-            </div>
+                    <p class="hero-overline">
+                        MỘT CHƯƠNG THANH XUÂN
+                    </p>
 
+                    <h1>12A3</h1>
 
-            <div class="cover-mark">
+                    <div class="hero-divider">
+                        <span></span>
+                        <i>✦</i>
+                        <span></span>
+                    </div>
 
-                12A3
+                    <h2>
+                        Thanh xuân còn mãi
+                    </h2>
 
-            </div>
+                    <p class="hero-quote">
+                        “Hai năm xa cách — Trọn đời nhớ thương...”
+                    </p>
 
+                    <p class="hero-description">
+                        Có những năm tháng tưởng như rất dài,
+                        nhưng khi ngoảnh lại chỉ còn vài trang ký ức.
+                        Và chúng ta — 12A3 — đã từng có một thanh xuân như thế.
+                    </p>
 
-            <div class="eyebrow">
+                </div>
 
-                KÝ ỨC THANH XUÂN
+                <button
+                    class="enter-button"
+                    type="button"
+                    onclick="enterSite(event)"
+                >
+                    <span>LẬT MỞ KÝ ỨC</span>
+                    <b>→</b>
+                </button>
 
-            </div>
-
-
-            <h1 class="hero-title">
-
-                Tập thể lớp
-                <em>12A3</em>
-
-            </h1>
-
-
-            <div class="title-rule">
-
-                <span>✦</span>
-
-            </div>
-
-
-            <div class="handwritten-quote">
-
-                “THANH XUÂN CỦA CHÚNG TA”
-
-            </div>
-
-
-            <p class="hero-description">
-
-                Một góc nhỏ của một thời thanh xuân.
-
-            </p>
-
-
-            <button
-                class="enter-btn"
-                onclick="enterSite(event)">
-
-                <span>LẬT MỞ KÝ ỨC</span>
-
-                <span class="btn-arrow">→</span>
-
-            </button>
-
-
-            <div class="cover-footer">
-
-                <span>MEMORIES</span>
-
-                <span>•</span>
-
-                <span>FRIENDSHIP</span>
-
-                <span>•</span>
-
-                <span>YOUTH</span>
+                <div class="hero-bottom">
+                    <span>12A3</span>
+                    <span>MEMORIES</span>
+                </div>
 
             </div>
 
@@ -139,76 +109,139 @@
     </section>
 
 
+    <!-- =====================================================
+         NỘI DUNG CHÍNH
+         ===================================================== -->
 
-    <!-- =========================
-         TRANG KỶ YẾU
-    ========================== -->
+    <main id="main-content" class="main-content hidden">
 
-    <main
-        id="main-content"
-        class="main-section hidden">
-
-
-        <!-- HEADER -->
+        <!-- ================= HEADER ================= -->
 
         <header class="main-header">
 
-            <div class="header-kicker">
-
-                12A3 · THE MEMORY BOOK
-
+            <div class="header-small">
+                KỶ YẾU THANH XUÂN
             </div>
 
-
-            <h1 class="nostalgia-title">
-
-                Những gương mặt
-
+            <h1>
+                Những người đã từng
                 <br>
-
-                <em>
-                    của một thời thanh xuân
-                </em>
-
+                <em>làm nên 12A3</em>
             </h1>
 
-
-            <p class="sub-heading">
-
-                Có những người chỉ đi cùng ta một đoạn đường,
-
-                <br>
-
-                nhưng ký ức về họ thì ở lại rất lâu.
-
+            <p>
+                Một lớp học, một khoảng trời,
+                một thời tuổi trẻ không thể quay lại.
             </p>
+
+            <div class="header-line">
+                <span></span>
+                <i>✦</i>
+                <span></span>
+            </div>
 
         </header>
 
 
+        <!-- =================================================
+             VIDEO THANH XUÂN
+             ================================================= -->
 
-        <!-- =========================
-             GIÁO VIÊN
-        ========================== -->
+        <section class="memory-video-section">
 
-        <section class="section-wrapper">
+            <div class="section-heading video-heading">
+
+                <div class="section-number">
+                    01
+                </div>
+
+                <div>
+                    <p class="eyebrow">
+                        THƯỚC PHIM KÝ ỨC
+                    </p>
+
+                    <h2>
+                        Thanh xuân của 12A3
+                    </h2>
+                </div>
+
+            </div>
+
+
+            <div class="memory-video-wrapper">
+
+                <div class="video-film-frame">
+
+                    <div class="film-strip film-strip-top"></div>
+
+                    <div class="film-strip film-strip-bottom"></div>
+
+                    <div class="film-corner top-left"></div>
+                    <div class="film-corner top-right"></div>
+                    <div class="film-corner bottom-left"></div>
+                    <div class="film-corner bottom-right"></div>
+
+
+                    <div class="video-screen">
+
+                        <iframe
+                            src="https://www.youtube.com/embed/vdHXNH5yCuM?rel=0"
+                            title="12A3 - MÀU NẮNG HẠ"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen>
+                        </iframe>
+
+                    </div>
+
+                </div>
+
+
+                <div class="video-caption">
+
+                    <span class="caption-line"></span>
+
+                    <div class="caption-text">
+
+                        <h3>
+                            12A3 — MÀU NẮNG HẠ
+                        </h3>
+
+                        <p>
+                            Có những khoảnh khắc chỉ cần nhìn lại,
+                            ta đã thấy cả một mùa thanh xuân trở về.
+                        </p>
+
+                    </div>
+
+                    <span class="caption-line"></span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             CÔ GIÁO
+             ================================================= -->
+
+        <section class="members-section teacher-section">
 
             <div class="section-heading">
 
-                <span class="section-number">
-                    01
-                </span>
+                <div class="section-number">
+                    02
+                </div>
 
                 <div>
-
-                    <p class="section-kicker">
-                        TEACHERS
+                    <p class="eyebrow">
+                        NGƯỜI DẪN ĐƯỜNG
                     </p>
 
-                    <h2 class="section-title">
-                        Người truyền lửa thầm lặng
+                    <h2>
+                        Cô chủ nhiệm
                     </h2>
-
                 </div>
 
             </div>
@@ -216,36 +249,32 @@
 
             <div
                 id="teacher-container"
-                class="teacher-grid">
-
-            </div>
+                class="teacher-container"
+            ></div>
 
         </section>
 
 
+        <!-- =================================================
+             THÀNH VIÊN
+             ================================================= -->
 
-        <!-- =========================
-             HỌC SINH
-        ========================== -->
-
-        <section class="section-wrapper">
+        <section class="members-section">
 
             <div class="section-heading">
 
-                <span class="section-number">
-                    02
-                </span>
+                <div class="section-number">
+                    03
+                </div>
 
                 <div>
-
-                    <p class="section-kicker">
-                        CLASS 12A3
+                    <p class="eyebrow">
+                        NHỮNG NGƯỜI BẠN
                     </p>
 
-                    <h2 class="section-title">
-                        Những người bạn năm ấy
+                    <h2>
+                        12A3
                     </h2>
-
                 </div>
 
             </div>
@@ -253,33 +282,36 @@
 
             <div
                 id="students-grid"
-                class="students-grid">
-
-            </div>
+                class="students-grid"
+            ></div>
 
         </section>
 
 
-
-        <!-- =========================
+        <!-- =================================================
              FOOTER
-        ========================== -->
+             ================================================= -->
 
-        <footer class="memory-footer">
+        <footer class="site-footer">
 
-            <div class="footer-line"></div>
+            <div class="footer-symbol">
+                ✦
+            </div>
+
+            <h2>
+                12A3
+            </h2>
 
             <p>
-
-                “Thanh xuân không quay lại,
-                nhưng ký ức thì còn mãi.”
-
+                Có một nơi gọi là thanh xuân.
+                <br>
+                Và có một tập thể chúng ta từng thuộc về.
             </p>
 
+            <div class="footer-divider"></div>
+
             <small>
-
-                12A3 · FOREVER IN OUR MEMORY
-
+                MADE WITH MEMORIES · 12A3
             </small>
 
         </footer>
@@ -287,86 +319,100 @@
     </main>
 
 
+    <!-- =====================================================
+         MUSIC
+         ===================================================== -->
 
-    <!-- =========================
-         MODAL LÁ THƯ
-    ========================== -->
+    <audio
+        id="bg-audio"
+        loop
+        preload="auto"
+    >
+        <source src="bg-music.mp3" type="audio/mpeg">
+    </audio>
+
+
+    <button
+        id="music-toggle-btn"
+        class="music-toggle-btn"
+        type="button"
+        onclick="toggleAudio(event)"
+        aria-label="Bật hoặc tắt nhạc"
+    >
+        <span id="audio-icon">🔇</span>
+    </button>
+
+
+    <!-- =====================================================
+         MODAL LỜI NHẮN
+         ===================================================== -->
 
     <div
         id="modal-overlay"
-        class="modal-backdrop hidden"
-        onclick="closeMessage()">
-
+        class="modal-overlay hidden"
+        onclick="closeMessage(event)"
+    >
 
         <div
-            class="modal-card"
-            onclick="event.stopPropagation()">
-
+            class="letter-modal"
+            onclick="event.stopPropagation()"
+        >
 
             <button
-                class="close-btn"
-                onclick="closeMessage()">
-
+                class="modal-close"
+                type="button"
+                onclick="closeMessage(event)"
+                aria-label="Đóng"
+            >
                 ×
-
             </button>
 
 
-            <div class="modal-header">
-
-                <div class="letter-meta">
-
-                    <span>12A3</span>
-
-                    <span>·</span>
-
-                    <span>LƯU BÚT</span>
-
-                </div>
-
-
-                <h3
-                    id="letter-recipient"
-                    class="recipient-name">
-
-                    Gửi...
-
-                </h3>
-
-
-                <div class="letter-rule"></div>
-
+            <div class="letter-top">
+                <span>12A3</span>
+                <span>THƯ GỬI THANH XUÂN</span>
             </div>
 
 
-            <div class="modal-body">
-
-                <p
-                    id="letter-content"
-                    class="letter-text">
-
-                </p>
-
+            <div class="letter-icon">
+                ✦
             </div>
 
 
-            <div class="modal-footer">
+            <p class="letter-label">
+                GỬI ĐẾN
+            </p>
 
-                <button
-                    class="modal-close-btn"
-                    onclick="closeMessage()">
 
-                    Gấp bức thư lại
-                    <span>↗</span>
+            <h2 id="letter-recipient">
+                —
+            </h2>
 
-                </button>
 
+            <div class="letter-rule">
+                <span></span>
+                <i>♡</i>
+                <span></span>
+            </div>
+
+
+            <div
+                id="letter-content"
+                class="letter-content"
+            ></div>
+
+
+            <div class="letter-bottom">
+                <span>12A3</span>
+                <span>♡</span>
             </div>
 
         </div>
 
     </div>
 
+
+    <!-- ================= JAVASCRIPT ================= -->
 
     <script src="script.js"></script>
 
