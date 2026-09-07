@@ -612,9 +612,9 @@ Nhớ lại hồi lớp 12, Tiên còn nhắc bài rồi bị cô Thoa bắt là
 
 
     {
-        name: " Tấn Tiên",
+        name: " Tấn Tiền",
 
-        message: `Gửi Tấn Tiên,
+        message: `Gửi Tấn Tiên yêu dấu,
 
 Lớp phó trật tự nhưng... không hề trật tự một chút nào! Hay làm trò để cả lớp cười ồ lên rồi quay mấy cái trend TikTok bị cả lớp ghẹo đỏ mặt, nhưng Tấn Tiên lại rất chân thành, ấm áp, cực kỳ tình cảm (chơi với Tiên là không bao giờ buồn nổi đâu, chỉ có cái tội hay nói móc nói méo người ta là đỉnh cao!).
 
