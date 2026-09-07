@@ -294,7 +294,7 @@ Thấm thoát đã hai năm, chúc cô nàng nền nã ngày nào khi bước v�
 
 Mỹ Tiên rất tình cảm và ấm áp, viết chữ đẹp lắm, rất tốt, rất chân thành và rất yêu thương bạn bè, luôn tôn trọng, thấu hiểu và sẵn sàng vì bạn bè làm nhiều chuyện. Tiên học rất giỏi và rất chăm, đôi khi tụi tôi không hiểu sao Mỹ Tiên có thể chăm được như vậy! Đặc biệt, Mỹ Tiên học văn giỏi lắm, văn phong giàu cảm xúc và tình thương. 
 
-Nhớ lại hồi lớp 12, Tiên còn "cứu bệ hạ" hú hồn vì mình không thuộc bài nên bị giáo viên bắt, lúc đó hai đứa nhìn nhau mà mắc cười muốn chết, nghĩ lại vẫn thấy thương hết sức! Chúc bạn trên con đường Luật kinh tế - Trường Đại học Công nghiệp TP.HCM sẽ luôn giữ được cái tâm sáng và trái tim đong đầy trắc ẩn ấy.`
+Nhớ lại hồi lớp 12, Tiên còn nhắc bài rồi bị cô Thoa bắt làm lại bài khác luôn mắc cười muốn chết, nghĩ lại vẫn thấy thương hết sức! Chúc Tiên trên con đường Luật kinh tế - Trường Đại học Công nghiệp TP.HCM sẽ luôn giữ được cái tâm sáng và trái tim đong đầy trắc ẩn ấy.`
     },
     {
         name: " Tấn Tiên",
