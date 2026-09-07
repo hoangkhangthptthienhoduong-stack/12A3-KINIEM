@@ -1,15 +1,53 @@
 // ==========================================
-// 1. LỰC KÍCH HOẠT ÂM THANH NGAY KHI TƯƠNG TÁC
+// 1. KÍCH HOẠT NHẠC YOUTUBE (THANH XUÂN - DA LAB)
 // ==========================================
-const music = document.getElementById('bg-music');
+let player;
+let isPlayerReady = false;
 let audioActivated = false;
+let isPlaying = false;
+
+// Khởi tạo YouTube Player với ID video Thanh Xuân
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+        height: '0',
+        width: '0',
+        videoId: 'GgQFO8dL5XQ', // ID video "Thanh Xuân - Da LAB"
+        playerVars: {
+            'autoplay': 0,
+            'controls': 0,
+            'loop': 1,
+            'playlist': 'GgQFO8dL5XQ'
+        },
+        events: {
+            'onReady': onPlayerReady
+        }
+    });
+}
+
+function onPlayerReady(event) {
+    isPlayerReady = true;
+}
+
+function playMusic() {
+    if (isPlayerReady && player && typeof player.playVideo === 'function') {
+        player.playVideo();
+        isPlaying = true;
+        updateAudioIcon(true);
+    }
+}
+
+function pauseMusic() {
+    if (isPlayerReady && player && typeof player.pauseVideo === 'function') {
+        player.pauseVideo();
+        isPlaying = false;
+        updateAudioIcon(false);
+    }
+}
 
 function enableAudioOnFirstClick() {
     if (!audioActivated) {
-        music.play().then(() => {
-            audioActivated = true;
-            updateAudioIcon(true);
-        }).catch(() => {});
+        playMusic();
+        audioActivated = true;
     }
 }
 
@@ -21,25 +59,23 @@ function enterSite() {
 }
 
 function toggleAudio(event) {
-    event.stopPropagation(); // Tránh bị xung đột click toàn màn hình
-    if (music.paused) {
-        music.play();
-        updateAudioIcon(true);
+    event.stopPropagation();
+    if (isPlaying) {
+        pauseMusic();
     } else {
-        music.pause();
-        updateAudioIcon(false);
+        playMusic();
     }
 }
 
-function updateAudioIcon(isPlaying) {
+function updateAudioIcon(playing) {
     const icon = document.getElementById('audio-icon');
     if (icon) {
-        icon.innerText = isPlaying ? '🔊' : '🔇';
+        icon.innerText = playing ? '🔊' : '🔇';
     }
 }
 
 // ==========================================
-// 2. DỮ LIỆU CÔ GIÁO VÀ HỌC SINH
+// 2. DỮ LIỆU CÔ GIÁO VÀ HỌC SINH 12A3
 // ==========================================
 const teacherData = {
     name: "Cô Võ Thị Thanh Truyền",
@@ -215,7 +251,7 @@ Hai năm trôi qua, sự hòa đồng, năng động và nụ cười tươi vui
         name: "Nguyễn Thị Trinh",
         message: `Gửi Nguyễn Thị Trinh,
 
-Cô gái thể thao năng động và tràn đầy sức sống của lớp ơi, thấm thoát đã hai năm chúng ta mỗi người một hướng. Chúc Trinh tại ngành Giáo dục Thể chất - Đại học Cần Thơ sẽ luôn giữ được sự bền bỉ, sức khỏe dồi dào và tinh thần thép. Mong rằng sau này, trong vai trò là một giáo viên hay huấn luyện viên, bạn sẽ tiếp tục truyền cảm hứng vận động, lối sống tích cực cho thật nhiều thế hệ học trònoi theo.`
+Cô gái thể thao năng động và tràn đầy sức sống của lớp ơi, thấm thoát đã hai năm chúng ta mỗi người một hướng. Chúc Trinh tại ngành Giáo dục Thể chất - Đại học Cần Thơ sẽ luôn giữ được sự bền bỉ, sức khỏe dồi dào và tinh thần thép. Mong rằng sau này, trong vai trò là một giáo viên hay huấn luyện viên, bạn sẽ tiếp tục truyền cảm hứng vận động, lối sống tích cực cho thật nhiều thế hệ học trò noi theo.`
     },
     {
         name: "Huỳnh Thanh Trúc",
