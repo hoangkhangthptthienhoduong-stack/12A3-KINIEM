@@ -5,29 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>12A3 - Kỷ Niệm Thanh Xuân</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Thư viện Canvas Confetti tạo hiệu ứng pháo hoa kim tuyến -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
+    <!-- Container tạo hiệu ứng máy bay giấy & hoa rơi bồng bềnh -->
+    <div id="falling-container"></div>
+
     <div class="container">
         <header>
-            <h1>LỜI NHẮN NHỦ 12A3 - HAI NĂM NHÌN LẠI</h1>
+            <h1 class="glow-title">LỜI NHẮN NHỦ 12A3 - HAI NĂM NHÌN LẠI</h1>
             <p class="subtitle">Trọn vẹn tình cảm gửi đến Cô Võ Thị Thanh Truyền và 31 thành viên</p>
+            <button id="btn-explore" class="btn-sparkle">Khám Phá Ký Ức ✨</button>
         </header>
 
-        <div class="player-box">
+        <div class="player-box glass-card">
             <div class="player-info">
                 <span class="music-icon">🎵</span>
                 <div>
-                    <strong>Nhạc nền hoài niệm:</strong> Bụi Phấn (Piano Version)
+                    <strong>Nhạc nền hoài niệm:</strong> Giấc Mơ Trưa & Thanh Xuân (Piano Melancholic Version)
                 </div>
             </div>
             <audio id="bg-music" controls loop preload="auto">
-                <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=piano-moment-114823.mp3" type="audio/mpeg">
+                <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a78370.mp3?filename=sad-piano-nostalgia-107099.mp3" type="audio/mpeg">
                 Trình duyệt của bạn không hỗ trợ phát âm thanh.
             </audio>
         </div>
 
-        <div class="search-box">
-            <input type="text" id="search-input" placeholder="🔍 Tìm kiếm tên người nhận...">
+        <div class="search-box glass-card">
+            <label for="select-name">📋 Chọn người nhận thư:</label>
+            <select id="select-name">
+                <option value="ALL">-- Tất cả bài viết (32 thành viên) --</option>
+            </select>
         </div>
 
         <div id="cards-container"></div>
