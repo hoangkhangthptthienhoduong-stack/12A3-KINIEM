@@ -1,247 +1,109 @@
-:root {
-    --primary-color: #6c5ce7;
-    --accent-color: #a29bfe;
-    --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    --card-bg: rgba(255, 255, 255, 0.85);
-    --text-color: #2d3436;
-    --teacher-color: #e17055;
-}
-
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    background: var(--bg-gradient);
-    color: var(--text-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1e1e2f, #2d2b42);
+    color: #ffffff;
     min-height: 100vh;
-    overflow-x: hidden;
-}
-
-.hidden {
-    display: none !important;
-}
-
-/* Nút Âm Thanh */
-#audio-control {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 9999;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(8px);
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
     display: flex;
-    align-items: center;
     justify-content: center;
-    font-size: 22px;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-    transition: transform 0.2s, background 0.3s;
-}
-
-#audio-control:hover {
-    transform: scale(1.1);
-}
-
-/* Hero Screen */
-#hero-screen {
-    height: 100vh;
-    display: flex;
     align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 20px;
-    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1200') center/cover no-repeat;
-    color: #fff;
-}
-
-.hero-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 3rem;
-    margin-bottom: 15px;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-}
-
-.hero-subtitle {
-    font-size: 1.1rem;
-    margin-bottom: 30px;
-    opacity: 0.9;
-}
-
-.btn-enter {
-    padding: 15px 35px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #fff;
-    background: var(--primary-color);
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    box-shadow: 0 8px 20px rgba(108, 92, 231, 0.4);
-    transition: all 0.3s ease;
-}
-
-.btn-enter:hover {
-    transform: translateY(-3px);
-    background: #5b4bc4;
-}
-
-/* Main Content */
-.main-header {
-    text-align: center;
-    padding: 40px 20px 20px;
-}
-
-.main-header h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
-    letter-spacing: 2px;
-    color: #2d3436;
-}
-
-.main-header p {
-    color: #636e72;
-    margin-top: 5px;
+    overflow: hidden;
+    position: relative;
 }
 
 .container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.section-group {
-    margin-bottom: 40px;
-}
-
-.section-title {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-    padding-bottom: 8px;
-    border-bottom: 2px solid var(--primary-color);
-    color: #2d3436;
-}
-
-.teacher-grid, .students-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 18px;
-}
-
-/* Thẻ Thành Viên */
-.member-card {
-    background: var(--card-bg);
-    padding: 20px;
-    border-radius: 12px;
     text-align: center;
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    user-select: none;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255,255,255,0.6);
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.member-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-}
-
-.teacher-card {
-    background: #fff;
-    border: 2px solid var(--teacher-color);
-}
-
-.teacher-card .member-name {
-    color: var(--teacher-color);
-    font-weight: 700;
-}
-
-.member-name {
-    font-size: 1.05rem;
-    font-weight: 600;
-}
-
-/* Thanh Tiến Trình Nhấn Giữ */
-.progress-bar {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 4px;
-    width: 0%;
-    background: var(--primary-color);
-    transition: width 1.8s linear;
-}
-
-.teacher-card .progress-bar {
-    background: var(--teacher-color);
-}
-
-.member-card.pressing .progress-bar {
-    width: 100%;
-}
-
-/* Modal Lời Nhắn */
-#modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.6);
-    backdrop-filter: blur(6px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10000;
-    padding: 20px;
-}
-
-.modal-card {
-    background: #fff;
-    width: 100%;
-    max-width: 600px;
-    max-height: 80vh;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
     border-radius: 16px;
-    padding: 30px;
-    position: relative;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    display: flex;
-    flex-direction: column;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    z-index: 10;
+    max-width: 90%;
+    width: 400px;
 }
 
-.close-btn {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    background: none;
-    border: none;
+h1 {
     font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #ff9a9e;
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    color: #cccccc;
+    margin-bottom: 1.5rem;
+}
+
+.main-btn {
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(45deg, #ff758c, #ff7eb3);
+    border: none;
+    border-radius: 25px;
     cursor: pointer;
-    color: #888;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    outline: none;
 }
 
-#letter-recipient {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
-    margin-bottom: 15px;
-    color: var(--primary-color);
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
+.main-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 117, 140, 0.4);
 }
 
-.letter-body {
-    overflow-y: auto;
-    font-size: 1.05rem;
-    line-height: 1.7;
-    color: #444;
-    white-space: pre-line;
+.main-btn:active {
+    transform: scale(0.95);
+}
+
+.hidden {
+    display: none;
+}
+
+#message-box {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    animation: fadeIn 0.8s ease forwards;
+}
+
+.message-text {
+    font-style: italic;
+    color: #fecfef;
+    line-height: 1.4;
+}
+
+/* Hiệu ứng cánh hoa rơi */
+.petal {
+    position: absolute;
+    top: -10px;
+    background-color: #ffb6c1;
+    border-radius: 15px 0 15px 0;
+    opacity: 0.8;
+    pointer-events: none;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(105vh) rotate(360deg);
+        opacity: 0.2;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
