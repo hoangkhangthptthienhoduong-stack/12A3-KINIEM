@@ -3,83 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hành Trình Tri Ân 12A3 - Thanh Xuân</title>
+    <title>12A3 - Kỷ Niệm Thanh Xuân</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Canvas Confetti Library cho hiệu ứng Bắn Pháo Hoa Kim Tuyến -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
-<body onclick="playInstantAudio()">
-
-    <!-- THẺ AUDIO PHÁT TRỰC TIẾP MP3 (PRELOAD TẠO TỐC ĐỘ TỨC THÌ) -->
-    <audio id="bg-audio" loop preload="auto">
-        <source src="https://files.catbox.moe/2s990e.mp3" type="audio/mpeg">
-    </audio>
-
-    <!-- CONTAINER TẠO HIỆU ỨNG RƠI -->
-    <div id="falling-container"></div>
-
-    <!-- MÀN HÌNH CHỜ (HERO SCREEN) -->
-    <div id="hero-screen" class="hero-screen">
-        <div class="hero-backdrop"></div>
-        <div class="hero-content">
-            <div class="hero-badge">12A3 • MEMORIES</div>
-            <h1 class="hero-title">Ký Ức Thanh Xuân</h1>
-            <p class="hero-subtitle">Hai năm xa cách — Nơi cất giữ những yêu thương và hoài niệm đẹp nhất</p>
-            <button class="enter-btn" onclick="enterSite(event)">
-                <span>Khám Phá Ký Ức</span> ✨
-            </button>
-        </div>
-    </div>
-
-    <!-- MÀN HÌNH CHÍNH -->
-    <div id="main-content" class="main-content hidden">
-        
-        <!-- NÚT BẬT/TẮT NHẠC -->
-        <button class="audio-toggle-btn" onclick="toggleAudio(event)" title="Bật/Tắt Nhạc">
-            <span id="audio-icon">🔊</span>
-        </button>
-
-        <header class="header">
-            <div class="header-tag">NIÊN KHÓA 2021 - 2024</div>
-            <h2>HÀNH TRÌNH TRI ÂN 12A3</h2>
-            <p>Nhấn vào thẻ tên để mở lá thư cất giữ ký ức riêng</p>
+<body>
+    <div class="container">
+        <header>
+            <h1>LỜI NHẮN NHỦ 12A3 - HAI NĂM NHÌN LẠI</h1>
+            <p class="subtitle">Trọn vẹn tình cảm gửi đến Cô Võ Thị Thanh Truyền và 31 thành viên</p>
         </header>
 
-        <main class="container">
-            <section class="teacher-section">
-                <div class="section-title">
-                    <span class="sparkle">✨</span> NGƯỜI LÁI ĐÒ TẬN TỤY <span class="sparkle">✨</span>
+        <div class="player-box">
+            <div class="player-info">
+                <span class="music-icon">🎵</span>
+                <div>
+                    <strong>Nhạc nền hoài niệm:</strong> Bụi Phấn (Piano Version)
                 </div>
-                <div id="teacher-container"></div>
-            </section>
-
-            <section class="students-section">
-                <div class="section-title">
-                    <span class="sparkle">🎓</span> THÀNH VIÊN LỚP 12A3 <span class="sparkle">🎓</span>
-                </div>
-                <div id="students-grid" class="students-grid"></div>
-            </section>
-        </main>
-
-        <footer class="footer">
-            <p>Thiết kế bởi Đinh Hoàng Khang — Dành tặng Lớp 12A3 & Cô Võ Thị Thanh Truyền</p>
-        </footer>
-    </div>
-
-    <!-- POPUP MODAL HIỂN THỊ THƯ -->
-    <div id="modal-overlay" class="modal-overlay hidden" onclick="closeMessage()">
-        <div class="letter-modal" onclick="event.stopPropagation()">
-            <button class="close-btn" onclick="closeMessage()">&times;</button>
-            <div class="letter-header">
-                <span class="envelope-icon">💌</span>
-                <h3 id="letter-recipient">Người Nhận</h3>
             </div>
-            <div class="letter-body">
-                <p id="letter-content">Nội dung lá thư sẽ xuất hiện ở đây...</p>
-            </div>
+            <audio id="bg-music" controls loop preload="auto">
+                <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=piano-moment-114823.mp3" type="audio/mpeg">
+                Trình duyệt của bạn không hỗ trợ phát âm thanh.
+            </audio>
         </div>
+
+        <div class="search-box">
+            <input type="text" id="search-input" placeholder="🔍 Tìm kiếm tên người nhận...">
+        </div>
+
+        <div id="cards-container"></div>
     </div>
 
     <script src="script.js"></script>
