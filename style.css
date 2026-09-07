@@ -1,109 +1,296 @@
+/* RESET & KHAI BÁO BIẾN MÀU */
+:root {
+    --primary-color: #d94b68;
+    --secondary-color: #f7a8b8;
+    --bg-gradient: linear-gradient(135deg, #fff0f3 0%, #ffccd5 100%);
+    --card-bg: rgba(255, 255, 255, 0.85);
+    --text-dark: #4a3e3d;
+    --teacher-card-bg: linear-gradient(135deg, #fff5f6 0%, #ffe3e8 100%);
+    --shadow: 0 8px 20px rgba(217, 75, 104, 0.15);
+}
+
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #1e1e2f, #2d2b42);
-    color: #ffffff;
+    font-family: 'Quicksand', sans-serif;
+    background: var(--bg-gradient);
+    color: var(--text-dark);
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+    overflow-x: hidden;
     position: relative;
 }
 
-.container {
-    text-align: center;
-    padding: 2rem;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border-radius: 16px;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    z-index: 10;
-    max-width: 90%;
-    width: 400px;
-}
-
-h1 {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-    color: #ff9a9e;
-}
-
-.subtitle {
-    font-size: 0.9rem;
-    color: #cccccc;
-    margin-bottom: 1.5rem;
-}
-
-.main-btn {
-    padding: 12px 24px;
-    font-size: 1rem;
-    font-weight: bold;
-    color: #fff;
-    background: linear-gradient(45deg, #ff758c, #ff7eb3);
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    outline: none;
-}
-
-.main-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(255, 117, 140, 0.4);
-}
-
-.main-btn:active {
-    transform: scale(0.95);
-}
-
 .hidden {
-    display: none;
+    display: none !important;
 }
 
-#message-box {
-    margin-top: 1.5rem;
-    padding: 1rem;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    animation: fadeIn 0.8s ease forwards;
-}
-
-.message-text {
-    font-style: italic;
-    color: #fecfef;
-    line-height: 1.4;
-}
-
-/* Hiệu ứng cánh hoa rơi */
-.petal {
-    position: absolute;
-    top: -10px;
-    background-color: #ffb6c1;
-    border-radius: 15px 0 15px 0;
-    opacity: 0.8;
+/* HIỆU ỨNG RƠI BỒNG BỀNH */
+#falling-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     pointer-events: none;
-    animation: fall linear infinite;
+    z-index: 10;
 }
 
-@keyframes fall {
-    0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 0.8;
-    }
-    100% {
-        transform: translateY(105vh) rotate(360deg);
-        opacity: 0.2;
-    }
+/* MÀN HÌNH HERO (MÀN HÌNH CHỜ) */
+.hero-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(135deg, #ffb3c1 0%, #ff8fa3 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 1000;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+.hero-content {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 40px 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    max-width: 90%;
+    width: 450px;
+}
+
+.hero-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.hero-subtitle {
+    font-size: 1rem;
+    margin-bottom: 25px;
+    color: #666;
+}
+
+.enter-btn {
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(217, 75, 104, 0.4);
+}
+
+.enter-btn:hover {
+    transform: translateY(-2px);
+    background: #c33d58;
+}
+
+/* NÚT TẮT/BẬT NHẠC */
+.audio-toggle-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    z-index: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s;
+}
+
+.audio-toggle-btn:hover {
+    transform: scale(1.1);
+}
+
+/* HEADER & MAIN CONTAINER */
+.header {
+    text-align: center;
+    padding: 40px 20px 20px;
+}
+
+.header h2 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.8rem;
+    color: var(--primary-color);
+}
+
+.header p {
+    font-size: 1rem;
+    color: #666;
+    margin-top: 5px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h3 {
+    text-align: center;
+    color: var(--primary-color);
+    margin: 30px 0 15px;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+}
+
+/* CARD VÀ LƯỚI BỐ TRÍ */
+.teacher-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.students-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+}
+
+.member-card {
+    background: var(--card-bg);
+    border: 2px solid #ffe6ea;
+    border-radius: 12px;
+    padding: 18px 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: var(--shadow);
+    user-select: none;
+}
+
+.member-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--secondary-color);
+    box-shadow: 0 10px 25px rgba(217, 75, 104, 0.25);
+}
+
+.member-card.teacher-card {
+    background: var(--teacher-card-bg);
+    border: 2px solid var(--secondary-color);
+    width: 260px;
+    padding: 22px;
+}
+
+.member-name {
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text-dark);
+}
+
+.teacher-card .member-name {
+    font-size: 1.15rem;
+    color: var(--primary-color);
+}
+
+/* MODAL POPUP CỬA SỔ THƯ */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    padding: 20px;
+}
+
+.letter-modal {
+    background: #fff;
+    width: 100%;
+    max-width: 550px;
+    border-radius: 16px;
+    padding: 30px;
+    position: relative;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+}
+
+@keyframes popIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    color: #999;
+    cursor: pointer;
+}
+
+.letter-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 2px dashed #f0f0f0;
+    padding-bottom: 12px;
+    margin-bottom: 15px;
+}
+
+.envelope-icon {
+    font-size: 1.5rem;
+}
+
+.letter-header h3 {
+    margin: 0;
+    color: var(--primary-color);
+    font-size: 1.25rem;
+    text-align: left;
+}
+
+.letter-body {
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.letter-body p {
+    line-height: 1.7;
+    white-space: pre-line;
+    font-size: 0.98rem;
+    color: #333;
+}
+
+.footer {
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 0.85rem;
+    color: #888;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+    .students-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
+    .header h2 {
+        font-size: 2.2rem;
+    }
 }
