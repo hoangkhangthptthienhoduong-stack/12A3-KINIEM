@@ -1,5 +1,5 @@
 /* ==========================================
-   RESET & BIẾN MÀU SẮC SẶC SỠ (GRADIENT)
+   RESET & PHỐI MÀU NỀN SẶC SỠ
    ========================================== */
 * {
     margin: 0;
@@ -7,22 +7,11 @@
     box-sizing: border-box;
 }
 
-:root {
-    --primary-grad: linear-gradient(135deg, #FF416C 0%, #FF4B2B 100%);
-    --secondary-grad: linear-gradient(135deg, #8A2387 0%, #E94057 50%, #F27121 100%);
-    --card-grad-1: linear-gradient(135deg, #a8ff78 0%, #78ffd6 100%);
-    --card-grad-2: linear-gradient(135deg, #FFD1FF 0%, #FA8BFF 100%);
-    --card-grad-3: linear-gradient(135deg, #FEE140 0%, #FA709A 100%);
-    --teacher-grad: linear-gradient(135deg, #FF0844 0%, #FFB199 100%);
-    --glass-bg: rgba(255, 255, 255, 0.2);
-    --glass-border: rgba(255, 255, 255, 0.4);
-}
-
 body {
     font-family: 'Montserrat', sans-serif;
-    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background: linear-gradient(-45deg, #ff0055, #7600bc, #00d2ff, #00f5d4);
     background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
+    animation: gradientBG 12s ease infinite;
     min-height: 100vh;
     color: #fff;
     overflow-x: hidden;
@@ -40,7 +29,7 @@ body {
 }
 
 /* ==========================================
-   HIỆU ỨNG RƠI (FALLING EFFECT) & NÚT FLOAT
+   HIỆU ỨNG RƠI & NÚT NHẠC
    ========================================== */
 #falling-container {
     position: fixed;
@@ -55,9 +44,9 @@ body {
 .falling-item {
     position: absolute;
     top: -50px;
-    font-size: 1.8rem;
+    font-size: 2rem;
     animation: fall linear infinite;
-    filter: drop-shadow(0 0 5px rgba(255,255,255,0.8));
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.9));
 }
 
 @keyframes fall {
@@ -69,20 +58,20 @@ body {
     position: fixed;
     bottom: 25px;
     right: 25px;
-    width: 60px;
-    height: 60px;
+    width: 65px;
+    height: 65px;
     border-radius: 50%;
-    background: var(--primary-grad);
-    border: 3px solid #fff;
-    font-size: 1.8rem;
+    background: linear-gradient(135deg, #ff007f, #7928ca);
+    border: 3px solid #ffff00;
+    font-size: 2rem;
     cursor: pointer;
-    box-shadow: 0 0 20px rgba(255, 75, 43, 0.8);
+    box-shadow: 0 0 25px #ff007f, 0 0 10px #ffff00;
     z-index: 99;
     transition: transform 0.3s ease;
 }
 
 .floating-btn:hover {
-    transform: scale(1.15) rotate(15deg);
+    transform: scale(1.2) rotate(15deg);
 }
 
 /* ==========================================
@@ -97,75 +86,78 @@ body {
 }
 
 .hero-card {
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(15px);
-    border: 2px solid var(--glass-border);
+    /* Đổ nền tối bán trong suốt để làm nổi chữ bên trong */
+    background: rgba(15, 12, 41, 0.75);
+    backdrop-filter: blur(20px);
+    border: 4px solid #00f5d4;
     padding: 50px 30px;
-    border-radius: 30px;
+    border-radius: 35px;
     text-align: center;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-    max-width: 600px;
+    box-shadow: 0 0 50px rgba(0, 245, 212, 0.6), inset 0 0 20px rgba(0, 245, 212, 0.3);
+    max-width: 650px;
     width: 100%;
     animation: floatCard 4s ease-in-out infinite;
 }
 
 @keyframes floatCard {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
+    50% { transform: translateY(-12px); }
 }
 
 .sparkle-badge {
     display: inline-block;
-    padding: 8px 20px;
-    background: #FFE000;
-    background: linear-gradient(to right, #799F0C, #FFE000);
+    padding: 10px 25px;
+    background: #ffff00;
     color: #000;
-    font-weight: 800;
+    font-weight: 900;
     border-radius: 50px;
-    font-size: 0.9rem;
+    font-size: 1rem;
     margin-bottom: 20px;
-    box-shadow: 0 0 15px #FFE000;
+    box-shadow: 0 0 20px #ffff00;
+    letter-spacing: 1px;
 }
 
 .hero-title {
     font-family: 'Playfair Display', serif;
-    font-size: 3.2rem;
-    font-weight: 700;
-    text-shadow: 0 0 20px rgba(255,255,255,0.8);
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: #ffffff;
+    /* Đổ bóng chữ viền đên tương phản mạnh */
+    text-shadow: 0 0 20px #ff007f, 3px 3px 0px #000;
     margin-bottom: 15px;
-    color: #FFF;
 }
 
 .hero-subtitle {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
+    font-weight: 700;
     margin-bottom: 35px;
-    color: #FEE140;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    color: #00f5d4;
+    text-shadow: 2px 2px 4px #000;
 }
 
 .enter-btn {
-    padding: 18px 45px;
-    font-size: 1.2rem;
-    font-weight: 800;
-    color: #fff;
-    background: var(--secondary-grad);
-    border: none;
+    padding: 20px 50px;
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: #ffffff;
+    background: linear-gradient(135deg, #ff0055, #ff5000);
+    border: 3px solid #ffffff;
     border-radius: 50px;
     cursor: pointer;
-    box-shadow: 0 10px 30px rgba(233, 64, 87, 0.6);
-    transition: all 0.4s ease;
+    box-shadow: 0 0 30px #ff0055;
+    transition: all 0.3s ease;
 }
 
 .enter-btn:hover {
-    transform: scale(1.08);
-    box-shadow: 0 15px 40px rgba(242, 113, 33, 0.9);
+    transform: scale(1.1);
+    box-shadow: 0 0 50px #ff5000, 0 0 20px #ffffff;
 }
 
 /* ==========================================
    2. TRANG NỘI DUNG CHÍNH (MAIN CONTENT)
    ========================================== */
 .main-section {
-    max-width: 1200px;
+    max-width: 1250px;
     margin: 0 auto;
     padding: 50px 20px 100px 20px;
 }
@@ -173,19 +165,27 @@ body {
 .main-header {
     text-align: center;
     margin-bottom: 50px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 25px;
+    border-radius: 30px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
 }
 
 .glowing-title {
-    font-size: 2.8rem;
-    font-weight: 800;
-    color: #FFF;
-    text-shadow: 0 0 10px #FF758C, 0 0 20px #FF758C, 0 0 30px #FF758C;
+    font-size: 3rem;
+    font-weight: 900;
+    color: #ffffff;
+    /* Viền chữ dạ quang phát sáng */
+    text-shadow: 0 0 10px #ff007f, 0 0 20px #ff007f, 0 0 40px #ff007f, 3px 3px 5px #000;
 }
 
 .sub-heading {
     margin-top: 10px;
-    font-size: 1.1rem;
-    color: #FFE000;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #ffff00;
+    text-shadow: 1px 1px 3px #000;
 }
 
 .section-wrapper {
@@ -193,16 +193,20 @@ body {
 }
 
 .section-title {
-    font-size: 1.8rem;
-    margin-bottom: 25px;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 30px;
     text-align: center;
-    padding: 12px 25px;
-    background: rgba(0, 0, 0, 0.3);
+    padding: 15px 35px;
+    background: #000000;
     border-radius: 50px;
     display: table;
     margin-left: auto;
     margin-right: auto;
-    border: 2px solid rgba(255,255,255,0.3);
+    border: 3px solid #00f5d4;
+    box-shadow: 0 0 25px rgba(0, 245, 212, 0.8);
+    text-shadow: 2px 2px 4px #000;
 }
 
 /* GRID LAYOUTS */
@@ -214,68 +218,73 @@ body {
 
 .students-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 25px;
 }
 
-/* CARDS STYLING - SẶC SỠ & NỔI BẬT */
+/* BẢNG MÀU KHUNG CỰC KỲ SẶC SỠ VÀ NỔI BẬT */
 .member-card {
-    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
-    border-radius: 20px;
-    padding: 25px 15px;
+    border-radius: 25px;
+    padding: 30px 15px;
     text-align: center;
     cursor: pointer;
     position: relative;
-    overflow: hidden;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border: 3px solid #fff;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    /* Viền trắng dày + Bóng đổ màu đậm bên dưới */
+    border: 4px solid #ffffff;
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5);
 }
 
-/* Tự động đổi màu nền cho từng thẻ sinh động */
-.students-grid .member-card:nth-child(4n+1) {
-    background: linear-gradient(135deg, #FF9A8B 0%, #FF6A88 55%, #FF99AC 100%);
+/* Phối màu chuyển sắc (Gradient) rực rỡ tương phản cao */
+.students-grid .member-card:nth-child(5n+1) {
+    background: linear-gradient(135deg, #ff0844 0%, #ffb199 100%);
 }
-.students-grid .member-card:nth-child(4n+2) {
-    background: linear-gradient(135deg, #FAE154 0%, #7B2CBF 100%);
-    color: #fff;
+.students-grid .member-card:nth-child(5n+2) {
+    background: linear-gradient(135deg, #f12711 0%, #f5af19 100%);
 }
-.students-grid .member-card:nth-child(4n+3) {
-    background: linear-gradient(135deg, #43CBFF 0%, #9708CC 100%);
+.students-grid .member-card:nth-child(5n+3) {
+    background: linear-gradient(135deg, #b224ef 0%, #7579ff 100%);
 }
-.students-grid .member-card:nth-child(4n+4) {
-    background: linear-gradient(135deg, #F9D423 0%, #FF4E50 100%);
+.students-grid .member-card:nth-child(5n+4) {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+}
+.students-grid .member-card:nth-child(5n+5) {
+    background: linear-gradient(135deg, #ff007f 0%, #7928ca 100%);
 }
 
+/* Khung giáo viên đặc biệt lớn và phát sáng vàng */
 .teacher-card {
-    background: var(--teacher-grad) !important;
-    max-width: 350px;
+    background: linear-gradient(135deg, #ff0055 0%, #7600bc 100%) !important;
+    max-width: 380px;
     width: 100%;
-    padding: 35px 20px;
-    border: 4px solid #FFE000;
-    box-shadow: 0 0 30px rgba(255, 224, 0, 0.6);
+    padding: 40px 20px;
+    border: 5px solid #ffff00 !important;
+    box-shadow: 0 0 40px #ffff00, 0 15px 30px rgba(0,0,0,0.7) !important;
 }
 
 .member-card:hover {
-    transform: translateY(-10px) scale(1.05);
-    box-shadow: 0 20px 30px rgba(0,0,0,0.4), 0 0 20px rgba(255,255,255,0.8);
+    transform: translateY(-12px) scale(1.08);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 30px #ffffff;
     z-index: 5;
 }
 
+/* Tên thành viên in đậm và có nét viền đen bao quanh */
 .member-name {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: #FFFFFF;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #ffffff;
+    text-shadow: 2px 2px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000, 0px 4px 10px rgba(0,0,0,0.8);
+    letter-spacing: 0.5px;
 }
 
 .teacher-card .member-name {
-    font-size: 1.6rem;
-    color: #FFF;
+    font-size: 1.8rem;
+    color: #ffff00;
+    text-shadow: 2px 2px 0px #000, 0 0 15px #ff0055;
 }
 
 /* ==========================================
-   3. MODAL HỘP THƯ (POPUP)
+   3. MODAL HỘP THƯ (POPUP BỨC THƯ)
    ========================================== */
 .modal-backdrop {
     position: fixed;
@@ -283,8 +292,8 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(12px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -293,22 +302,22 @@ body {
 }
 
 .modal-card {
-    background: linear-gradient(135deg, #ffffff 0%, #fff3f5 100%);
-    border-radius: 25px;
-    max-width: 650px;
+    background: #ffffff;
+    border-radius: 30px;
+    max-width: 680px;
     width: 100%;
     max-height: 85vh;
     display: flex;
     flex-direction: column;
     padding: 35px;
     position: relative;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 30px #FF416C;
-    border: 4px solid #FF758C;
-    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 0 50px #ff007f, 0 25px 60px rgba(0,0,0,0.9);
+    border: 5px solid #ff007f;
+    animation: popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 @keyframes popIn {
-    0% { transform: scale(0.5); opacity: 0; }
+    0% { transform: scale(0.6); opacity: 0; }
     100% { transform: scale(1); opacity: 1; }
 }
 
@@ -318,70 +327,73 @@ body {
     right: 20px;
     background: transparent;
     border: none;
-    font-size: 2.2rem;
-    color: #FF416C;
+    font-size: 2.5rem;
+    color: #ff007f;
     cursor: pointer;
-    font-weight: 700;
+    font-weight: 900;
 }
 
 .modal-header {
     text-align: center;
-    border-bottom: 2px dashed #FF758C;
+    border-bottom: 3px dashed #ff007f;
     padding-bottom: 15px;
     margin-bottom: 20px;
 }
 
 .envelope-icon {
-    font-size: 2.5rem;
+    font-size: 3rem;
 }
 
 .recipient-name {
     font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    color: #D61C4E;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #ff0055;
     margin-top: 5px;
 }
 
 .modal-body {
     overflow-y: auto;
-    padding-right: 10px;
+    padding-right: 12px;
 }
 
+/* Nội dung bức thư màu đen đậm dễ đọc */
 .letter-text {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     line-height: 1.8;
-    color: #2B2B2B;
+    color: #111111;
+    font-weight: 600;
     white-space: pre-line;
     text-align: justify;
 }
 
 .modal-footer {
     text-align: center;
-    margin-top: 20px;
-    padding-top: 10px;
+    margin-top: 25px;
 }
 
 .modal-close-btn {
-    padding: 12px 35px;
-    background: var(--primary-grad);
-    color: #fff;
-    border: none;
+    padding: 14px 40px;
+    background: linear-gradient(135deg, #ff0055, #7600bc);
+    color: #ffffff;
+    border: 2px solid #ffffff;
     border-radius: 50px;
-    font-weight: 700;
+    font-size: 1.1rem;
+    font-weight: 800;
     cursor: pointer;
-    box-shadow: 0 5px 15px rgba(255, 65, 108, 0.5);
+    box-shadow: 0 5px 20px rgba(255, 0, 85, 0.6);
     transition: transform 0.2s ease;
 }
 
 .modal-close-btn:hover {
-    transform: scale(1.05);
+    transform: scale(1.08);
 }
 
-/* Nút cuộn tùy chỉnh cho modal */
+/* Thanh cuộn của Popup */
 .modal-body::-webkit-scrollbar {
     width: 8px;
 }
 .modal-body::-webkit-scrollbar-thumb {
-    background: #FF758C;
+    background: #ff007f;
     border-radius: 10px;
 }
