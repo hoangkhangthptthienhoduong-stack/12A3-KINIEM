@@ -1,4 +1,3 @@
-// Giữ nguyên toàn bộ logic mở thiệp, nhạc nền và confetti
 let audioStarted = false;
 
 function playInstantAudio() {
@@ -8,7 +7,7 @@ function playInstantAudio() {
         audio.play().then(() => {
             audioStarted = true;
             updateAudioIcon(true);
-        }).catch(err => console.log("Audio waiting for user click"));
+        }).catch(err => console.log("Audio requires user gesture"));
     }
 }
 
@@ -46,8 +45,8 @@ function updateAudioIcon(isPlaying) {
 
 function triggerConfettiBoom() {
     if (typeof confetti === 'function') {
-        confetti({ particleCount: 80, spread: 70, origin: { y: 0.6, x: 0.2 } });
-        confetti({ particleCount: 80, spread: 70, origin: { y: 0.6, x: 0.8 } });
+        confetti({ particleCount: 70, spread: 60, origin: { y: 0.6, x: 0.2 } });
+        confetti({ particleCount: 70, spread: 60, origin: { y: 0.6, x: 0.8 } });
     }
 }
 
@@ -56,8 +55,8 @@ function triggerCardConfetti(event) {
         const x = event ? event.clientX / window.innerWidth : 0.5;
         const y = event ? event.clientY / window.innerHeight : 0.5;
         confetti({
-            particleCount: 45,
-            spread: 55,
+            particleCount: 40,
+            spread: 50,
             origin: { x: x, y: y },
             colors: ['#e63946', '#ff758c', '#f7d070', '#ffffff']
         });
@@ -353,7 +352,7 @@ Chúc cô nàng tổ trưởng chu đáo này khi bước chân vào con đườ
 function createCardHTML(member, isTeacher = false) {
     const cardClass = isTeacher ? 'member-card teacher-card' : 'member-card';
     return `
-        <div class="${cardClass}" onclick="openMessage('${member.name}')">
+        <div class="${cardClass}" onclick="openMessage('${member.name}', event)">
             <div class="member-name">${member.name}</div>
         </div>
     `;
@@ -374,8 +373,8 @@ function renderMembers() {
     }
 }
 
-function openMessage(memberName) {
-    triggerCardConfetti();
+function openMessage(memberName, event) {
+    triggerCardConfetti(event);
 
     let target = null;
     if (memberName === teacherData.name) {
