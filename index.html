@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kỷ Yếu Lớp 12A3 - Nhớ Mãi Thanh Xuân</title>
+    <!-- Font chữ nghệ thuật sang trọng -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <!-- Thư viện Pháo hoa (Canvas Confetti) -->
+    <!-- Thư viện Pháo hoa -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
@@ -16,18 +20,19 @@
     <!-- Màn hình chào mừng (Hero Screen) -->
     <div id="hero-screen" class="hero-screen" onclick="enterSite(event)">
         <div class="hero-card">
+            <span class="hero-badge">Memory Capsule</span>
             <h1>CHÀO MỪNG ĐẾN VỚI KỶ YẾU 12A3</h1>
             <p>Nhấp vào bất kỳ đâu để bắt đầu hành trình ký ức!</p>
             <button class="btn-enter">Khám Phá Ngay ✨</button>
         </div>
     </div>
 
-    <!-- Nhạc nền (Sử dụng link nhạc hoài niệm chất lượng cao) -->
+    <!-- Nhạc nền -->
     <audio id="bg-audio" loop preload="auto">
         <source src="https://assets.mixkit.co/music/preview/mixkit-beautiful-dream-493.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Nút bật/tắt nhạc cố định góc màn hình -->
+    <!-- Nút bật/tắt nhạc -->
     <button id="audio-control" class="audio-btn" onclick="toggleAudio(event)" title="Bật/Tắt Nhạc">
         <span id="audio-icon">🔊</span>
     </button>
@@ -35,19 +40,20 @@
     <!-- Nội dung chính -->
     <div id="main-content" class="main-content hidden">
         <header class="header">
+            <span class="sub-badge">12A3 - Niên khóa 2021-2024</span>
             <h2>KỶ YẾU TẬP THỂ LỚP 12A3</h2>
             <p class="subtitle">"Thanh xuân ấy - Nơi có thầy cô, bạn bè và những giấc mơ"</p>
         </header>
 
         <!-- Khung Cô Giáo -->
         <section class="section">
-            <h3 class="section-title">🌹 Người lái đò</h3>
+            <h3 class="section-title"><span>🌹</span> Người chống lưnggggg</h3>
             <div id="teacher-container" class="teacher-grid"></div>
         </section>
 
         <!-- Khung Học Sinh -->
         <section class="section">
-            <h3 class="section-title">🎓 Tập Thể Thành Viên 12A3</h3>
+            <h3 class="section-title"><span>🎓</span> Tập Thể Thành Viên 12A3</h3>
             <div id="students-grid" class="students-grid"></div>
         </section>
     </div>
@@ -56,7 +62,10 @@
     <div id="modal-overlay" class="modal-overlay hidden" onclick="closeMessage()">
         <div class="modal-card" onclick="event.stopPropagation()">
             <button class="close-btn" onclick="closeMessage()">✕</button>
-            <h3 id="letter-recipient" class="modal-title"></h3>
+            <div class="modal-header">
+                <span class="modal-subtitle">Thư gửi từ trái tim</span>
+                <h3 id="letter-recipient" class="modal-title"></h3>
+            </div>
             <div id="letter-content" class="modal-body"></div>
         </div>
     </div>
