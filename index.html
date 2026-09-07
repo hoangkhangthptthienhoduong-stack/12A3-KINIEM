@@ -3,59 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thanh Xuân 12A3 - Lưu Bút Điện Tử</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>Kỷ Niệm Lớp 12A3</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Màn hình mở đầu -->
-    <section id="hero-screen" class="screen">
-        <div class="hero-content">
-            <span class="sub-title">TẬP THỂ 12A3</span>
-            <h1 class="main-title">THANH XUÂN<br>CỦA CHÚNG TA</h1>
-            <p class="quote">"Có những người đi qua tuổi trẻ của nhau,<br>rồi trở thành ký ức."</p>
-            <button id="btn-enter" onclick="enterSite()">MỞ LƯU BÚT</button>
-        </div>
-    </section>
+    <!-- Khung chứa hiệu ứng rơi -->
+    <div id="falling-container"></div>
 
-    <!-- Trang nội dung chính -->
-    <main id="main-content" class="hidden">
-        <header class="site-header">
-            <span class="timeline-tag">05.09.2024 — 05.09.2026</span>
-            <h2 class="class-title">12A3</h2>
-            <p class="header-desc">Hai năm rồi... chúng ta vẫn còn một nơi để trở về.</p>
+    <!-- Nút Bật/Tắt Nhạc Nền -->
+    <div id="audio-control" onclick="toggleAudio()" title="Bật/Tắt nhạc nền">
+        <span id="audio-icon">🎵</span>
+    </div>
+
+    <!-- Nhạc Nền Piano Nhẹ Nhàng -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Màn Hình Chào (Hero Screen) -->
+    <div id="hero-screen">
+        <div class="hero-content">
+            <h1 class="hero-title">Lưu Bút Thanh Xuân 12A3</h1>
+            <p class="hero-subtitle">Nơi lưu giữ từng khoảng khắc, nhịp đập và tình cảm của hai năm xa cách.</p>
+            <button class="btn-enter" onclick="enterSite()">Khám Phá Kỷ Niệm ✨</button>
+        </div>
+    </div>
+
+    <!-- Màn Hình Chính (Main Content) -->
+    <div id="main-content" class="hidden">
+        <header class="main-header">
+            <h2>KỶ NIỆM 12A3</h2>
+            <p>Nhấn giữ vào tên từng thành viên để đọc lời nhắn gửi</p>
         </header>
 
-        <!-- Phần Cô Giáo -->
-        <section class="section-teacher">
-            <h3 class="section-heading">NGƯỜI ĐÃ DẪN ĐƯỜNG</h3>
-            <div id="teacher-container"></div>
-        </section>
+        <main class="container">
+            <!-- Mục Cô Giáo -->
+            <section class="section-group">
+                <h3 class="section-title">🔥 Người truyền lửa</h3>
+                <div id="teacher-container" class="teacher-grid"></div>
+            </section>
 
-        <!-- Phần Học Sinh -->
-        <section class="section-students">
-            <h3 class="section-heading">NHỮNG NGƯỜI CỦA 12A3</h3>
-            <p class="instruction-text">Nhấn và giữ 1.8s vào tên để mở lá thư ký ức</p>
-            <div id="students-grid" class="grid-container"></div>
-        </section>
-    </main>
+            <!-- Mục Học Sinh -->
+            <section class="section-group">
+                <h3 class="section-title">🎓 Thành viên của lớp 12A3</h3>
+                <div id="students-grid" class="students-grid"></div>
+            </section>
+        </main>
+    </div>
 
-    <!-- Popup Mở Thư -->
-    <div id="modal-overlay" class="modal-overlay hidden">
-        <div class="letter-card">
-            <button class="close-btn" onclick="closeMessage()">&times;</button>
-            <div class="letter-header">
-                <span class="letter-tag">MỘT LỜI NHẮN</span>
-                <h3 id="letter-recipient">Gửi ...</h3>
-            </div>
+    <!-- Thẻ Hiển Thị Lời Nhắn (Modal) -->
+    <div id="modal-overlay" class="hidden" onclick="closeMessage()">
+        <div class="modal-card" onclick="event.stopPropagation()">
+            <button class="close-btn" onclick="closeMessage()">✕</button>
+            <h3 id="letter-recipient"></h3>
             <div class="letter-body">
                 <p id="letter-content"></p>
-            </div>
-            <div class="letter-footer">
-                <span>— 12A3 —</span>
             </div>
         </div>
     </div>
