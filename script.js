@@ -83,11 +83,11 @@ const teacherData = {
     name: "Cô Võ Thị Thanh Truyền",
     message: `Gửi Cô Võ Thị Thanh Truyền,
 
-Hai năm trôi qua kể từ ngày chúng em rời xa mái trường cấp ba, giữa dòng đời hối hả và bộn bề mưu sinh, khi chững chạc hơn một chút, chúng em mới càng thấm thía và khắc cốt ghi tâm biết bao công ơn của cô. Cô chính là người truyền lửa thầm lặng, luôn ở cạnh chúng em những khi khó khăn nhất, bao bọc, lo lắng cho lớp bằng tất cả sự dịu dàng và tình yêu thương vô bờ bến. 
+Hai năm trôi qua kể từ ngày chúng em rời xa mái trường cấp ba, giữa dòng đời hối hả và bộn bề, khi chững chạc hơn một chút, chúng em mới càng thấm thía biết bao công ơn của cô. Cô chính là người truyền lửa thầm lặng, luôn ở cạnh chúng em những khi khó khăn nhất, bao bọc, lo lắng cho lớp bằng tất cả sự dịu dàng và tình yêu thương vô bờ bến. 
 
-Có những lúc tụi em quậy phá, bướng bỉnh khiến đôi mày cô khẽ nhíu lại, nhưng chưa bao giờ cô buông tay, vẫn luôn ân cần, nhẹ nhàng và dành hết những điều tốt đẹp nhất cho tập thể lớp mình. Hình bóng người mẹ thứ hai tần tảo ngày ấy mãi là chốn bình yên nhất để chúng em ngoảnh đầu tìm về sau bao giông bão. 
+Có những lúc tụi em quậy phá, bướng bỉnh, nhưng chưa bao giờ cô buông tay, vẫn luôn ân cần, nhẹ nhàng và dành hết những điều tốt đẹp nhất cho tập thể lớp mình. Hình bóng người mẹ thứ hai tần tảo ngày ấy mãi là chốn bình yên nhất để chúng em ngoảnh đầu tìm về sau bao giông bão. 
 
-Kính chúc cô hai năm qua và mãi về sau luôn thật nhiều sức khỏe, bình an, giữ vững ngọn lửa nhiệt huyết trên bục giảng để tiếp tục chèo lái thêm nhiều thế hệ học trò sang sông.`
+Kính chúc cô thật nhiều sức khỏe, bình an, giữ vững ngọn lửa nhiệt huyết trên bục giảng để tiếp tục đưa thêm nhiều thế hệ học trò sang sông.`
 };
 
 const studentsData = [
