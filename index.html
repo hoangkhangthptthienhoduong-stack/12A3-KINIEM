@@ -3,70 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kỷ Yếu Lớp 12A3 - Nhớ Mãi Thanh Xuân</title>
-    <!-- Fonts chữ nghệ thuật cao cấp -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Kỷ Yếu Lớp 12A3 - Ký Ức Thanh Xuân</title>
+    <!-- Google Fonts & Canvas Confetti -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.min.js"></script>
     <link rel="stylesheet" href="style.css">
-    <!-- Thư viện Pháo hoa / Hạt sáng -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
 
-    <!-- Khung chứa hiệu ứng hoa rơi / sao rơi -->
+    <!-- Khung hiệu ứng rơi (hoa/tim/sao) -->
     <div id="falling-container"></div>
 
-    <!-- Màn hình chào mừng (Hero Screen) -->
-    <div id="hero-screen" class="hero-screen" onclick="enterSite(event)">
-        <div class="hero-card">
-            <span class="hero-badge">✨ Memory Capsule 12A3</span>
-            <h1>NHỚ MÃI THANH XUÂN 12A3</h1>
-            <p>Nhấp vào bất kỳ đâu để mở cánh cửa ký ức và âm nhạc...</p>
-            <button class="btn-enter">Khám Phá Ngay 🎶</button>
-        </div>
-    </div>
-
-    <!-- Nhạc nền không bản quyền nhẹ nhàng, du dương -->
+    <!-- Nhạc nền -->
     <audio id="bg-audio" loop preload="auto">
-        <source src="https://assets.mixkit.co/music/preview/mixkit-beautiful-dream-493.mp3" type="audio/mpeg">
+        <source src="bg-music.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Nút điều khiển nhạc nền cố định -->
-    <button id="audio-control" class="audio-btn" onclick="toggleAudio(event)" title="Bật/Tắt Nhạc">
-        <span id="audio-icon">🔊</span>
+    <!-- Nút bật/tắt nhạc cố định -->
+    <button id="music-toggle-btn" class="floating-btn" onclick="toggleAudio(event)" title="Bật/Tắt Nhạc">
+        <span id="audio-icon">🔇</span>
     </button>
 
-    <!-- Nội dung chính -->
-    <div id="main-content" class="main-content hidden">
-        <header class="header">
-            <span class="sub-badge">Niên khóa 2021 - 2024</span>
-            <h2>KỶ YẾU TẬP THỂ LỚP 12A3</h2>
-            <p class="subtitle">"Thanh xuân ấy - Nơi có thầy cô, bạn bè và những giấc mơ"</p>
+    <!-- 1. Màn hình chào (Hero Screen) -->
+    <section id="hero-screen" class="hero-section">
+        <div class="hero-card">
+            <div class="sparkle-badge">✨ KỶ YẾU THANH XUÂN ✨</div>
+            <h1 class="hero-title">TẬP THỂ LỚP 12A3</h1>
+            <p class="hero-subtitle">Hai năm xa cách - Trọn đời nhớ thương</p>
+            <button class="enter-btn" onclick="enterSite(event)">
+                <span>KHÁM PHÁ NGAY 🚀</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- 2. Trang nội dung chính (Main Content) -->
+    <main id="main-content" class="main-section hidden">
+        
+        <header class="main-header">
+            <h1 class="glowing-title">GƯƠNG MẶT THẦY CÔ & BẠN BÈ</h1>
+            <p class="sub-heading">Nhấp vào từng ô để mở ra bức thư chứa đựng kỷ niệm nhé!</p>
         </header>
 
-        <!-- Khung Cô Giáo -->
-        <section class="section">
-            <h3 class="section-title"><span>🌹</span> Người chống lưng</h3>
+        <!-- Khung Giáo Viên -->
+        <section class="section-wrapper">
+            <h2 class="section-title teacher-title">🌸 Người Truyền Lửa Thầm Lặng 🌸</h2>
             <div id="teacher-container" class="teacher-grid"></div>
         </section>
 
         <!-- Khung Học Sinh -->
-        <section class="section">
-            <h3 class="section-title"><span>🎓</span> Tập Thể Thành Viên 12A3</h3>
+        <section class="section-wrapper">
+            <h2 class="section-title student-title">🎓 Thành Viên Tập Thể 🎓</h2>
             <div id="students-grid" class="students-grid"></div>
         </section>
-    </div>
 
-    <!-- Popup Khung Thư Kỷ Yếu -->
-    <div id="modal-overlay" class="modal-overlay hidden" onclick="closeMessage()">
+    </main>
+
+    <!-- 3. Modal hiển thị thư cảm xúc -->
+    <div id="modal-overlay" class="modal-backdrop hidden" onclick="closeMessage()">
         <div class="modal-card" onclick="event.stopPropagation()">
-            <button class="close-btn" onclick="closeMessage()">✕</button>
+            <button class="close-btn" onclick="closeMessage()">&times;</button>
             <div class="modal-header">
-                <span class="modal-subtitle">💌 Lời gửi gắm từ trái tim</span>
-                <h3 id="letter-recipient" class="modal-title"></h3>
+                <span class="envelope-icon">💌</span>
+                <h3 id="letter-recipient" class="recipient-name">Tên Người Nhận</h3>
             </div>
-            <div id="letter-content" class="modal-body"></div>
+            <div class="modal-body">
+                <p id="letter-content" class="letter-text"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-close-btn" onclick="closeMessage()">Đóng Thư</button>
+            </div>
         </div>
     </div>
 
