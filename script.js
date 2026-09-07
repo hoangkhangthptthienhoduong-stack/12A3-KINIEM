@@ -102,7 +102,7 @@ function initFallingEffect() {
 
 const teacherData = {
     name: "Cô Võ Thị Thanh Truyền",
-    message: `Gửi Cô Võ Thị Thanh Truyền,
+    message: `Gửi Cô chủ nhiệm của tụi con,
 
 Hai năm trôi qua kể từ ngày chúng em rời xa mái trường cấp ba, giữa dòng đời hối hả và bộn bề, khi chững chạc hơn một chút, chúng em mới càng thấm thía biết bao công ơn của cô. Cô chính là người truyền lửa thầm lặng, luôn ở cạnh chúng em những khi khó khăn nhất, bao bọc, lo lắng cho lớp bằng tất cả sự dịu dàng và tình yêu thương vô bờ bến. 
 
