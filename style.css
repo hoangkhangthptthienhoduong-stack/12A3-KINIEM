@@ -1,5 +1,5 @@
 /* ==========================================
-   RESET & NỀN TRƯỜNG HỌC / HOÀNG HÔN HOÀI NIỆM
+   RESET & NỀN HOÀNG HÔN HOÀI NIỆM (PURE CSS)
    ========================================== */
 * {
     margin: 0;
@@ -11,10 +11,10 @@ html, body {
     width: 100%;
     min-height: 100vh;
     font-family: 'Be Vietnam Pro', sans-serif;
-    /* Nền ảnh trường học / góc sân trường phủ tông nâu hoài cổ dạt dào kỷ niệm */
-    background: url('https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1920&auto=format&fit=crop') no-repeat center center fixed;
-    background-size: cover;
-    color: #fdf6e2;
+    /* Phối màu hoàng hôn ấm áp, êm dịu, không dùng ảnh ngoài tránh lỗi */
+    background: radial-gradient(circle at center, #4a2820 0%, #2b1712 60%, #150a08 100%);
+    background-attachment: fixed;
+    color: #fcf6e8;
     overflow-x: hidden;
     position: relative;
 }
@@ -23,14 +23,14 @@ html, body {
     display: none !important;
 }
 
-/* Lớp phủ mờ màu sẫm nâu trầm lắng dịu mắt (Loại bỏ hoàn toàn màu cam gắt) */
-.nostalgia-bg-overlay {
+/* Hiệu ứng làm mờ góc màn hình (Vignette) tạo cảm giác như thước phim cũ */
+.vintage-vignette {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: linear-gradient(135deg, rgba(20, 12, 10, 0.82) 0%, rgba(45, 25, 20, 0.78) 50%, rgba(15, 8, 6, 0.88) 100%);
+    background: radial-gradient(circle at center, transparent 50%, rgba(0, 0, 0, 0.65) 100%);
     pointer-events: none;
     z-index: 1;
 }
@@ -51,14 +51,14 @@ html, body {
 .falling-item {
     position: absolute;
     top: -50px;
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     animation: fall linear infinite;
-    opacity: 0.8;
+    opacity: 0.75;
 }
 
 @keyframes fall {
-    0% { transform: translateY(0) rotate(0deg); opacity: 0.85; }
-    100% { transform: translateY(105vh) rotate(360deg); opacity: 0.15; }
+    0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+    100% { transform: translateY(105vh) rotate(360deg); opacity: 0.1; }
 }
 
 .floating-btn {
@@ -68,11 +68,11 @@ html, body {
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background: #3a221d;
+    background: #3d211a;
     border: 2px solid #d4a373;
-    font-size: 1.8rem;
+    font-size: 1.7rem;
     cursor: pointer;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.6);
     z-index: 999;
     transition: all 0.3s ease;
     display: flex;
@@ -82,12 +82,12 @@ html, body {
 
 .floating-btn:hover {
     transform: scale(1.1) rotate(10deg);
-    background: #523029;
+    background: #542e24;
     border-color: #f3e5ab;
 }
 
 /* ==========================================
-   1. MÀN HÌNH CHÀO (THIẾT KẾ KIỂU BÌA SỔ LƯU BÚT)
+   1. MÀN HÌNH CHÀO (BÌA SỔ KỶ YẾU VINTAGE)
    ========================================== */
 .hero-section {
     width: 100vw;
@@ -100,33 +100,32 @@ html, body {
     z-index: 10;
 }
 
-.memory-card {
-    /* Khung giả bìa sổ da/giấy cổ màu trầm cực sang và tĩnh */
-    background: rgba(30, 18, 15, 0.88);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+.album-cover {
+    /* Thiết kế kiểu bìa sổ kỷ yếu da cổ cao cấp */
+    background: linear-gradient(145deg, #2a1612 0%, #1c0e0b 100%);
     border: 2px solid #d4a373;
-    outline: 6px solid rgba(212, 163, 115, 0.2);
-    padding: 50px 35px;
-    border-radius: 16px;
+    outline: 1px dashed #d4a373;
+    outline-offset: -10px; /* Đường chỉ may hoài cổ */
+    padding: 60px 40px;
+    border-radius: 12px;
     text-align: center;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
-    max-width: 750px;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.8);
+    max-width: 720px;
     width: 90%;
     position: relative;
 }
 
-.ribbon-tag {
+.stamp-badge {
     display: inline-block;
-    padding: 6px 22px;
-    background: rgba(212, 163, 115, 0.15);
-    border: 1px dashed #d4a373;
+    padding: 6px 20px;
+    background: rgba(212, 163, 115, 0.12);
+    border: 1px solid #d4a373;
     border-radius: 4px;
     margin-bottom: 25px;
 }
 
-.ribbon-text {
-    font-size: 0.9rem;
+.stamp-text {
+    font-size: 0.85rem;
     font-weight: 700;
     color: #f3e5ab;
     letter-spacing: 2px;
@@ -134,19 +133,18 @@ html, body {
 
 .hero-title {
     font-family: 'Playfair Display', serif;
-    font-size: 3.5rem;
+    font-size: 3.2rem;
     font-weight: 800;
-    color: #fefae0;
+    color: #fcf6e8;
     margin-bottom: 12px;
-    text-shadow: 2px 3px 6px rgba(0, 0, 0, 0.9);
     line-height: 1.2;
+    text-shadow: 1px 2px 4px rgba(0,0,0,0.8);
 }
 
 .hero-title .highlight-class {
     color: #e76f51;
     font-style: italic;
-    font-size: 3.8rem;
-    border-bottom: 2px solid #e76f51;
+    font-size: 3.5rem;
 }
 
 .handwritten-quote {
@@ -154,14 +152,13 @@ html, body {
     font-size: 2.2rem;
     color: #f4a261;
     margin-bottom: 20px;
-    text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 .hero-description {
     font-size: 1.05rem;
     line-height: 1.7;
     color: #d4a373;
-    max-width: 580px;
+    max-width: 540px;
     margin: 0 auto 35px auto;
 }
 
@@ -169,31 +166,31 @@ html, body {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    padding: 16px 45px;
-    font-size: 1.15rem;
+    padding: 15px 42px;
+    font-size: 1.1rem;
     font-weight: 700;
-    color: #fefae0;
-    background: linear-gradient(135deg, #70382b 0%, #4a231b 100%);
-    border: 2px solid #d4a373;
-    border-radius: 40px;
+    color: #fcf6e8;
+    background: #6e392c;
+    border: 1px solid #d4a373;
+    border-radius: 30px;
     cursor: pointer;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
     transition: all 0.3s ease;
     letter-spacing: 1px;
 }
 
 .enter-btn:hover {
-    transform: translateY(-3px);
-    background: linear-gradient(135deg, #8c4333 0%, #5c2b20 100%);
-    border-color: #fefae0;
-    box-shadow: 0 12px 28px rgba(0,0,0,0.8), 0 0 15px rgba(212, 163, 115, 0.4);
+    transform: translateY(-2px);
+    background: #8a4838;
+    border-color: #fcf6e8;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
 }
 
 /* ==========================================
    2. TRANG NỘI DUNG CHÍNH (MAIN SECTION)
    ========================================== */
 .main-section {
-    max-width: 1200px;
+    max-width: 1180px;
     margin: 0 auto;
     padding: 50px 20px 100px 20px;
     position: relative;
@@ -202,49 +199,47 @@ html, body {
 
 .main-header {
     text-align: center;
-    margin-bottom: 50px;
-    background: rgba(30, 18, 15, 0.85);
-    backdrop-filter: blur(10px);
-    padding: 28px 20px;
-    border-radius: 16px;
+    margin-bottom: 45px;
+    background: rgba(35, 18, 14, 0.85);
+    padding: 25px 20px;
+    border-radius: 12px;
     border: 1px solid #d4a373;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
 }
 
 .nostalgia-title {
     font-family: 'Playfair Display', serif;
-    font-size: 2.6rem;
+    font-size: 2.5rem;
     font-weight: 800;
-    color: #fefae0;
-    text-shadow: 2px 2px 5px rgba(0,0,0,0.8);
+    color: #fcf6e8;
 }
 
 .sub-heading {
     margin-top: 10px;
     font-family: 'Caveat', cursive;
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     color: #f4a261;
 }
 
 .section-wrapper {
-    margin-bottom: 55px;
+    margin-bottom: 50px;
 }
 
 .section-header-box {
     text-align: center;
-    margin-bottom: 28px;
+    margin-bottom: 25px;
 }
 
 .section-title {
     display: inline-block;
-    font-size: 1.45rem;
+    font-size: 1.35rem;
     font-weight: 700;
-    color: #fefae0;
-    padding: 10px 32px;
-    background: #1e120f;
-    border-radius: 30px;
-    border: 2px solid #8c4333;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    color: #fcf6e8;
+    padding: 10px 30px;
+    background: #1c0e0b;
+    border-radius: 25px;
+    border: 1px solid #8c4333;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
 }
 
 /* GRIDS */
@@ -256,58 +251,58 @@ html, body {
 
 .students-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-    gap: 22px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
 }
 
-/* KHUNG THẺ POLAROID GIẤY CỔ DỄ NHÌN */
+/* KHUNG THẺ TẤM ẢNH POLAROID GIẤY CỔ */
 .member-card {
-    background: #fbf5e8; /* Giấy vintage ngả vàng */
-    color: #2b1e1a;
-    border-radius: 10px;
-    padding: 22px 15px;
+    background: #f8f1e1; /* Giấy cổ ngả vàng nhạt rất đẹp */
+    color: #2b1712;
+    border-radius: 8px;
+    padding: 20px 15px;
     text-align: center;
     cursor: pointer;
     position: relative;
     transition: all 0.3s ease;
-    border: 1px solid #d4a373;
-    box-shadow: 0 8px 18px rgba(0,0,0,0.5);
+    border: 1px solid #c89665;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.4);
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 95px;
+    min-height: 90px;
 }
 
 .teacher-card {
-    background: #f4e8c1 !important;
-    max-width: 400px;
+    background: #f0e2c3 !important;
+    max-width: 380px;
     width: 100%;
-    padding: 30px 20px;
-    border: 2px solid #8c4333 !important;
+    padding: 28px 20px;
+    border: 2px solid #6e392c !important;
 }
 
 .member-card:hover {
-    transform: translateY(-6px);
+    transform: translateY(-5px);
     background: #ffffff;
-    border-color: #8c4333;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.7);
+    border-color: #6e392c;
+    box-shadow: 0 12px 25px rgba(0,0,0,0.6);
     z-index: 15;
 }
 
 .member-name {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     font-weight: 700;
-    color: #2d1915;
+    color: #2d1712;
 }
 
 .teacher-card .member-name {
     font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
-    color: #70382b;
+    font-size: 1.5rem;
+    color: #6e392c;
 }
 
 /* ==========================================
-   3. MODAL HỘP THƯ (BỨC THƯ GIẤY CỔ)
+   3. MODAL HỘP THƯ LƯU BÚT
    ========================================== */
 .modal-backdrop {
     position: fixed;
@@ -316,7 +311,7 @@ html, body {
     width: 100vw;
     height: 100vh;
     background: rgba(15, 8, 6, 0.88);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(8px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -325,65 +320,65 @@ html, body {
 }
 
 .modal-card {
-    background: #fbf5e8;
-    border-radius: 14px;
-    max-width: 650px;
+    background: #f8f1e1;
+    border-radius: 12px;
+    max-width: 620px;
     width: 95%;
     max-height: 85vh;
     display: flex;
     flex-direction: column;
     padding: 35px;
     position: relative;
-    box-shadow: 0 15px 50px rgba(0,0,0,0.9);
-    border: 3px double #70382b;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+    border: 2px solid #6e392c;
 }
 
 .close-btn {
     position: absolute;
-    top: 12px;
-    right: 18px;
+    top: 10px;
+    right: 15px;
     background: transparent;
     border: none;
     font-size: 2.2rem;
-    color: #70382b;
+    color: #6e392c;
     cursor: pointer;
     font-weight: 700;
 }
 
 .modal-header {
     text-align: center;
-    border-bottom: 2px dashed #d4a373;
-    padding-bottom: 15px;
-    margin-bottom: 18px;
+    border-bottom: 1px dashed #c89665;
+    padding-bottom: 12px;
+    margin-bottom: 15px;
 }
 
 .envelope-badge {
     display: inline-block;
-    padding: 4px 14px;
-    background: #70382b;
-    color: #fefae0;
+    padding: 4px 12px;
+    background: #6e392c;
+    color: #fcf6e8;
     font-weight: 700;
-    border-radius: 15px;
-    font-size: 0.85rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
     margin-bottom: 6px;
 }
 
 .recipient-name {
     font-family: 'Playfair Display', serif;
-    font-size: 2rem;
+    font-size: 1.9rem;
     font-weight: 800;
-    color: #522920;
+    color: #4a241b;
 }
 
 .modal-body {
     overflow-y: auto;
-    padding-right: 10px;
+    padding-right: 8px;
 }
 
 .letter-text {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     line-height: 1.8;
-    color: #2b1e1a;
+    color: #2b1712;
     white-space: pre-line;
     text-align: justify;
 }
@@ -394,16 +389,16 @@ html, body {
 }
 
 .modal-close-btn {
-    padding: 12px 35px;
-    background: #70382b;
-    color: #fefae0;
+    padding: 10px 32px;
+    background: #6e392c;
+    color: #fcf6e8;
     border: 1px solid #d4a373;
-    border-radius: 30px;
-    font-size: 1rem;
+    border-radius: 25px;
+    font-size: 0.95rem;
     font-weight: 700;
     cursor: pointer;
 }
 
 .modal-close-btn:hover {
-    background: #8c4333;
+    background: #8a4838;
 }
