@@ -1,18 +1,38 @@
 let audioStarted = false;
 
 function playInstantAudio() {
-    if (audioStarted) return;
     const audio = document.getElementById('bg-audio');
-    if (audio) {
-        audio.play().then(() => {
+    if (!audio) return;
+
+    // Reset lại audio nếu cần và thực hiện play
+    audio.volume = 1.0; 
+    const playPromise = audio.play();
+
+    if (playPromise !== undefined) {
+        playPromise.then(() => {
             audioStarted = true;
             updateAudioIcon(true);
-        }).catch(err => console.log("Audio requires user gesture"));
+        }).catch(err => {
+            console.log("Audio play blocked by browser:", err);
+            // Kích hoạt lắng nghe sự kiện chạm/click đầu tiên trên toàn trang để phát nhạc ngay
+            const enableAudioOnInteraction = () => {
+                audio.play().then(() => {
+                    audioStarted = true;
+                    updateAudioIcon(true);
+                }).catch(() => {});
+                document.removeEventListener('click', enableAudioOnInteraction);
+                document.removeEventListener('touchstart', enableAudioOnInteraction);
+            };
+            document.addEventListener('click', enableAudioOnInteraction, { once: true });
+            document.addEventListener('touchstart', enableAudioOnInteraction, { once: true });
+        });
     }
 }
 
 function enterSite(event) {
     if (event) event.stopPropagation();
+    
+    // Phát nhạc ngay khi nhấn nút vào trang
     playInstantAudio();
     triggerConfettiBoom();
 
@@ -29,9 +49,10 @@ function toggleAudio(event) {
     if (!audio) return;
 
     if (audio.paused) {
-        audio.play();
-        audioStarted = true;
-        updateAudioIcon(true);
+        audio.play().then(() => {
+            audioStarted = true;
+            updateAudioIcon(true);
+        }).catch(err => console.log("Play failed:", err));
     } else {
         audio.pause();
         updateAudioIcon(false);
