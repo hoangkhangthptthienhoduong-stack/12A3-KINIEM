@@ -3,34 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Góc Nhỏ Cảm Ơn</title>
+    <title>Hành Trình Tri Ân 12A3</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Phát nhạc tự động bài Cảm Ơn Người Đã Thức Cùng Tôi -->
-    <iframe id="bg-music" 
-            src="https://www.youtube.com/embed/lxGP-d4rZpE?enablejsapi=1&autoplay=1&mute=0&loop=1&playlist=lxGP-d4rZpE" 
-            allow="autoplay" 
-            style="display:none;">
-    </iframe>
+    <!-- CONTAINER TẠO HIỆU ỨNG RƠI -->
+    <div id="falling-container"></div>
 
-    <div class="container">
-        <h1>Cảm Ơn Người Đã Thức Cùng Tôi</h1>
-        <p class="subtitle">Bấm vào nút bên dưới để mở thông điệp dành riêng cho bạn</p>
-        
-        <!-- Nút bấm 1 lần -->
-        <button id="action-btn" class="main-btn">Khám phá ngay</button>
-
-        <!-- Khung nội dung xuất hiện khi bấm -->
-        <div id="message-box" class="hidden">
-            <p class="message-text">"Cảm ơn đôi tay dù nhiều vết thương còn đợi ôm tôi cuối đường..."</p>
+    <!-- MÀN HÌNH CHỜ (HERO SCREEN) -->
+    <div id="hero-screen" class="hero-screen">
+        <div class="hero-content">
+            <h1 class="hero-title">Gửi Tập Thể 12A3</h1>
+            <p class="hero-subtitle">Hai năm xa cách — Nơi cất giữ những ký ức thanh xuân đẹp nhất</p>
+            <button class="enter-btn" onclick="enterSite()">Khám Phá Ký Ức ✨</button>
         </div>
     </div>
 
-    <!-- Container cho hiệu ứng cánh hoa rơi -->
-    <div id="falling-container"></div>
+    <!-- MÀN HÌNH CHÍNH -->
+    <div id="main-content" class="main-content hidden">
+        
+        <!-- NÚT BẬT/TẮT NHẠC -->
+        <button class="audio-toggle-btn" onclick="toggleAudio()" title="Bật/Tắt Nhạc">
+            <span id="audio-icon">🔊</span>
+        </button>
 
+        <header class="header">
+            <h2>HÀNH TRÌNH TRI ÂN 12A3</h2>
+            <p>Nhấn vào thẻ tên để đọc thư gửi riêng cho từng người</p>
+        </header>
+
+        <main class="container">
+            <!-- THẺ DÀNH CHO CÔ GIÁO -->
+            <section class="teacher-section">
+                <h3>NGƯỜI LÁI ĐÒ TẬN TỤY</h3>
+                <div id="teacher-container"></div>
+            </section>
+
+            <!-- LƯỚI THẺ DÀNH CHO 32 HỌC SINH -->
+            <section class="students-section">
+                <h3>THÀNH VIÊN LỚP 12A3</h3>
+                <div id="students-grid" class="students-grid"></div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>Dành tặng Lớp 12A3 & Cô Võ Thị Thanh Tuyền</p>
+        </footer>
+    </div>
+
+    <!-- POPUP MODAL HIỂN THỊ THƯ -->
+    <div id="modal-overlay" class="modal-overlay hidden" onclick="closeMessage()">
+        <div class="letter-modal" onclick="event.stopPropagation()">
+            <button class="close-btn" onclick="closeMessage()">&times;</button>
+            <div class="letter-header">
+                <span class="envelope-icon">✉️</span>
+                <h3 id="letter-recipient">NNgười Nhận</h3>
+            </div>
+            <div class="letter-body">
+                <p id="letter-content">Nội dung lá thư sẽ xuất hiện ở đây...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- YOUTUBE IFRAME DÙNG ĐỂ PHÁT NHẠC NGẦM -->
+    <div id="youtube-player" style="position: absolute; width: 0; height: 0; overflow: hidden; opacity: 0; pointer-events: none;"></div>
+
+    <!-- TẢI YOUTUBE IFRAME API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script src="script.js"></script>
 </body>
 </html>
