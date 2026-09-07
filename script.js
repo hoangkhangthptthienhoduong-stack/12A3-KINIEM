@@ -201,11 +201,12 @@ Thấm thoát đã hai năm, sự chăm chỉ, cẩn thận và tính cách chu 
     }
 ];
 
-// CHỨC NĂNG CHUYỂN MÀN HÌNH
+// CHUYỂN MÀN HÌNH VÀ PHÁT NHẠC
 function enterSite() {
     document.getElementById('hero-screen').classList.add('hidden');
     document.getElementById('main-content').classList.remove('hidden');
     renderMembers();
+    playAudio();
 }
 
 // KHỞI TẠO DANH SÁCH
@@ -213,10 +214,7 @@ function renderMembers() {
     const teacherContainer = document.getElementById('teacher-container');
     const studentsGrid = document.getElementById('students-grid');
 
-    // Render Cô Giáo
     teacherContainer.innerHTML = createCardHTML(teacherData.name, teacherData.message, true);
-
-    // Render Học Sinh
     studentsGrid.innerHTML = studentsData.map(student => 
         createCardHTML(student.name, student.message, false)
     ).join('');
@@ -237,7 +235,7 @@ function escapeHTML(str) {
     return str.replace(/"/g, '&quot;').replace(/\n/g, '&#10;');
 }
 
-// XỬ LÝ SỰ KIỆN NHẤN GIỮ (PRESS & HOLD 1.8S)
+// XỬ LÝ NHẤN GIỮ (PRESS & HOLD 1.8S)
 let pressTimer = null;
 
 function attachPressEvents() {
@@ -260,7 +258,6 @@ function attachPressEvents() {
             resetPress(card);
         };
 
-        // Pointer Events (Hỗ trợ cả Chuột và Cảm ứng điện thoại)
         card.addEventListener('pointerdown', startPress);
         card.addEventListener('pointerup', cancelPress);
         card.addEventListener('pointerleave', cancelPress);
@@ -276,7 +273,7 @@ function resetPress(card) {
     }
 }
 
-// MỞ VÀ ĐÓNG MODAL LỜI NHẮN
+// MỞ & ĐÓNG LỜI NHẮN
 function openMessage(name, message) {
     document.getElementById('letter-recipient').innerText = `Gửi ${name}`;
     document.getElementById('letter-content').innerText = message;
@@ -286,3 +283,76 @@ function openMessage(name, message) {
 function closeMessage() {
     document.getElementById('modal-overlay').classList.add('hidden');
 }
+
+// QUẢN LÝ NHẠC NỀN
+const bgMusic = document.getElementById('bg-music');
+const audioIcon = document.getElementById('audio-icon');
+let isPlaying = false;
+
+function playAudio() {
+    if (bgMusic) {
+        bgMusic.play().then(() => {
+            isPlaying = true;
+            if (audioIcon) audioIcon.innerText = '🔊';
+        }).catch(err => {
+            console.log("Trình duyệt yêu cầu tương tác trước khi phát nhạc:", err);
+        });
+    }
+}
+
+function toggleAudio() {
+    if (!bgMusic) return;
+    if (isPlaying) {
+        bgMusic.pause();
+        isPlaying = false;
+        if (audioIcon) audioIcon.innerText = '🔇';
+    } else {
+        bgMusic.play();
+        isPlaying = true;
+        if (audioIcon) audioIcon.innerText = '🔊';
+    }
+}
+
+// ==========================================
+// HIỆU ỨNG RƠI LIÊN TỤC (CÁNH HOA, HOA GIẤY, DIỀU, MÁY BAY GIẤY)
+// ==========================================
+const fallingItems = ['🌸', '🎉', '🪁', '✈️', '✨', '🌸', '🎊'];
+
+function createFallingItem() {
+    const container = document.getElementById('falling-container');
+    if (!container) return;
+
+    const item = document.createElement('div');
+    const randomIcon = fallingItems[Math.floor(Math.random() * fallingItems.length)];
+    
+    item.innerText = randomIcon;
+    item.style.position = 'fixed';
+    item.style.top = '-50px';
+    item.style.left = Math.random() * 100 + 'vw';
+    item.style.fontSize = (Math.random() * 14 + 16) + 'px'; // Kích thước ngẫu nhiên 16px - 30px
+    item.style.opacity = Math.random() * 0.7 + 0.3;
+    item.style.pointerEvents = 'none';
+    item.style.zIndex = '999';
+    item.style.transition = 'transform linear';
+
+    container.appendChild(item);
+
+    const duration = Math.random() * 5 + 5; // Thời gian rơi từ 5s - 10s
+    const sway = (Math.random() - 0.5) * 200; // Độ lắc ngang ngẫu nhiên
+    const rotation = Math.random() * 360; // Góc xoay ngẫu nhiên
+
+    // Bắt đầu hiệu ứng rơi chuyển động
+    requestAnimationFrame(() => {
+        item.style.transition = `transform ${duration}s linear, top ${duration}s linear, opacity ${duration}s ease-out`;
+        item.style.top = '105vh';
+        item.style.transform = `translateX(${sway}px) rotate(${rotation}deg)`;
+    });
+
+    // Tự xóa sau khi rơi xong để tránh nặng trang
+    setTimeout(() => {
+        item.remove();
+    }, duration * 1000);
+}
+
+// Tạo hiệu ứng rơi liên tục mỗi 400ms
+setInterval(createFallingItem, 400);
