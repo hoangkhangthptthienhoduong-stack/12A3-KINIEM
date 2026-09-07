@@ -3,66 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kỷ Niệm Lớp 12A3</title>
+    <title>Góc Nhỏ Cảm Ơn</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Khung chứa hiệu ứng rơi -->
+    <!-- Nhúng video YouTube phát tự động (autoplay=1) và lặp lại (loop=1) -->
+    <iframe id="bg-music" 
+            src="https://www.youtube.com/embed/lxGP-d4rZpE?enablejsapi=1&autoplay=1&mute=0&loop=1&playlist=lxGP-d4rZpE" 
+            allow="autoplay" 
+            style="display:none;">
+    </iframe>
+
+    <div class="container">
+        <h1>Cảm Ơn Người Đã Thức Cùng Tôi</h1>
+        <p class="subtitle">Bấm vào nút để mở thông điệp dành riêng cho bạn</p>
+        
+        <!-- Nút bấm 1 lần -->
+        <button id="action-btn" class="main-btn">Khám phá ngay</button>
+
+        <!-- Khung nội dung xuất hiện khi bấm -->
+        <div id="message-box" class="hidden">
+            <p class="message-text">"Cảm ơn đôi tay dù nhiều vết thương còn đợi ôm tôi cuối đường..."</p>
+        </div>
+    </div>
+
+    <!-- Container cho hiệu ứng cánh hoa rơi -->
     <div id="falling-container"></div>
-
-    <!-- Nút Bật/Tắt Nhạc Nền -->
-    <div id="audio-control" onclick="toggleAudio()" title="Bật/Tắt nhạc nền">
-        <span id="audio-icon">🎵</span>
-    </div>
-
-    <!-- Nhạc Nền Piano Nhẹ Nhàng -->
-    <audio id="bg-music" loop preload="auto">
-        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
-    </audio>
-
-    <!-- Màn Hình Chào (Hero Screen) -->
-    <div id="hero-screen">
-        <div class="hero-content">
-            <h1 class="hero-title">Lưu Bút Thanh Xuân 12A3</h1>
-            <p class="hero-subtitle">Nơi lưu giữ từng khoảng khắc, nhịp đập và tình cảm của hai năm xa cách.</p>
-            <button class="btn-enter" onclick="enterSite()">Khám Phá Kỷ Niệm ✨</button>
-        </div>
-    </div>
-
-    <!-- Màn Hình Chính (Main Content) -->
-    <div id="main-content" class="hidden">
-        <header class="main-header">
-            <h2>KỶ NIỆM 12A3</h2>
-            <p>Nhấn giữ vào tên từng thành viên để đọc lời nhắn gửi</p>
-        </header>
-
-        <main class="container">
-            <!-- Mục Cô Giáo -->
-            <section class="section-group">
-                <h3 class="section-title">🔥 Người truyền lửa</h3>
-                <div id="teacher-container" class="teacher-grid"></div>
-            </section>
-
-            <!-- Mục Học Sinh -->
-            <section class="section-group">
-                <h3 class="section-title">🎓 Thành viên của lớp 12A3</h3>
-                <div id="students-grid" class="students-grid"></div>
-            </section>
-        </main>
-    </div>
-
-    <!-- Thẻ Hiển Thị Lời Nhắn (Modal) -->
-    <div id="modal-overlay" class="hidden" onclick="closeMessage()">
-        <div class="modal-card" onclick="event.stopPropagation()">
-            <button class="close-btn" onclick="closeMessage()">✕</button>
-            <h3 id="letter-recipient"></h3>
-            <div class="letter-body">
-                <p id="letter-content"></p>
-            </div>
-        </div>
-    </div>
 
     <script src="script.js"></script>
 </body>
