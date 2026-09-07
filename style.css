@@ -1,8 +1,8 @@
 :root {
-    --bg-primary: #0a0c16;
-    --card-bg: rgba(255, 255, 255, 0.04);
-    --card-border: rgba(255, 255, 255, 0.08);
-    --card-hover-border: rgba(255, 117, 140, 0.5);
+    --bg-gradient: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #0f172a 50%, #020617 100%);
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --card-border: rgba(255, 255, 255, 0.12);
+    --card-hover-border: rgba(255, 117, 140, 0.6);
     --text-main: #f8fafc;
     --text-muted: #94a3b8;
     --accent-pink: #ff758c;
@@ -19,7 +19,7 @@
 }
 
 body {
-    background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #0f172a 50%, #020617 100%);
+    background: var(--bg-gradient);
     color: var(--text-main);
     font-family: var(--font-body);
     min-height: 100vh;
@@ -32,7 +32,7 @@ body {
     display: none !important;
 }
 
-/* Hiệu ứng hoa rơi */
+/* Hiệu ứng hoa/sao rơi */
 #falling-container {
     position: fixed;
     top: 0;
@@ -40,32 +40,31 @@ body {
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: 10;
+    z-index: 5;
 }
 
 .falling-item {
     position: absolute;
-    top: -50px;
-    font-size: 22px;
+    top: -40px;
+    font-size: 20px;
     animation: fall linear infinite;
-    filter: drop-shadow(0 0 5px rgba(255,255,255,0.3));
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.4));
 }
 
 @keyframes fall {
-    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    0% { transform: translateY(0) rotate(0deg); opacity: 0.9; }
     100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
 }
 
-/* Hero Screen - Glassmorphism */
+/* Màn hình Welcome Glassmorphism */
 .hero-screen {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(2, 6, 23, 0.85);
+    background: rgba(2, 6, 23, 0.88);
     backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -75,27 +74,24 @@ body {
 }
 
 .hero-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     padding: 50px 40px;
     border-radius: 28px;
     text-align: center;
-    max-width: 550px;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    transition: transform 0.3s ease;
+    max-width: 520px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
 .hero-badge {
     display: inline-block;
     padding: 6px 16px;
-    background: rgba(255, 117, 140, 0.12);
+    background: rgba(255, 117, 140, 0.15);
     border: 1px solid rgba(255, 117, 140, 0.3);
     color: var(--accent-pink);
     border-radius: 20px;
     font-size: 0.85rem;
     font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
     margin-bottom: 20px;
 }
 
@@ -103,14 +99,13 @@ body {
     font-family: var(--font-heading);
     font-size: 2.2rem;
     line-height: 1.3;
-    background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
+    background: linear-gradient(135deg, #fff 30%, #ff758c 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 15px;
 }
 
 .hero-card p {
-    font-size: 1rem;
     color: var(--text-muted);
     margin-bottom: 30px;
     font-weight: 300;
@@ -134,7 +129,7 @@ body {
     box-shadow: 0 15px 30px rgba(230, 57, 70, 0.6);
 }
 
-/* Audio Button */
+/* Nút Audio floating */
 .audio-btn {
     position: fixed;
     bottom: 25px;
@@ -144,12 +139,12 @@ body {
     height: 52px;
     border-radius: 50%;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    background: rgba(15, 23, 42, 0.8);
+    background: rgba(15, 23, 42, 0.85);
     backdrop-filter: blur(10px);
     color: white;
     font-size: 20px;
     cursor: pointer;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
     transition: all 0.3s ease;
 }
 
@@ -158,9 +153,9 @@ body {
     border-color: var(--accent-pink);
 }
 
-/* Nội dung chính */
+/* Header & Main Container */
 .main-content {
-    max-width: 1240px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 60px 20px 80px;
 }
@@ -199,10 +194,10 @@ body {
 
 .section-title {
     font-family: var(--font-heading);
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     margin-bottom: 25px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
     gap: 10px;
@@ -215,19 +210,19 @@ body {
 
 .students-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
     gap: 20px;
 }
 
-/* Member Cards - Viền mờ & Hover sáng */
+/* Thẻ thành viên thiết kế hiệu ứng viền phát sáng */
 .member-card {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
     border-radius: 18px;
-    padding: 24px 20px;
+    padding: 22px 18px;
     text-align: center;
     cursor: pointer;
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(10px);
     transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
@@ -240,8 +235,8 @@ body {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
-    transition: left 0.5s;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+    transition: left 0.6s;
 }
 
 .member-card:hover::before {
@@ -249,10 +244,10 @@ body {
 }
 
 .member-card:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.09);
     border-color: var(--card-hover-border);
     transform: translateY(-6px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 15px rgba(255, 117, 140, 0.2);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 18px rgba(255, 117, 140, 0.25);
 }
 
 .teacher-card {
@@ -264,7 +259,7 @@ body {
 
 .teacher-card:hover {
     border-color: #ff758c;
-    box-shadow: 0 15px 35px rgba(230, 57, 70, 0.3);
+    box-shadow: 0 15px 35px rgba(230, 57, 70, 0.35);
 }
 
 .member-name {
@@ -274,15 +269,15 @@ body {
     letter-spacing: 0.3px;
 }
 
-/* Modal Popup Thiệp Thư */
+/* Khung Pop-up xem thư Kỷ yếu */
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(2, 6, 23, 0.85);
-    backdrop-filter: blur(12px);
+    background: rgba(2, 6, 23, 0.88);
+    backdrop-filter: blur(14px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -292,7 +287,7 @@ body {
 
 .modal-card {
     background: #0f172a;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: 24px;
     padding: 40px;
     max-width: 650px;
@@ -300,7 +295,7 @@ body {
     max-height: 82vh;
     overflow-y: auto;
     position: relative;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 30px rgba(255, 117, 140, 0.15);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 117, 140, 0.2);
 }
 
 .close-btn {
@@ -319,7 +314,7 @@ body {
 }
 
 .close-btn:hover {
-    background: rgba(230, 57, 70, 0.2);
+    background: rgba(230, 57, 70, 0.3);
     color: #fff;
 }
 
@@ -343,7 +338,6 @@ body {
     margin-top: 4px;
 }
 
-/* Tối ưu hóa hiển thị văn bản xuống dòng chuẩn */
 .modal-body {
     line-height: 1.85;
     color: #e2e8f0;
@@ -353,7 +347,6 @@ body {
     font-weight: 300;
 }
 
-/* Custom Thanh Cuộn Modal */
 .modal-card::-webkit-scrollbar {
     width: 6px;
 }
