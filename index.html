@@ -1,14 +1,65 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
-    ...
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh Xuân 12A3 - Lưu Bút Điện Tử</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-    ...
-    
-</body>
+    <!-- Màn hình mở đầu -->
+    <section id="hero-screen" class="screen">
+        <div class="hero-content">
+            <span class="sub-title">TẬP THỂ 12A3</span>
+            <h1 class="main-title">THANH XUÂN<br>CỦA CHÚNG TA</h1>
+            <p class="quote">"Có những người đi qua tuổi trẻ của nhau,<br>rồi trở thành ký ức."</p>
+            <button id="btn-enter" onclick="enterSite()">MỞ LƯU BÚT</button>
+        </div>
+    </section>
 
+    <!-- Trang nội dung chính -->
+    <main id="main-content" class="hidden">
+        <header class="site-header">
+            <span class="timeline-tag">05.09.2024 — 05.09.2026</span>
+            <h2 class="class-title">12A3</h2>
+            <p class="header-desc">Hai năm rồi... chúng ta vẫn còn một nơi để trở về.</p>
+        </header>
+
+        <!-- Phần Cô Giáo -->
+        <section class="section-teacher">
+            <h3 class="section-heading">NGƯỜI ĐÃ DẪN ĐƯỜNG</h3>
+            <div id="teacher-container"></div>
+        </section>
+
+        <!-- Phần Học Sinh -->
+        <section class="section-students">
+            <h3 class="section-heading">NHỮNG NGƯỜI CỦA 12A3</h3>
+            <p class="instruction-text">Nhấn và giữ 1.8s vào tên để mở lá thư ký ức</p>
+            <div id="students-grid" class="grid-container"></div>
+        </section>
+    </main>
+
+    <!-- Popup Mở Thư -->
+    <div id="modal-overlay" class="modal-overlay hidden">
+        <div class="letter-card">
+            <button class="close-btn" onclick="closeMessage()">&times;</button>
+            <div class="letter-header">
+                <span class="letter-tag">MỘT LỜI NHẮN</span>
+                <h3 id="letter-recipient">Gửi ...</h3>
+            </div>
+            <div class="letter-body">
+                <p id="letter-content"></p>
+            </div>
+            <div class="letter-footer">
+                <span>— 12A3 —</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
 </html>
