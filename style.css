@@ -1,4 +1,3 @@
-/* RESET & KHAI BÁO BIẾN MÀU */
 :root {
     --primary-color: #d94b68;
     --secondary-color: #f7a8b8;
@@ -28,7 +27,6 @@ body {
     display: none !important;
 }
 
-/* HIỆU ỨNG RƠI BỒNG BỀNH */
 #falling-container {
     position: fixed;
     top: 0;
@@ -39,7 +37,6 @@ body {
     z-index: 10;
 }
 
-/* MÀN HÌNH HERO (MÀN HÌNH CHỜ) */
 .hero-screen {
     position: fixed;
     top: 0;
@@ -94,7 +91,6 @@ body {
     background: #c33d58;
 }
 
-/* NÚT TẮT/BẬT NHẠC */
 .audio-toggle-btn {
     position: fixed;
     bottom: 20px;
@@ -119,7 +115,6 @@ body {
     transform: scale(1.1);
 }
 
-/* HEADER & MAIN CONTAINER */
 .header {
     text-align: center;
     padding: 40px 20px 20px;
@@ -151,7 +146,6 @@ h3 {
     letter-spacing: 1px;
 }
 
-/* CARD VÀ LƯỚI BỐ TRÍ */
 .teacher-section {
     display: flex;
     flex-direction: column;
@@ -200,7 +194,6 @@ h3 {
     color: var(--primary-color);
 }
 
-/* MODAL POPUP CỬA SỔ THƯ */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -285,7 +278,6 @@ h3 {
     color: #888;
 }
 
-/* RESPONSIVE */
 @media (max-width: 600px) {
     .students-grid {
         grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
