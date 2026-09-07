@@ -1,16 +1,31 @@
+:root {
+    --bg-primary: #0a0c16;
+    --card-bg: rgba(255, 255, 255, 0.04);
+    --card-border: rgba(255, 255, 255, 0.08);
+    --card-hover-border: rgba(255, 117, 140, 0.5);
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --accent-pink: #ff758c;
+    --accent-gold: #f7d070;
+    --font-heading: 'Playfair Display', serif;
+    --font-hand: 'Dancing Script', cursive;
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
 body {
-    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
-    color: #ffffff;
+    background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #0f172a 50%, #020617 100%);
+    color: var(--text-main);
+    font-family: var(--font-body);
     min-height: 100vh;
     overflow-x: hidden;
     position: relative;
+    -webkit-font-smoothing: antialiased;
 }
 
 .hidden {
@@ -31,135 +46,168 @@ body {
 .falling-item {
     position: absolute;
     top: -50px;
-    font-size: 20px;
+    font-size: 22px;
     animation: fall linear infinite;
-    opacity: 0.8;
+    filter: drop-shadow(0 0 5px rgba(255,255,255,0.3));
 }
 
 @keyframes fall {
-    0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(105vh) rotate(360deg);
-        opacity: 0;
-    }
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
 }
 
-/* Hero Screen */
+/* Hero Screen - Glassmorphism */
 .hero-screen {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(15, 23, 42, 0.95);
+    background: rgba(2, 6, 23, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 100;
     cursor: pointer;
-    text-align: center;
     padding: 20px;
 }
 
 .hero-card {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 40px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 50px 40px;
+    border-radius: 28px;
+    text-align: center;
+    max-width: 550px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.hero-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    background: rgba(255, 117, 140, 0.12);
+    border: 1px solid rgba(255, 117, 140, 0.3);
+    color: var(--accent-pink);
     border-radius: 20px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
 }
 
 .hero-card h1 {
+    font-family: var(--font-heading);
     font-size: 2.2rem;
-    color: #e63946;
+    line-height: 1.3;
+    background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     margin-bottom: 15px;
 }
 
 .hero-card p {
-    font-size: 1.1rem;
-    color: #cbd5e1;
-    margin-bottom: 25px;
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 30px;
+    font-weight: 300;
 }
 
 .btn-enter {
-    padding: 12px 30px;
+    padding: 14px 36px;
     font-size: 1rem;
-    font-weight: bold;
+    font-weight: 600;
     color: #fff;
-    background: linear-gradient(45deg, #e63946, #ff758c);
+    background: linear-gradient(135deg, #e63946, #ff758c);
     border: none;
-    border-radius: 25px;
+    border-radius: 30px;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(230, 57, 70, 0.4);
-    transition: transform 0.2s;
+    box-shadow: 0 10px 25px rgba(230, 57, 70, 0.4);
+    transition: all 0.3s ease;
 }
 
 .btn-enter:hover {
-    transform: scale(1.05);
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 15px 30px rgba(230, 57, 70, 0.6);
 }
 
-/* Audio Control Button */
+/* Audio Button */
 .audio-btn {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 25px;
+    right: 25px;
     z-index: 99;
-    width: 50px;
-    height: 50px;
+    width: 52px;
+    height: 52px;
     border-radius: 50%;
-    border: none;
-    background: #e63946;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(10px);
     color: white;
     font-size: 20px;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    transition: transform 0.2s;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
 }
 
 .audio-btn:hover {
     transform: scale(1.1);
+    border-color: var(--accent-pink);
 }
 
-/* Main Content */
+/* Nội dung chính */
 .main-content {
-    max-width: 1200px;
+    max-width: 1240px;
     margin: 0 auto;
-    padding: 40px 20px;
+    padding: 60px 20px 80px;
 }
 
 .header {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
+}
+
+.sub-badge {
+    color: var(--accent-gold);
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
 }
 
 .header h2 {
-    font-size: 2.5rem;
-    color: #ff758c;
-    margin-bottom: 10px;
+    font-family: var(--font-heading);
+    font-size: 2.8rem;
+    margin: 10px 0;
+    background: linear-gradient(135deg, #ffffff 30%, #ff758c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .subtitle {
-    font-style: italic;
-    color: #94a3b8;
+    font-family: var(--font-hand);
+    font-size: 1.6rem;
+    color: #cbd5e1;
 }
 
 .section {
-    margin-bottom: 40px;
+    margin-bottom: 50px;
 }
 
 .section-title {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 8px;
-    color: #f1f5f9;
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    margin-bottom: 25px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-/* Grid Layouts */
 .teacher-grid {
     display: flex;
     justify-content: center;
@@ -167,48 +215,74 @@ body {
 
 .students-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 20px;
 }
 
-/* Member Cards */
+/* Member Cards - Viền mờ & Hover sáng */
 .member-card {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    padding: 25px 15px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 18px;
+    padding: 24px 20px;
     text-align: center;
     cursor: pointer;
-    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.member-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+    transition: left 0.5s;
+}
+
+.member-card:hover::before {
+    left: 100%;
 }
 
 .member-card:hover {
-    background: rgba(255, 255, 255, 0.15);
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--card-hover-border);
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 15px rgba(255, 117, 140, 0.2);
 }
 
 .teacher-card {
-    background: linear-gradient(135deg, rgba(230, 57, 70, 0.2), rgba(255, 117, 140, 0.2));
-    border: 1px solid #e63946;
+    background: linear-gradient(135deg, rgba(230, 57, 70, 0.15), rgba(255, 117, 140, 0.05));
+    border: 1px solid rgba(230, 57, 70, 0.4);
     width: 100%;
-    max-width: 400px;
+    max-width: 420px;
+}
+
+.teacher-card:hover {
+    border-color: #ff758c;
+    box-shadow: 0 15px 35px rgba(230, 57, 70, 0.3);
 }
 
 .member-name {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     font-weight: 600;
-    color: #ffffff;
+    color: var(--text-main);
+    letter-spacing: 0.3px;
 }
 
-/* Modal Popup */
+/* Modal Popup Thiệp Thư */
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(2, 6, 23, 0.85);
+    backdrop-filter: blur(12px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -217,39 +291,79 @@ body {
 }
 
 .modal-card {
-    background: #1e293b;
-    border-radius: 16px;
-    padding: 30px;
-    max-width: 600px;
+    background: #0f172a;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 24px;
+    padding: 40px;
+    max-width: 650px;
     width: 100%;
-    max-height: 80vh;
+    max-height: 82vh;
     overflow-y: auto;
     position: relative;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 30px rgba(255, 117, 140, 0.15);
 }
 
 .close-btn {
     position: absolute;
-    top: 15px;
-    right: 15px;
-    background: transparent;
-    border: none;
-    color: #94a3b8;
-    font-size: 20px;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    color: var(--text-muted);
+    font-size: 16px;
     cursor: pointer;
+    transition: all 0.2s;
+}
+
+.close-btn:hover {
+    background: rgba(230, 57, 70, 0.2);
+    color: #fff;
+}
+
+.modal-header {
+    margin-bottom: 25px;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
+    padding-bottom: 15px;
+}
+
+.modal-subtitle {
+    font-family: var(--font-hand);
+    font-size: 1.4rem;
+    color: var(--accent-gold);
+    display: block;
 }
 
 .modal-title {
-    color: #ff758c;
-    margin-bottom: 20px;
-    font-size: 1.4rem;
-    padding-right: 20px;
+    font-family: var(--font-heading);
+    color: var(--accent-pink);
+    font-size: 1.8rem;
+    margin-top: 4px;
 }
 
+/* Tối ưu hóa hiển thị văn bản xuống dòng chuẩn */
 .modal-body {
-    line-height: 1.7;
-    color: #cbd5e1;
-    white-space: pre-line;
-    font-size: 1rem;
+    line-height: 1.85;
+    color: #e2e8f0;
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-size: 1.05rem;
+    font-weight: 300;
+}
+
+/* Custom Thanh Cuộn Modal */
+.modal-card::-webkit-scrollbar {
+    width: 6px;
+}
+.modal-card::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.02);
+}
+.modal-card::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+}
+.modal-card::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-pink);
 }
