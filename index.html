@@ -3,82 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hành Trình Tri Ân 12A3 - Thanh Xuân</title>
+    <title>Kỷ Yếu Lớp 12A3 - Nhớ Mãi Thanh Xuân</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Canvas Confetti Library cho hiệu ứng Bắn Pháo Hoa Kim Tuyến -->
+    <!-- Thư viện Pháo hoa (Canvas Confetti) -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
-<body onclick="playInstantAudio()">
+<body>
 
-    <!-- THẺ AUDIO PHÁT TRỰC TIẾP MP3 -->
-    <audio id="bg-audio" loop preload="auto">
-        <source src="https://files.catbox.moe/2s990e.mp3" type="audio/mpeg">
-    </audio>
-
-    <!-- CONTAINER TẠO HIỆU ỨNG RƠI -->
+    <!-- Khung chứa hiệu ứng hoa rơi -->
     <div id="falling-container"></div>
 
-    <!-- MÀN HÌNH CHỜ (HERO SCREEN) -->
-    <div id="hero-screen" class="hero-screen">
-        <div class="hero-backdrop"></div>
-        <div class="hero-content">
-            <div class="hero-badge">12A3 • MEMORIES</div>
-            <h1 class="hero-title">Ký Ức Thanh Xuân</h1>
-            <p class="hero-subtitle">Hai năm xa cách — Nơi cất giữ những yêu thương và hoài niệm đẹp nhất</p>
-            <button class="enter-btn" onclick="enterSite(event)">
-                <span>Khám Phá Ký Ức</span> ✨
-            </button>
+    <!-- Màn hình chào mừng (Hero Screen) -->
+    <div id="hero-screen" class="hero-screen" onclick="enterSite(event)">
+        <div class="hero-card">
+            <h1>CHÀO MỪNG ĐẾN VỚI KỶ YẾU 12A3</h1>
+            <p>Nhấp vào bất kỳ đâu để bắt đầu hành trình ký ức!</p>
+            <button class="btn-enter">Khám Phá Ngay ✨</button>
         </div>
     </div>
 
-    <!-- MÀN HÌNH CHÍNH -->
-    <div id="main-content" class="main-content hidden">
-        
-        <!-- NÚT BẬT/TẮT NHẠC -->
-        <button class="audio-toggle-btn" onclick="toggleAudio(event)" title="Bật/Tắt Nhạc">
-            <span id="audio-icon">🔊</span>
-        </button>
+    <!-- Nhạc nền (Sử dụng link nhạc hoài niệm chất lượng cao) -->
+    <audio id="bg-audio" loop preload="auto">
+        <source src="https://assets.mixkit.co/music/preview/mixkit-beautiful-dream-493.mp3" type="audio/mpeg">
+    </audio>
 
+    <!-- Nút bật/tắt nhạc cố định góc màn hình -->
+    <button id="audio-control" class="audio-btn" onclick="toggleAudio(event)" title="Bật/Tắt Nhạc">
+        <span id="audio-icon">🔊</span>
+    </button>
+
+    <!-- Nội dung chính -->
+    <div id="main-content" class="main-content hidden">
         <header class="header">
-            <div class="header-tag">NIÊN KHÓA 2021 - 2024</div>
-            <h2>HÀNH TRÌNH TRI ÂN 12A3</h2>
-            <p>Nhấn vào thẻ tên để mở lá thư cất giữ ký ức riêng</p>
+            <h2>KỶ YẾU TẬP THỂ LỚP 12A3</h2>
+            <p class="subtitle">"Thanh xuân ấy - Nơi có thầy cô, bạn bè và những giấc mơ"</p>
         </header>
 
-        <main class="container">
-            <section class="teacher-section">
-                <div class="section-title">
-                    <span class="sparkle">✨</span> NGƯỜI LÁI ĐÒ TẬN TỤY <span class="sparkle">✨</span>
-                </div>
-                <div id="teacher-container"></div>
-            </section>
+        <!-- Khung Cô Giáo -->
+        <section class="section">
+            <h3 class="section-title">🌹 Người lái đò</h3>
+            <div id="teacher-container" class="teacher-grid"></div>
+        </section>
 
-            <section class="students-section">
-                <div class="section-title">
-                    <span class="sparkle">🎓</span> THÀNH VIÊN LỚP 12A3 <span class="sparkle">🎓</span>
-                </div>
-                <div id="students-grid" class="students-grid"></div>
-            </section>
-        </main>
-
-        <footer class="footer">
-            <p>Thiết kế bởi Đinh Hoàng Khang — Dành tặng Lớp 12A3 & Cô Võ Thị Thanh Truyền</p>
-        </footer>
+        <!-- Khung Học Sinh -->
+        <section class="section">
+            <h3 class="section-title">🎓 Tập Thể Thành Viên 12A3</h3>
+            <div id="students-grid" class="students-grid"></div>
+        </section>
     </div>
 
-    <!-- POPUP MODAL HIỂN THỊ THƯ -->
+    <!-- Popup xem bức thư -->
     <div id="modal-overlay" class="modal-overlay hidden" onclick="closeMessage()">
-        <div class="letter-modal" onclick="event.stopPropagation()">
-            <button class="close-btn" onclick="closeMessage()">&times;</button>
-            <div class="letter-header">
-                <span class="envelope-icon">💌</span>
-                <h3 id="letter-recipient">Người Nhận</h3>
-            </div>
-            <div class="letter-body">
-                <p id="letter-content">Nội dung lá thư sẽ xuất hiện ở đây...</p>
-            </div>
+        <div class="modal-card" onclick="event.stopPropagation()">
+            <button class="close-btn" onclick="closeMessage()">✕</button>
+            <h3 id="letter-recipient" class="modal-title"></h3>
+            <div id="letter-content" class="modal-body"></div>
         </div>
     </div>
 
