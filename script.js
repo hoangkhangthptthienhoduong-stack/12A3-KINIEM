@@ -133,6 +133,37 @@ const lettersData = [
     }
 ];
 
+// Hàm kích hoạt pháo hoa kim tuyến (Confetti Burst)
+function triggerConfetti() {
+    if (typeof confetti === 'function') {
+        confetti({
+            particleCount: 120,
+            spread: 80,
+            origin: { y: 0.6 }
+        });
+    }
+}
+
+// Hàm tạo máy bay giấy & hoa rơi dày đặc bồng bềnh
+function initFallingEffect() {
+    const container = document.getElementById('falling-container');
+    const items = ['✈️', '🌸', '🌼', '🍃', '✨', '🎈'];
+    const totalItems = 30; // Số lượng vật thể rơi
+
+    for (let i = 0; i < totalItems; i++) {
+        const item = document.createElement('div');
+        item.className = 'falling-item';
+        item.textContent = items[Math.floor(Math.random() * items.length)];
+        
+        item.style.left = `${Math.random() * 100}%`;
+        item.style.animationDuration = `${5 + Math.random() * 7}s`;
+        item.style.animationDelay = `${Math.random() * 5}s`;
+        item.style.fontSize = `${1.2 + Math.random() * 1}rem`;
+
+        container.appendChild(item);
+    }
+}
+
 function renderCards(data) {
     const container = document.getElementById('cards-container');
     container.innerHTML = '';
@@ -146,6 +177,11 @@ function renderCards(data) {
         const card = document.createElement('div');
         card.className = 'card';
         
+        // Nhấn vào thẻ bất kỳ để bắn pháo hoa
+        card.addEventListener('click', () => {
+            triggerConfetti();
+        });
+
         const title = document.createElement('div');
         title.className = 'card-title';
         title.textContent = item.title;
@@ -160,26 +196,55 @@ function renderCards(data) {
     });
 }
 
+function initSelectOptions() {
+    const select = document.getElementById('select-name');
+    lettersData.forEach((item, index) => {
+        const option = document.createElement('option');
+        option.value = index;
+        option.textContent = item.title;
+        select.appendChild(option);
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     renderCards(lettersData);
+    initSelectOptions();
+    initFallingEffect();
 
-    const searchInput = document.getElementById('search-input');
-    searchInput.addEventListener('input', (e) => {
-        const keyword = e.target.value.toLowerCase().trim();
-        const filtered = lettersData.filter(item => 
-            item.title.toLowerCase().includes(keyword) || 
-            item.content.toLowerCase().includes(keyword)
-        );
-        renderCards(filtered);
+    // Nút "Khám Phá Ký Ức ✨" kích hoạt pháo hoa
+    const btnExplore = document.getElementById('btn-explore');
+    btnExplore.addEventListener('click', () => {
+        triggerConfetti();
     });
 
-    // Tự động phát nhạc khi người dùng tương tác lần đầu
-    const audio = document.getElementById('bg-music');
-    const playAudioOnInteraction = () => {
-        if (audio.paused) {
-            audio.play().catch(() => {});
+    // Bắt sự kiện chọn tên dạng Dropdown
+    const selectName = document.getElementById('select-name');
+    selectName.addEventListener('change', (e) => {
+        const val = e.target.value;
+        triggerConfetti();
+        if (val === 'ALL') {
+            renderCards(lettersData);
+        } else {
+            renderCards([lettersData[val]]);
         }
-        document.removeEventListener('click', playAudioOnInteraction);
+    });
+
+    // Tự động phát nhạc khi chạm/cuộn trang
+    const audio = document.getElementById('bg-music');
+    const startAudio = () => {
+        if (audio.paused) {
+            audio.play().then(() => removeAudioListeners()).catch(() => {});
+        }
     };
-    document.addEventListener('click', playAudioOnInteraction);
+    const removeAudioListeners = () => {
+        window.removeEventListener('click', startAudio);
+        window.removeEventListener('touchstart', startAudio);
+        window.removeEventListener('scroll', startAudio);
+    };
+
+    audio.play().catch(() => {
+        window.addEventListener('click', startAudio, { once: true });
+        window.addEventListener('touchstart', startAudio, { once: true });
+        window.addEventListener('scroll', startAudio, { once: true });
+    });
 });
