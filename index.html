@@ -7,18 +7,29 @@
     <link rel="stylesheet" href="style.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti Library cho hiệu ứng Bắn Pháo Hoa Kim Tuyến -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
-<body onclick="enableAudioOnFirstClick()">
+<body onclick="playInstantAudio()">
+
+    <!-- THẺ AUDIO PHÁT TRỰC TIẾP MP3 (PRELOAD TẠO TỐC ĐỘ TỨC THÌ) -->
+    <audio id="bg-audio" loop preload="auto">
+        <source src="https://files.catbox.moe/2s990e.mp3" type="audio/mpeg">
+    </audio>
 
     <!-- CONTAINER TẠO HIỆU ỨNG RƠI -->
     <div id="falling-container"></div>
 
-    <!-- MÀN HÌNH CHỜ (CHẠM VÀO LÀ PHÁT NHẠC THÂNH XUÂ̂N NGAY) -->
+    <!-- MÀN HÌNH CHỜ (HERO SCREEN) -->
     <div id="hero-screen" class="hero-screen">
+        <div class="hero-backdrop"></div>
         <div class="hero-content">
-            <h1 class="hero-title">Gửi Tập Thể 12A3</h1>
-            <p class="hero-subtitle">Hai năm xa cách — Nơi cất giữ những ký ức thanh xuân đẹp nhất</p>
-            <button class="enter-btn" onclick="enterSite()">Khám Phá Ký Ức ✨</button>
+            <div class="hero-badge">12A3 • MEMORIES</div>
+            <h1 class="hero-title">Ký Ức Thanh Xuân</h1>
+            <p class="hero-subtitle">Hai năm xa cách — Nơi cất giữ những yêu thương và hoài niệm đẹp nhất</p>
+            <button class="enter-btn" onclick="enterSite(event)">
+                <span>Khám Phá Ký Ức</span> ✨
+            </button>
         </div>
     </div>
 
@@ -27,22 +38,27 @@
         
         <!-- NÚT BẬT/TẮT NHẠC -->
         <button class="audio-toggle-btn" onclick="toggleAudio(event)" title="Bật/Tắt Nhạc">
-            <span id="audio-icon">🎵</span>
+            <span id="audio-icon">🔊</span>
         </button>
 
         <header class="header">
+            <div class="header-tag">NIÊN KHÓA 2021 - 2024</div>
             <h2>HÀNH TRÌNH TRI ÂN 12A3</h2>
-            <p>Nhấn vào thẻ tên để đọc thư gửi riêng cho từng người</p>
+            <p>Nhấn vào thẻ tên để mở lá thư cất giữ ký ức riêng</p>
         </header>
 
         <main class="container">
             <section class="teacher-section">
-                <h3>NGƯỜI LÁI ĐÒ TẬN TỤY</h3>
+                <div class="section-title">
+                    <span class="sparkle">✨</span> NGƯỜI LÁI ĐÒ TẬN TỤY <span class="sparkle">✨</span>
+                </div>
                 <div id="teacher-container"></div>
             </section>
 
             <section class="students-section">
-                <h3>THÀNH VIÊN LỚP 12A3</h3>
+                <div class="section-title">
+                    <span class="sparkle">🎓</span> THÀNH VIÊN LỚP 12A3 <span class="sparkle">🎓</span>
+                </div>
                 <div id="students-grid" class="students-grid"></div>
             </section>
         </main>
@@ -57,7 +73,7 @@
         <div class="letter-modal" onclick="event.stopPropagation()">
             <button class="close-btn" onclick="closeMessage()">&times;</button>
             <div class="letter-header">
-                <span class="envelope-icon">✉️</span>
+                <span class="envelope-icon">💌</span>
                 <h3 id="letter-recipient">Người Nhận</h3>
             </div>
             <div class="letter-body">
@@ -66,13 +82,6 @@
         </div>
     </div>
 
-    <!-- PLAYER YOUTUBE ẨN CHẠY BÀI THANH XUÂN - DA LAB -->
-    <div id="youtube-player-container" style="position: absolute; width: 0; height: 0; overflow: hidden; opacity: 0; pointer-events: none;">
-        <div id="player"></div>
-    </div>
-
-    <!-- YOUTUBE IFRAME API -->
-    <script src="https://www.youtube.com/iframe_api"></script>
     <script src="script.js"></script>
 </body>
 </html>
