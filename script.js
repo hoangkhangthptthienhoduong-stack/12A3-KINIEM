@@ -1,68 +1,49 @@
 // ==========================================
-// 1. TÍCH HỢP YOUTUBE API (BÀI HÁT: THANH XUÂN - DA LAB)
+// 1. LỰC KÍCH HOẠT ÂM THANH NGAY KHI TƯƠNG TÁC
 // ==========================================
-var player;
-var isPlaying = false;
+const music = document.getElementById('bg-music');
+let audioActivated = false;
 
-function onYouTubeIframeAPIReady() {
-    player = new YT.Player('youtube-player', {
-        height: '0',
-        width: '0',
-        videoId: 'GgQFO8dL5XQ', // ID bài hát Thanh Xuân - Da LAB
-        playerVars: {
-            'autoplay': 1,
-            'loop': 1,
-            'playlist': 'GgQFO8dL5XQ',
-            'controls': 0
-        },
-        events: {
-            'onReady': onPlayerReady
-        }
-    });
-}
-
-function onPlayerReady(event) {
-    event.target.playVideo();
-    isPlaying = true;
-    updateAudioIcon();
-}
-
-// Kích hoạt nhạc ở tương tác đầu tiên
-document.addEventListener('click', function playOnFirstClick() {
-    if (player && typeof player.playVideo === 'function') {
-        player.playVideo();
-        isPlaying = true;
-        updateAudioIcon();
+function enableAudioOnFirstClick() {
+    if (!audioActivated) {
+        music.play().then(() => {
+            audioActivated = true;
+            updateAudioIcon(true);
+        }).catch(() => {});
     }
-    document.removeEventListener('click', playOnFirstClick);
-}, { once: true });
+}
 
-function toggleAudio() {
-    if (!player || typeof player.playVideo !== 'function') return;
-    if (isPlaying) {
-        player.pauseVideo();
-        isPlaying = false;
+function enterSite() {
+    enableAudioOnFirstClick();
+    document.getElementById('hero-screen').classList.add('hidden');
+    document.getElementById('main-content').classList.remove('hidden');
+    renderMembers();
+}
+
+function toggleAudio(event) {
+    event.stopPropagation(); // Tránh bị xung đột click toàn màn hình
+    if (music.paused) {
+        music.play();
+        updateAudioIcon(true);
     } else {
-        player.playVideo();
-        isPlaying = true;
+        music.pause();
+        updateAudioIcon(false);
     }
-    updateAudioIcon();
 }
 
-function updateAudioIcon() {
+function updateAudioIcon(isPlaying) {
     const icon = document.getElementById('audio-icon');
     if (icon) {
         icon.innerText = isPlaying ? '🔊' : '🔇';
     }
 }
 
-
 // ==========================================
-// 2. DỮ LIỆU CÔ GIÁO VÀ 32 HỌC SINH 12A3
+// 2. DỮ LIỆU CÔ GIÁO VÀ HỌC SINH
 // ==========================================
 const teacherData = {
-    name: "Cô Võ Thị Thanh Tuyền",
-    message: `Gửi Cô Võ Thị Thanh Tuyền,
+    name: "Cô Võ Thị Thanh Truyền",
+    message: `Gửi Cô Võ Thị Thanh Truyền,
 
 Hai năm trôi qua kể từ ngày chúng em rời xa mái trường cấp ba, bươn chải giữa dòng đời rộng lớn, em mới càng cảm nhận và khắc ghi sâu sắc biết bao công ơn sinh thành, giáo dưỡng thứ hai của cô. Nhớ lại những năm tháng 12A3, có những buổi học mệt mỏi, những lần chúng em bướng bỉnh, lơ đễnh làm đôi mày cô mím lại, nhưng chưa một lần cô buông tay hay bỏ mặc chúng em. Cô vẫn ở đó, nhẫn nại, bao dung và dùng hết tình yêu thương của một người mẹ để sẵn sàng đưa chúng em thành người. Giờ đây, khi mỗi đứa trẻ đã tung cánh bay đến những phương trời mới, hình bóng cô với tấm lưng hao gầy và ánh mắt ấm áp ngày ấy vẫn là nơi an yên nhất mỗi khi chúng em ngoảnh nhìn lại. Em kính chúc cô luôn thật nhiều sức khỏe, bình an, giữ vững ngọn lửa nhiệt huyết trên bục giảng để tiếp tục chèo lái thêm nhiều thế hệ học trò sang sông.`
 };
@@ -234,7 +215,7 @@ Hai năm trôi qua, sự hòa đồng, năng động và nụ cười tươi vui
         name: "Nguyễn Thị Trinh",
         message: `Gửi Nguyễn Thị Trinh,
 
-Cô gái thể thao năng động và tràn đầy sức sống của lớp ơi, thấm thoát đã hai năm chúng ta mỗi người một hướng. Chúc Trinh tại ngành Giáo dục Thể chất - Đại học Cần Thơ sẽ luôn giữ được sự bền bỉ, sức khỏe dồi dào và tinh thần thép. Mong rằng sau này, trong vai trò là một giáo viên hay huấn luyện viên, bạn sẽ tiếp tục truyền cảm hứng vận động, lối sống tích cực cho thật nhiều thế hệ học trò noi theo.`
+Cô gái thể thao năng động và tràn đầy sức sống của lớp ơi, thấm thoát đã hai năm chúng ta mỗi người một hướng. Chúc Trinh tại ngành Giáo dục Thể chất - Đại học Cần Thơ sẽ luôn giữ được sự bền bỉ, sức khỏe dồi dào và tinh thần thép. Mong rằng sau này, trong vai trò là một giáo viên hay huấn luyện viên, bạn sẽ tiếp tục truyền cảm hứng vận động, lối sống tích cực cho thật nhiều thế hệ học trònoi theo.`
     },
     {
         name: "Huỳnh Thanh Trúc",
@@ -262,21 +243,6 @@ Thấm thoát đã hai năm, sự chăm chỉ, cẩn thận và tính cách chu 
     }
 ];
 
-
-// ==========================================
-// 3. XỬ LÝ CHUYỂN MÀN HÌNH VÀ TƯƠNG TÁC
-// ==========================================
-function enterSite() {
-    document.getElementById('hero-screen').classList.add('hidden');
-    document.getElementById('main-content').classList.remove('hidden');
-    renderMembers();
-    if (player && typeof player.playVideo === 'function') {
-        player.playVideo();
-        isPlaying = true;
-        updateAudioIcon();
-    }
-}
-
 function renderMembers() {
     const teacherContainer = document.getElementById('teacher-container');
     const studentsGrid = document.getElementById('students-grid');
@@ -300,10 +266,6 @@ function escapeHTML(str) {
     return str.replace(/'/g, "\\'").replace(/"/g, '&quot;').replace(/\n/g, '\\n');
 }
 
-
-// ==========================================
-// 4. MỞ & ĐÓNG POPUP MODAL THƯ
-// ==========================================
 function openMessage(name, message) {
     document.getElementById('letter-recipient').innerText = name;
     document.getElementById('letter-content').innerText = message;
@@ -314,9 +276,8 @@ function closeMessage() {
     document.getElementById('modal-overlay').classList.add('hidden');
 }
 
-
 // ==========================================
-// 5. HIỆU ỨNG RƠI BỒNG BỀNH
+// 3. HIỆU ỨNG RƠI BỒNG BỀNH
 // ==========================================
 const fallingItems = ['🌸', '🎉', '🪁', '✈️', '✨', '🌸', '🎊'];
 
